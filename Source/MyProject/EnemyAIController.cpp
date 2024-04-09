@@ -12,7 +12,6 @@ void AEnemyAIController::BeginPlay()
 	if(AIBehavior != nullptr)
 	{
 		RunBehaviorTree(AIBehavior);
-		CurrentTarget = UGameplayStatics::GetPlayerPawn(this,0);
 	}
 }
 

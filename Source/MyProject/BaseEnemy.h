@@ -14,11 +14,17 @@ class MYPROJECT_API ABaseEnemy : public ABaseCharacter
 public:
 	virtual void BeginPlay() override;
 	
-	UFUNCTION(Blueprintable)
+	UFUNCTION(BlueprintCallable)
 	AActor* GetCurrentTarget() const {return CurrentTarget;}
-	
+
 private:
 	UPROPERTY(EditAnywhere)
 	AActor* CurrentTarget;
+
+	UPROPERTY(EditAnywhere)
+	float AggroRange;
+
+	UPROPERTY(EditAnywhere)
+	float AttackCooldown;
 };
 

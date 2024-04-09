@@ -3,6 +3,7 @@
 
 #include "BTService_PlayerClose.h"
 
+#include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -12,6 +13,8 @@ void UBTService_PlayerClose::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	APawn* Player = UGameplayStatics::GetPlayerPawn(this, 0);
+
+	//if(UE::Geometry::Distance(Player->GetActorLocation(),OwnerComp.GetAIOwner()->GetActorLocation()))
 	
 	MyBlackBoardComponent->SetValueAsBool("PlayerIsClose",true);
 }

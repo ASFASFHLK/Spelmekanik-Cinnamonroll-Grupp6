@@ -44,6 +44,8 @@ class AMyProjectCharacter : public ACharacter
 public:
 	AMyProjectCharacter();
 
+
+
 protected:
 	virtual void BeginPlay();
 
@@ -65,6 +67,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
 
+	UFUNCTION(BlueprintCallable)
+	void Shoot();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* FireSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* HitSound;
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -83,5 +92,8 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+private:
+	UPROPERTY(EditAnywhere)
+	FVector SpawnPoint = FVector(0,0,0);
 };
 

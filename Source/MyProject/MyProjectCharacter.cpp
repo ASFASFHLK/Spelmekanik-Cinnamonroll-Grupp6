@@ -41,6 +41,21 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 }
 
+void AMyProjectCharacter::Shoot()
+{
+	if(Character == nullptr || Character->GetController() == nullptr){
+		return;
+	}
+
+	UWorld* const world = GetWorld();
+	if(world){
+		APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+		const FRotator SpawnRotator->PlayerController->PlayerCameraManager->GetCameraRotation();
+		FHitResult HitResult;
+		world->LineTraceSingleByChannel(HitResult, SpawnPoint, )
+	}
+}
+
 void AMyProjectCharacter::BeginPlay()
 {
 	// Call the base class  

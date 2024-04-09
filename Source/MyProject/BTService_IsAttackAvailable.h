@@ -4,17 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTService.h"
-#include "BTService_PlayerClose.generated.h"
+#include "BTService_IsAttackAvailable.generated.h"
 
+class ABaseEnemy;
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API UBTService_PlayerClose : public UBTService
+class MYPROJECT_API UBTService_IsAttackAvailable : public UBTService
 {
 	GENERATED_BODY()
 
-public:
+private:
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
+	UPROPERTY()
+	ABaseEnemy* Enemy;
+	
 };

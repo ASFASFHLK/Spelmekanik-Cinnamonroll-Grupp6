@@ -11,5 +11,8 @@
 
 EBTNodeResult::Type UBTTask_DoAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
+	AAIController* AIController = OwnerComp.GetAIOwner();
+	Enemy = Cast<ABaseEnemy>(AIController->GetPawn());
+	Enemy->Attack();
 	return Super::ExecuteTask(OwnerComp, NodeMemory);
 }

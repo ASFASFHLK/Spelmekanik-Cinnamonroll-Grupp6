@@ -3,3 +3,8 @@
 
 #include "RangeEnemy.h"
 
+void ARangeEnemy::Attack()
+{
+	Super::Attack();
+	
+}

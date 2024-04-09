@@ -13,6 +13,9 @@ UCLASS()
 class MYPROJECT_API ARangeEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
-	
+
+private:
+	virtual void Attack() override;
+
 };
 

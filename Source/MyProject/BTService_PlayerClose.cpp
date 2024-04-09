@@ -4,6 +4,7 @@
 #include "BTService_PlayerClose.h"
 
 #include "AIController.h"
+#include "BaseEnemy.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -13,8 +14,8 @@ void UBTService_PlayerClose::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	APawn* Player = UGameplayStatics::GetPlayerPawn(this, 0);
+	ABaseEnemy* Enemy = Cast<ABaseEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+	float Value = UE::Geometry::Distance(Player->GetActorLocation(),Enemy->GetActorLocation());
 
-	//if(UE::Geometry::Distance(Player->GetActorLocation(),OwnerComp.GetAIOwner()->GetActorLocation()))
-	
-	MyBlackBoardComponent->SetValueAsBool("PlayerIsClose",true);
+	MyBlackBoardComponent->SetValueAsBool("PlayerIsClose",Value < Enemy->GetTargetIsCloseRange());
 }

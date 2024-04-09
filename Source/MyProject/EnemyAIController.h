@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "EnemyAIController.generated.h"
 
+class ABaseEnemy;
 /**
  * 
  */
@@ -19,6 +20,9 @@ private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
 
+	UPROPERTY()
+	ABaseEnemy* Enemy;
+	
 	UPROPERTY(EditAnywhere, Category = "AI")
 	UBehaviorTree* AIBehavior;
 

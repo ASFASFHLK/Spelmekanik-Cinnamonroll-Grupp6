@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BaseEnemy.h"
 #include "BehaviorTree/BTTaskNode.h"
 #include "BTTask_DoAttack.generated.h"
 
@@ -14,11 +15,10 @@ class MYPROJECT_API UBTTask_DoAttack : public UBTTaskNode
 {
 	GENERATED_BODY()
 public:
-	UBTTask_DoAttack();
 
  virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 private:
 	UPROPERTY()
-	AActor* Enemy;
+	ABaseEnemy* Enemy;
 };

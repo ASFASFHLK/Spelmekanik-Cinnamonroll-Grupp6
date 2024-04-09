@@ -11,31 +11,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92328277-4c3c-4855-80cd-32f331e7a404" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MyProject.dir/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MyProject.dir/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MyProject.dir/.idea/indexLayout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.MyProject.dir/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemyAIController.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/B/QT/9QU43TAHE1BMB7M7RDFDGU.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BB_ExplosiveEnemy.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BP_ExplosiveEnemy.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BP_ExplosiveEnemyAIController.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BT_ExplosiveEnemy.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_HasLineOfSight.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_HasLineOfSight.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_IsAttackAvailable.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_IsAttackAvailable.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/ExplosiveEnemy.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/ExplosiveEnemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BB_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BB_RangeEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Context_CurrentTarget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Context_CurrentTarget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Hide.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Hide.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Context_CurrentTarget.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Hide.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_TestingPawn.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Maps/FirstPersonMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Maps/FirstPersonMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/41/WWWXJAXW7XJFUQONH6X7VB.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/Z7/W1SXRCM1KAKBJOIZDLHZ47.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/Z7/W1SXRCM1KAKBJOIZDLHZ47.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/C/CC/E3WFC9NLOHSUEPEZ7M61H7.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerLocation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerLocation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,32 +70,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;C++ Project.MyProject.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;UnrealLinkOptionsId&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "C++ Project.MyProject.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "AI",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\rowe7856\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\liva5922\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\liva5922\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\liva5922\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.MyProject">
     <configuration name="MyProject" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -140,6 +153,17 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
       </configuration_5>
+      <configuration_6>
+        <option name="CONFIGURATION" value="" />
+        <option name="PLATFORM" value="" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/MyProject.vcxproj" />
+        <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
+        <option name="EXE_PATH" value="$(TargetPath)" />
+        <option name="PROGRAM_PARAMETERS" value="" />
+        <option name="WORKING_DIRECTORY" value="$(ProjectDir)" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      </configuration_6>
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/MyProject.vcxproj" />
       <method v="2">
         <option name="Build" />
@@ -209,6 +233,7 @@
       <workItem from="1712650981931" duration="656000" />
       <workItem from="1712652278933" duration="1580000" />
       <workItem from="1712654828013" duration="5632000" />
+      <workItem from="1712672334871" duration="4045000" />
     </task>
     <servers />
   </component>

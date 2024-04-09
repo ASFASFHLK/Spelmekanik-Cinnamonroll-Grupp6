@@ -17,5 +17,8 @@ void UBTService_PlayerLocation::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	APawn* Player = UGameplayStatics::GetPlayerPawn(this, 0);
 
-	MyBlackBoardComponent->SetValueAsVector("Player Position",Player->GetActorLocation());
+	if(MyBlackBoardComponent)
+	{
+		MyBlackBoardComponent->SetValueAsVector("PlayerLocation",Player->GetActorLocation());
+	}
 }

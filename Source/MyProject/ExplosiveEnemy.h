@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "BaseEnemy.h"
-#include "MeleeEnemy.generated.h"
+#include "ExplosiveEnemy.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
+class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
 

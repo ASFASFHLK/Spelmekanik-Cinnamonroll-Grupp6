@@ -3,3 +3,7 @@
 
 #include "MeleeEnemy.h"
 
+void AMeleeEnemy::Attack()
+{
+	Super::Attack();
+}

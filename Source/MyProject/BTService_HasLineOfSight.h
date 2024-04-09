@@ -4,17 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTService.h"
-#include "BTService_PlayerClose.generated.h"
+#include "BTService_HasLineOfSight.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API UBTService_PlayerClose : public UBTService
+class MYPROJECT_API UBTService_HasLineOfSight : public UBTService
 {
 	GENERATED_BODY()
 
-public:
+private:
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
+	UPROPERTY()
+	class ABaseEnemy* Enemy;
 };

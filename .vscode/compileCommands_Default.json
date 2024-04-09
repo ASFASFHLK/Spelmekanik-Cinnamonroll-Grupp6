@@ -1,0 +1,266 @@
+[
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BTService_PlayerClose.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BTService_PlayerClose.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BTService_PlayerLocation.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BTService_PlayerLocation.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BaseCharacter.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BaseCharacter.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BaseEnemy.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\BaseEnemy.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\EnemyAIController.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\EnemyAIController.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\GunBase.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\GunBase.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\HealthComp.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\HealthComp.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProject.Build.cs",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProject.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProject.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectCharacter.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectCharacter.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectGameMode.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectGameMode.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectPlayerController.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectPlayerController.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectProjectile.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\MyProjectProjectile.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\PlayerCharacter.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\PlayerCharacter.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\RangeEnemy.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\RangeEnemy.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\TP_PickUpComponent.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\TP_PickUpComponent.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\TP_WeaponComponent.cpp",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	},
+	{
+		"file": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Source\\MyProject\\TP_WeaponComponent.h",
+		"arguments": [
+			"D:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe",
+			"@D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\.vscode\\compileCommands_Default\\MyProject.1.rsp"
+		],
+		"directory": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Source"
+	}
+]

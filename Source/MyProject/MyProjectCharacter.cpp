@@ -10,6 +10,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include <GameFramework/Controller.h>
+#include "TP_WeaponComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -43,17 +45,21 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 void AMyProjectCharacter::Shoot()
 {
-	if(Character == nullptr || Character->GetController() == nullptr){
+	//Character = Cast<AActor*>(this->GetOwner());
+	if(this == nullptr || this->GetController() == nullptr){
 		return;
 	}
 
-	UWorld* const world = GetWorld();
-	if(world){
-		APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+	UWorld* const World = GetWorld();
+	if(World){
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
 		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = GetOwner()->GetActorLocation + SpawnRotation.RotateVector(MuzzleOffset);
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 		FHitResult HitResult;
-		world->LineTraceSingleByChannel(HitResult, SpawnPoint, )
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
 	}
 }
 

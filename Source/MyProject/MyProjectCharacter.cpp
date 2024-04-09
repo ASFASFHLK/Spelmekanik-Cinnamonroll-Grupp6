@@ -50,7 +50,8 @@ void AMyProjectCharacter::Shoot()
 	UWorld* const world = GetWorld();
 	if(world){
 		APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-		const FRotator SpawnRotator->PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetOwner()->GetActorLocation + SpawnRotation.RotateVector(MuzzleOffset);
 		FHitResult HitResult;
 		world->LineTraceSingleByChannel(HitResult, SpawnPoint, )
 	}

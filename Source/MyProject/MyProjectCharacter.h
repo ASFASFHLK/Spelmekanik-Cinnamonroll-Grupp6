@@ -93,7 +93,7 @@ public:
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 private:
-	UPROPERTY(EditAnywhere)
-	FVector SpawnPoint = FVector(0,0,0);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
+	FVector MuzzleOffset = FVector(100,0,10);
 };
 

@@ -60,6 +60,12 @@ void AMyProjectCharacter::Shoot()
 		FHitResult HitResult;
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
 		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
+		if(ShotSound){
+			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+		}
+		if(ShotEffect){
+
+		}
 	}
 }
 

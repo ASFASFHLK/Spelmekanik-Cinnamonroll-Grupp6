@@ -12,6 +12,8 @@ class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
+class USoundBase;
+class UNiagaraSystem;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -48,6 +50,13 @@ public:
 
 protected:
 	virtual void BeginPlay();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Gun")
+	UNiagaraSystem* ShotEffect;
+	UPROPERTY(EditDefaultsOnly, Category = "Gun")
+	USoundBase* ShotSound;
+
+
 
 public:
 		

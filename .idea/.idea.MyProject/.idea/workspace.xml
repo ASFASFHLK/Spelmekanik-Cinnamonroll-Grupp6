@@ -11,17 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92328277-4c3c-4855-80cd-32f331e7a404" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/Projectile/BP_RangedEnemyProjectile.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/Projectile/OLD_BP_RangedEnemyProjectile.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/1/91/F7EA2QA4UFWZFU26CP7ZN7.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/RangedEnemyProjectile.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/RangedEnemyProjectile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Particles/P_Ambient_Dust.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Particles/P_Ambient_Dust.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,7 +197,7 @@
       <workItem from="1712652278933" duration="1580000" />
       <workItem from="1712654828013" duration="5632000" />
       <workItem from="1712672334871" duration="4045000" />
-      <workItem from="1712736262789" duration="3845000" />
+      <workItem from="1712736262789" duration="4374000" />
     </task>
     <servers />
   </component>

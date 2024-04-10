@@ -6,6 +6,8 @@
 #include "BaseCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
 class AGunBase;
 /**
  * 
@@ -18,4 +20,28 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
 	TSubclassOf<AGunBase> EquipedGun;
+
+	
+	UPROPERTY(EditDefaultsOnly)
+	UCameraComponent* CharacterCamera;
+
+	UPROPERTY(EditAnywhere, Category="Camera Controll")
+	float LookUpSpeed = 10.0;
+
+	UPROPERTY(EditAnywhere, Category="Camera Controll")
+	float LookSideSpeed = 10.0;
+	
+	UFUNCTION()
+	void LookUp(float Value);
+	
+	UFUNCTION()
+	void LookSides(float Value);
+
+	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
+	USkeletalMeshComponent* PlayerFirstPersonMesh;
+
+public:
+	APlayerCharacter();
+	
+	
 };

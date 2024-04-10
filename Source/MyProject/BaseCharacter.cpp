@@ -20,6 +20,58 @@ void ABaseCharacter::BeginPlay()
 	
 }
 
+void ABaseCharacter::MoveForward(float Value)
+{
+	// prevents nullptr
+	if (Controller == nullptr or Value == 0.0f)
+	{
+		return;
+	}
+
+	// find out which direction is forward
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+		
+	// get forward vector
+	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	AddMovementInput(Direction, Value * MovementSpeed);
+	
+}
+
+void ABaseCharacter::MoveSides(float Value)
+{
+	// prevents nullptr
+	if (Controller == nullptr or Value == 0.0f)
+	{
+		return; 
+	}
+	
+	// find out which direction is right
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+		
+	// get right vector
+	const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		
+	// add movement in that direction
+	AddMovementInput(Direction, Value * MovementSpeed);
+	
+}
+
+void ABaseCharacter::MoveForwardAxis(float Value)
+{
+
+	
+}
+
+void ABaseCharacter::MoveSidesAxis(float Value)
+{
+
+	
+}
+
+
+
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {
@@ -31,6 +83,14 @@ void ABaseCharacter::Tick(float DeltaTime)
 void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	
+	//Movement
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ABaseCharacter::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveSides"), this, &ABaseCharacter::MoveSides);
 
+	// jump
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Released, this , &ACharacter::StopJumping);
+	
 }
 

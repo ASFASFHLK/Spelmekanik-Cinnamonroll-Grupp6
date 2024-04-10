@@ -13,7 +13,7 @@ UHealthComp::UHealthComp()
 	// ...
 }
 
-void UHealthComp::SetHealthModifier(uint32 NewHealthModifier)
+void UHealthComp::SetHealthModifier(int NewHealthModifier)
 {
 	HealthModifier = NewHealthModifier;
 	// Makes sure that CurrentHp Can never be bigger than MaxHealth
@@ -43,6 +43,11 @@ bool UHealthComp::TakeDamage(int DamageToTake)
 float UHealthComp::GetHealthPercentage() const
 {
 	return GetMaxHealth()/CurrentHealth;
+}
+
+void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)
+{
+	MaxHealth = NewMaxHealthValue;
 }
 
 

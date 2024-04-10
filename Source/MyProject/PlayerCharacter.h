@@ -21,15 +21,19 @@ private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
 	TSubclassOf<AGunBase> EquipedGun;
 
+
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
 
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
-	float LookUpSpeed = 10.0;
+	float LookUpSpeed = 2.0;
 
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
-	float LookSideSpeed = 10.0;
+	float LookSideSpeed = 2.0;
+
+	UPROPERTY(EditAnywhere, Category="Camera Controll")
+	bool InvertCamera = false;
 	
 	UFUNCTION()
 	void LookUp(float Value);
@@ -42,6 +46,6 @@ private:
 
 public:
 	APlayerCharacter();
-	
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 };

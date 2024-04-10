@@ -14,6 +14,11 @@ void APlayerCharacter::LookUp(float Value)
 	{
 		return;
 	}
+	
+	if(InvertCamera)
+	{
+		Value = Value * -1;
+	}
 	AddControllerPitchInput(Value * LookUpSpeed);
 
 	
@@ -54,4 +59,12 @@ APlayerCharacter::APlayerCharacter()
 
 	// sets default position
 	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+}
+
+void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
+	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APlayerCharacter::LookSides);
+	
 }

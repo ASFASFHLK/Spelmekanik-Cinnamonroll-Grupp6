@@ -4,11 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "BaseEnemy.h"
+#include "RangedEnemyProjectile.h"
 #include "RangeEnemy.generated.h"
 
 
-
- 
 UCLASS()
 class MYPROJECT_API ARangeEnemy : public ABaseEnemy
 {
@@ -16,6 +15,7 @@ class MYPROJECT_API ARangeEnemy : public ABaseEnemy
 
 private:
 	virtual void Attack() override;
-
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ARangedEnemyProjectile> Projectile;
 };
 

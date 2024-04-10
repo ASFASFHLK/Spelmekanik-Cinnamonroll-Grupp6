@@ -11,42 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92328277-4c3c-4855-80cd-32f331e7a404" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BB_ExplosiveEnemy.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BP_ExplosiveEnemy.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BP_ExplosiveEnemyAIController.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/ExplosiveEnemy/BT_ExplosiveEnemy.uasset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_HasLineOfSight.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_HasLineOfSight.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_IsAttackAvailable.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/BTService_IsAttackAvailable.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/ExplosiveEnemy.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MyProject/ExplosiveEnemy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/Projectile/BP_RangedEnemyProjectile.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/Projectile/OLD_BP_RangedEnemyProjectile.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/1/91/F7EA2QA4UFWZFU26CP7ZN7.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/RangedEnemyProjectile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MyProject/RangedEnemyProjectile.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BB_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BB_RangeEnemy.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BP_RangeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Context_CurrentTarget.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_Hide.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/EQS/EQS_TestingPawn.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/FirstPerson/Maps/FirstPersonMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/FirstPerson/Maps/FirstPersonMap.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Architecture/Floor_400x400.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Blueprints/Blueprint_CeilingLight.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/41/WWWXJAXW7XJFUQONH6X7VB.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/Z7/W1SXRCM1KAKBJOIZDLHZ47.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/8/Z7/W1SXRCM1KAKBJOIZDLHZ47.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/C/CC/E3WFC9NLOHSUEPEZ7M61H7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerClose.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerLocation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTService_PlayerLocation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BTTask_DoAttack.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/EnemyAIController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/StarterContent/Particles/P_Ambient_Dust.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/StarterContent/Particles/P_Ambient_Dust.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/RangeEnemy.h" afterDir="false" />
     </list>
@@ -90,9 +63,9 @@
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\liva5922\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\liva5922\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\liva5922\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\rowe7856\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -234,6 +207,7 @@
       <workItem from="1712652278933" duration="1580000" />
       <workItem from="1712654828013" duration="5632000" />
       <workItem from="1712672334871" duration="4045000" />
+      <workItem from="1712736262789" duration="3845000" />
     </task>
     <servers />
   </component>

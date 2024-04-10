@@ -11,7 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92328277-4c3c-4855-80cd-32f331e7a404" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/RangeEnemy/BT_RangeEnemy.uasset" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/Content/__ExternalActors__/FirstPerson/Maps/FirstPersonMap/6/VB/Q6XH3IHZ3ZH1MQD9NUJMGX.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyProject/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BP_MeleeEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/EnemyAI/MeleeEnemy/BT_MeleeEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/BaseEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MyProject/MeleeEnemy.h" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +51,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "AI",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
@@ -48,14 +59,20 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "UnrealLinkOptionsId",
+    "settings.editor.selected.configurable": "RiderCppLiveTemplatesSettingsId",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "rider.external.source.directories": [
+<<<<<<< Updated upstream
       "C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
       "C:\\Users\\rowe7856\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
       "C:\\Users\\rowe7856\\AppData\\Local\\Symbols\\src"
+=======
+      "C:\\Users\\TEMP.WINDSV.001\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\TEMP.WINDSV.001\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\TEMP.WINDSV.001\\AppData\\Local\\Symbols\\src"
+>>>>>>> Stashed changes
     ]
   }
 }]]></component>
@@ -116,17 +133,6 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="0" />
       </configuration_5>
-      <configuration_6>
-        <option name="CONFIGURATION" value="" />
-        <option name="PLATFORM" value="" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/MyProject.vcxproj" />
-        <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXE_PATH" value="$(TargetPath)" />
-        <option name="PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="$(ProjectDir)" />
-        <option name="PASS_PARENT_ENVS" value="1" />
-        <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      </configuration_6>
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/MyProject.vcxproj" />
       <method v="2">
         <option name="Build" />
@@ -197,7 +203,12 @@
       <workItem from="1712652278933" duration="1580000" />
       <workItem from="1712654828013" duration="5632000" />
       <workItem from="1712672334871" duration="4045000" />
+<<<<<<< Updated upstream
       <workItem from="1712736262789" duration="4374000" />
+=======
+      <workItem from="1712732623687" duration="13000" />
+      <workItem from="1712732676280" duration="7696000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

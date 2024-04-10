@@ -16,7 +16,6 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	UE_LOG(LogTemp, Display, TEXT("%f"), CurrentAttackCooldown);
 	if(CurrentAttackCooldown >= 0)
 	{
 		CurrentAttackCooldown -= DeltaSeconds;

@@ -16,17 +16,19 @@ public:
 	// Sets default values for this component's properties
 	UHealthComp();
 	
-	//UPROPERTY(BlueprintCallable)
-	void SetHealthModifier (uint32 NewHealthModifier);
+	UFUNCTION(BlueprintCallable)
+	void SetHealthModifier (int NewHealthModifier);
 
-	
+	UFUNCTION(BlueprintPure)
 	int32 GetMaxHealth() const;
 	
-	//UPROPERTY(BlueprintPure)
+	UFUNCTION(BlueprintPure)
 	int GetCurrentHealth() const;
-
+	
+	UFUNCTION(BlueprintCallable)
 	bool TakeDamage(int DamageToTake);
 	
+	UFUNCTION(BlueprintPure)
 	float GetHealthPercentage() const;
 	
 protected:

@@ -16,15 +16,33 @@ public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
 	UPROPERTY(EditDefaultsOnly)
 	UHealthComp* HealthComp;
-	UPROPERTY(EditDefaultsOnly)
-	float MovementSpeed;
+	
+	
 	UPROPERTY(EditDefaultsOnly)
 	float JumpHeight;
+	
+	UFUNCTION()
+	virtual void MoveForward(float Value);
+	UFUNCTION()
+	virtual void MoveSides(float Value);
+
+	UFUNCTION()
+	virtual void MoveForwardAxis(float Value);
+	UFUNCTION()
+	virtual void MoveSidesAxis(float Value);
+	
+	
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float MovementSpeed = 300.0f; 
+	
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

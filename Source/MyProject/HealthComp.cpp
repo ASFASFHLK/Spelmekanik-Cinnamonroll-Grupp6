@@ -13,7 +13,7 @@ UHealthComp::UHealthComp()
 	// ...
 }
 
-void UHealthComp::SetHealthModifier(uint32 NewHealthModifier)
+void UHealthComp::SetHealthModifier(int NewHealthModifier)
 {
 	HealthModifier = NewHealthModifier;
 	// Makes sure that CurrentHp Can never be bigger than MaxHealth

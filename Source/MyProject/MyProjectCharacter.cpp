@@ -10,6 +10,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include <GameFramework/Controller.h>
+#include "TP_WeaponComponent.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -39,6 +41,32 @@ AMyProjectCharacter::AMyProjectCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+}
+
+void AMyProjectCharacter::Shoot()
+{
+	//Character = Cast<AActor*>(this->GetOwner());
+	if(this == nullptr || this->GetController() == nullptr){
+		return;
+	}
+
+	UWorld* const World = GetWorld();
+	if(World){
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		FHitResult HitResult;
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
+		if(ShotSound){
+			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+		}
+		if(ShotEffect){
+
+		}
+	}
 }
 
 void AMyProjectCharacter::BeginPlay()

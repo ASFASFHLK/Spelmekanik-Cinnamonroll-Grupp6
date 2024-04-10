@@ -12,6 +12,8 @@ class USkeletalMeshComponent;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
+class USoundBase;
+class UNiagaraSystem;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -44,8 +46,17 @@ class AMyProjectCharacter : public ACharacter
 public:
 	AMyProjectCharacter();
 
+
+
 protected:
 	virtual void BeginPlay();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Gun")
+	UNiagaraSystem* ShotEffect;
+	UPROPERTY(EditDefaultsOnly, Category = "Gun")
+	USoundBase* ShotSound;
+
+
 
 public:
 		
@@ -65,6 +76,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
 
+	UFUNCTION(BlueprintCallable)
+	void Shoot();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* FireSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* HitSound;
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -82,6 +100,7 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay")
+	FVector MuzzleOffset = FVector(100,0,10);
 };
 

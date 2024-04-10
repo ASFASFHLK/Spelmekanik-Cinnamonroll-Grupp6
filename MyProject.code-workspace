@@ -6,7 +6,7 @@
 		},
 		{
 			"name": "UE5",
-			"path": "/home/june/Downloads/unreal"
+			"path": "D:\\Program Files\\Epic Games\\UE_5.3"
 		}
 	],
 	"settings": {
@@ -16,728 +16,442 @@
 	"extensions": {
 		"recommendations": [
 			"ms-vscode.cpptools",
-			"ms-dotnettools.csharp",
-			"vadimcn.vscode-lldb",
-			"ms-vscode.mono-debug",
-			"dfarley1.file-picker"
+			"ms-dotnettools.csharp"
 		]
 	},
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
 			{
-				"label": "MyProject Linux Debug Build",
+				"label": "MyProject Win64 Debug Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Debug Rebuild",
+				"label": "MyProject Win64 Debug Rebuild",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject Linux Debug Clean"
+					"MyProject Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Debug Clean",
+				"label": "MyProject Win64 Debug Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject Linux DebugGame Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"Linux",
-					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux DebugGame Rebuild",
+				"label": "MyProject Win64 DebugGame Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
+			},
+			{
+				"label": "MyProject Win64 DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"MyProject",
+					"Win64",
+					"DebugGame",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject Linux DebugGame Clean"
+					"MyProject Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux DebugGame Clean",
+				"label": "MyProject Win64 DebugGame Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject Linux Development Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"Linux",
-					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Development Rebuild",
+				"label": "MyProject Win64 Development Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
+			},
+			{
+				"label": "MyProject Win64 Development Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"MyProject",
+					"Win64",
+					"Development",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject Linux Development Clean"
+					"MyProject Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Development Clean",
+				"label": "MyProject Win64 Development Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Test Build",
+				"label": "MyProject Win64 Test Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Test Rebuild",
+				"label": "MyProject Win64 Test Rebuild",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject Linux Test Clean"
+					"MyProject Win64 Test Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Test Clean",
+				"label": "MyProject Win64 Test Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Shipping Build",
+				"label": "MyProject Win64 Shipping Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Shipping Rebuild",
+				"label": "MyProject Win64 Shipping Rebuild",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject Linux Shipping Clean"
+					"MyProject Win64 Shipping Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject Linux Shipping Clean",
+				"label": "MyProject Win64 Shipping Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
 					"MyProject",
-					"Linux",
+					"Win64",
 					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 Debug Build",
+				"label": "MyProjectEditor Win64 Debug Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 Debug Rebuild",
+				"label": "MyProjectEditor Win64 Debug Rebuild",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject LinuxArm64 Debug Clean"
+					"MyProjectEditor Win64 Debug Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 Debug Clean",
+				"label": "MyProjectEditor Win64 Debug Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 DebugGame Build",
+				"label": "MyProjectEditor Win64 DebugGame Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 DebugGame Rebuild",
+				"label": "MyProjectEditor Win64 DebugGame Rebuild",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject LinuxArm64 DebugGame Clean"
+					"MyProjectEditor Win64 DebugGame Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 DebugGame Clean",
+				"label": "MyProjectEditor Win64 DebugGame Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Development Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 Development Rebuild",
+				"label": "MyProjectEditor Win64 Development Build",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
+			},
+			{
+				"label": "MyProjectEditor Win64 Development Rebuild",
+				"group": "build",
+				"command": "Engine\\Build\\BatchFiles\\Build.bat",
+				"args": [
+					"MyProjectEditor",
+					"Win64",
+					"Development",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"dependsOn": [
-					"MyProject LinuxArm64 Development Clean"
+					"MyProjectEditor Win64 Development Clean"
 				],
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			},
 			{
-				"label": "MyProject LinuxArm64 Development Clean",
+				"label": "MyProjectEditor Win64 Development Clean",
 				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"command": "Engine\\Build\\BatchFiles\\Clean.bat",
 				"args": [
-					"MyProject",
-					"LinuxArm64",
+					"MyProjectEditor",
+					"Win64",
 					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Test Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
 				"type": "shell",
 				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Test Rebuild",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"dependsOn": [
-					"MyProject LinuxArm64 Test Clean"
-				],
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Test Clean",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Test",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Shipping Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Shipping Rebuild",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"dependsOn": [
-					"MyProject LinuxArm64 Shipping Clean"
-				],
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProject LinuxArm64 Shipping Clean",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProject",
-					"LinuxArm64",
-					"Shipping",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Debug Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Debug Rebuild",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"dependsOn": [
-					"MyProjectEditor Linux Debug Clean"
-				],
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Debug Clean",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Debug",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux DebugGame Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux DebugGame Rebuild",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"dependsOn": [
-					"MyProjectEditor Linux DebugGame Clean"
-				],
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux DebugGame Clean",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"DebugGame",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Development Build",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Development Rebuild",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex"
-				],
-				"problemMatcher": "$msCompile",
-				"dependsOn": [
-					"MyProjectEditor Linux Development Clean"
-				],
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
-				}
-			},
-			{
-				"label": "MyProjectEditor Linux Development Clean",
-				"group": "build",
-				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
-				"args": [
-					"MyProjectEditor",
-					"Linux",
-					"Development",
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
-					"-waitmutex",
-					"-clean"
-				],
-				"problemMatcher": "$msCompile",
-				"type": "shell",
-				"options": {
-					"cwd": "/home/june/Downloads/unreal"
+					"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 				}
 			}
 		]
@@ -748,120 +462,151 @@
 			{
 				"name": "Launch MyProject (Debug)",
 				"request": "launch",
-				"program": "/home/june/Documents/GitHub/Commamon-Gr.6-PoC/Binaries/Linux/UnrealGame-Linux-Debug",
-				"preLaunchTask": "MyProject Linux Debug Build",
+				"program": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"preLaunchTask": "MyProject Win64 Debug Build",
 				"args": [
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProject (DebugGame)",
 				"request": "launch",
-				"program": "/home/june/Documents/GitHub/Commamon-Gr.6-PoC/Binaries/Linux/UnrealGame-Linux-DebugGame",
-				"preLaunchTask": "MyProject Linux DebugGame Build",
+				"program": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"preLaunchTask": "MyProject Win64 DebugGame Build",
 				"args": [
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProject (Development)",
 				"request": "launch",
-				"program": "/home/june/Documents/GitHub/Commamon-Gr.6-PoC/Binaries/Linux/UnrealGame",
-				"preLaunchTask": "MyProject Linux Development Build",
+				"program": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Binaries\\Win64\\UnrealGame.exe",
+				"preLaunchTask": "MyProject Win64 Development Build",
 				"args": [
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProject (Test)",
 				"request": "launch",
-				"program": "/home/june/Documents/GitHub/Commamon-Gr.6-PoC/Binaries/Linux/UnrealGame-Linux-Test",
-				"preLaunchTask": "MyProject Linux Test Build",
+				"program": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"preLaunchTask": "MyProject Win64 Test Build",
 				"args": [
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProject (Shipping)",
 				"request": "launch",
-				"program": "/home/june/Documents/GitHub/Commamon-Gr.6-PoC/Binaries/Linux/UnrealGame-Linux-Shipping",
-				"preLaunchTask": "MyProject Linux Shipping Build",
+				"program": "D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"preLaunchTask": "MyProject Win64 Shipping Build",
 				"args": [
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProjectEditor (Debug)",
 				"request": "launch",
-				"program": "/home/june/Downloads/unreal/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
-				"preLaunchTask": "MyProjectEditor Linux Debug Build",
+				"program": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
+				"preLaunchTask": "MyProjectEditor Win64 Debug Build",
 				"args": [
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject"
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProjectEditor (DebugGame)",
 				"request": "launch",
-				"program": "/home/june/Downloads/unreal/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
-				"preLaunchTask": "MyProjectEditor Linux DebugGame Build",
+				"program": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
+				"preLaunchTask": "MyProjectEditor Win64 DebugGame Build",
 				"args": [
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject"
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Launch MyProjectEditor (Development)",
 				"request": "launch",
-				"program": "/home/june/Downloads/unreal/Engine/Binaries/Linux/UnrealEditor",
-				"preLaunchTask": "MyProjectEditor Linux Development Build",
+				"program": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
+				"preLaunchTask": "MyProjectEditor Win64 Development Build",
 				"args": [
-					"/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject"
+					"D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject"
 				],
-				"cwd": "/home/june/Downloads/unreal",
-				"type": "cppdbg",
-				"visualizerFile": "/home/june/Downloads/unreal/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
-				"showDisplayString": true
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3",
+				"stopAtEntry": false,
+				"console": "externalTerminal",
+				"type": "cppvsdbg",
+				"visualizerFile": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Extras\\VisualStudioDebugging\\Unreal.natvis",
+				"sourceFileMap": {
+					"D:\\build\\++UE5\\Sync": "D:\\Program Files\\Epic Games\\UE_5.3"
+				}
 			},
 			{
 				"name": "Generate Project Files",
 				"type": "coreclr",
 				"request": "launch",
-				"preLaunchTask": "UnrealBuildTool Linux Development Build",
-				"program": "/home/june/Downloads/unreal/Engine/Build/BatchFiles/RunUBT.bat",
+				"preLaunchTask": "UnrealBuildTool Win64 Development Build",
+				"program": "D:\\Program Files\\Epic Games\\UE_5.3\\Engine\\Build\\BatchFiles\\RunUBT.bat",
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=/home/june/Documents/GitHub/Commamon-Gr.6-PoC/MyProject.uproject",
+					"-project=D:\\Program Files\\Epic Games\\Github\\Spelmekanik-Cinnamonroll-Grupp6\\MyProject.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"
 				],
-				"console": "internalConsole",
-				"internalConsoleOptions": "openOnSessionStart",
+				"console": "externalTerminal",
 				"stopAtEntry": false,
-				"cwd": "/home/june/Downloads/unreal"
+				"cwd": "D:\\Program Files\\Epic Games\\UE_5.3"
 			}
 		]
 	}

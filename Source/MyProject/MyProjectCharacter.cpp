@@ -12,6 +12,7 @@
 #include "Engine/LocalPlayer.h"
 #include <GameFramework/Controller.h>
 #include "TP_WeaponComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 

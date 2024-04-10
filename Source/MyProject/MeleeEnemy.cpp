@@ -3,15 +3,16 @@
 
 #include "MeleeEnemy.h"
 
+#include "HealthComp.h"
 #include "KismetTraceUtils.h"
+#include "MyProjectCharacter.h"
 
 void AMeleeEnemy::Attack()
 {
 	Super::Attack();
 	FVector test = (GetActorForwardVector() * 100) + GetActorLocation();
-	TArray<AActor*> ActorsToIgnore;
+	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
-	TArray<EObjectTypeQuery> ObjectTypes;
 	
 	
 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),test,20,
@@ -21,8 +22,7 @@ void AMeleeEnemy::Attack()
 	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
 	if(ActorHit)
 	{
-		//Implement for the ActorHit to take damage
-		
+		ActorHit->GetHealthComponent()->TakeDamage(Damage);
 	}
 	
 	

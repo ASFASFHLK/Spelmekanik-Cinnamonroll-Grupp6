@@ -24,6 +24,10 @@ public:
 	
 	virtual void Attack();
 
+protected: 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float Damage;
+
 private:
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -39,6 +43,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float TargetIsCloseRange;
+	
 
 	UPROPERTY()
 	float CurrentAttackCooldown;

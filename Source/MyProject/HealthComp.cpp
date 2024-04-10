@@ -45,6 +45,11 @@ float UHealthComp::GetHealthPercentage() const
 	return GetMaxHealth()/CurrentHealth;
 }
 
+void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)
+{
+	MaxHealth = NewMaxHealthValue;
+}
+
 
 // Called when the game starts
 void UHealthComp::BeginPlay()

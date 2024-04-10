@@ -30,18 +30,23 @@ public:
 	
 	UFUNCTION(BlueprintPure)
 	float GetHealthPercentage() const;
+
+	UFUNCTION(BlueprintCallable)
+	void SetMaxHealth(int32 NewMaxHealthValue );
+	
+	
 	
 protected:
 	
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int32 MaxHealth = 100;
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int CurrentHealth = 0;
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int HealthModifier = 0; 
 
 	

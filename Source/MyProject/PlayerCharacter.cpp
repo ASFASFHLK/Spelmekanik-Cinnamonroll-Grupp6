@@ -6,6 +6,7 @@
 #include "GunBase.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -75,6 +76,14 @@ void APlayerCharacter::Shoot()
 		if(ShotEffect){
 
 		}
+		
+		if(!HitResult.GetActor())
+		{
+			return;
+		}
+		UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+		HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
+		
 	}
 }
 

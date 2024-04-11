@@ -36,7 +36,7 @@ int UHealthComp::GetCurrentHealth() const
 
 bool UHealthComp::TakeDamage(int DamageToTake)
 {
-	CurrentHealth = CurrentHealth - DamageToTake;
+	CurrentHealth = CurrentHealth - FMath::Min(CurrentHealth , DamageToTake);
 	return CurrentHealth <= 0;
 }
 

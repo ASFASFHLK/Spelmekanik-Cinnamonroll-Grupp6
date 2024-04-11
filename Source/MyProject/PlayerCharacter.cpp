@@ -3,6 +3,7 @@
 
 #include "PlayerCharacter.h"
 
+#include "DefaultGamemode.h"
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "Camera/CameraComponent.h"
@@ -68,7 +69,7 @@ void APlayerCharacter::Shoot()
 		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 		FHitResult HitResult;
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
-		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 1.5f);
 
 		if(ShotSound){
 			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
@@ -135,6 +136,7 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	
 	if(HealthComp->TakeDamage(DamageAmount))
 	{
+		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
 		SetActorEnableCollision(false);
 		SetActorHiddenInGame(true);
 		// Call gamemode end game

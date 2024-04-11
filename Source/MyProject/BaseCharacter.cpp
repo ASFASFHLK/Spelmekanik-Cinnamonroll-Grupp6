@@ -2,8 +2,12 @@
 
 
 #include "BaseCharacter.h"
+
+#include "BaseEnemy.h"
+#include "DefaultGamemode.h"
 #include "HealthComp.h"
 #include "Engine/DamageEvents.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -87,7 +91,14 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	
 	if(HealthComp->TakeDamage(Damage))
 	{
-		Destroy();
+		if(this->IsA(ABaseEnemy::StaticClass()))
+		{
+			Destroy();
+		}else
+		{
+			
+		}
+		
 	}
 	
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
@@ -96,7 +107,6 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent,
 	AController* EventInstigator, AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Display, TEXT("FÅR TIKKGPPGPPGP"));
 	return Super::InternalTakeRadialDamage(Damage, RadialDamageEvent, EventInstigator, DamageCauser);
 }
 

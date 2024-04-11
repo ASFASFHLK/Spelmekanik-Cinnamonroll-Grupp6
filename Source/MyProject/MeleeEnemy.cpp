@@ -18,7 +18,7 @@ void AMeleeEnemy::Attack()
 	
 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),test,20,
 		UEngineTypes::ConvertToTraceType(ECC_Pawn),false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
-		FColor::Red, FColor::Green, 30.f);
+		FColor::Red, FColor::Green, 1.5f);
 
 	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
 	if(ActorHit)

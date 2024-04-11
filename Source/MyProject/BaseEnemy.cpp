@@ -23,6 +23,7 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	{
 		CurrentAttackCooldown -= DeltaSeconds;
 	}
+	
 }
 
 

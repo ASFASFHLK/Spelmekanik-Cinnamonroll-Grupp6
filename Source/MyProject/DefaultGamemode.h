@@ -14,6 +14,10 @@ class MYPROJECT_API ADefaultGamemode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION()
+	void EndGame(bool PlayerWin);
+	
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WinScreen;

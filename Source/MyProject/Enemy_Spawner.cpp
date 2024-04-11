@@ -2,9 +2,9 @@
 
 
 #include "Enemy_Spawner.h"
-
-#include "AIController.h"
+#include "DefaultGamemode.h"
 #include "BaseEnemy.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AEnemy_Spawner::AEnemy_Spawner()
@@ -64,13 +64,16 @@ void AEnemy_Spawner::OnDeathEvent()
 	if(EnemiesToKill >= AmountOfEnemiesSpawned)
 	{
 		SpawnEnemy();
+		
 		AmountOfEnemiesSpawned++;
 	}
 	AmountOfEnemiesKilled++;
 	
 	if(AmountOfEnemiesKilled >= EnemiesToKill)
 	{
-		// call game mode end
+		//Endgame with player winner
+		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
+		
 	}
 }
 

@@ -1,37 +1,31 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "EnemySpawner.h"
+#include "Enemy_Spawner.h"
 
 #include "BaseEnemy.h"
-#include "Tasks/GameplayTask_SpawnActor.h"
 
 // Sets default values
-AEnemySpawner::AEnemySpawner()
+AEnemy_Spawner::AEnemy_Spawner()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-}
 
-void AEnemySpawner::SpawnEnemy(TSubclassOf<ABaseEnemy> EnemyToSpawn)
-{
-	FActorSpawnParameters SpawnInfo;
-	GetWorld()->SpawnActor<ABaseEnemy>(EnemyToSpawn, GetActorLocation(), GetActorRotation(), SpawnInfo);
 }
-
 
 // Called when the game starts or when spawned
-void AEnemySpawner::BeginPlay()
+void AEnemy_Spawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	ABaseEnemy::OnDeath.AddDynamic(this, &AEnemySpawner::OnEnemyDeath);
 	
 }
 
 // Called every frame
-void AEnemySpawner::Tick(float DeltaTime)
+void AEnemy_Spawner::Tick(float DeltaTime)
 {
-	
+	Super::Tick(DeltaTime);
 
 }
 

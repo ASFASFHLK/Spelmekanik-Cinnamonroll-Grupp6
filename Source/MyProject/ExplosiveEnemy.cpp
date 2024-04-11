@@ -27,6 +27,6 @@ void AExplosiveEnemy::Explode()
 	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
 	if(ActorHit)
 	{
-		ActorHit->GetHealthComponent()->TakeDamage(Damage);
+		ActorHit->GetHealthComponent()->TakeDamage(DamageDealt);
 	}
 }

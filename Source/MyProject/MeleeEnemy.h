@@ -17,5 +17,6 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 private:
 	virtual void Attack() override;
 
+	
 
 };

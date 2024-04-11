@@ -24,6 +24,11 @@ public:
 	
 	virtual void Attack();
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	float DamageDealt = 10.f;
+
+	
 private:
 
 	virtual void Tick(float DeltaSeconds) override;

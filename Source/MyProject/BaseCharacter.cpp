@@ -75,7 +75,7 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	AActor* DamageCauser)
 {
 
-	UE_LOG(LogTemp, Display, TEXT("I have been hit "));
+	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
 	if(EventInstigator->GetCharacter() == this)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));

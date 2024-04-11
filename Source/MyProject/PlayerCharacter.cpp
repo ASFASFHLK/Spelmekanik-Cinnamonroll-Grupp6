@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 
 #include "GunBase.h"
+#include "HealthComp.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
@@ -119,4 +120,29 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
 	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APlayerCharacter::LookSides);
 	//PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &APlayerCharacter::Shoot);
+}
+
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+
+	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	if(EventInstigator->GetCharacter() == this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		return 0;
+	}
+	
+	if(HealthComp->TakeDamage(DamageAmount))
+	{
+		SetActorEnableCollision(false);
+		SetActorHiddenInGame(true);
+		// Call gamemode end game
+		DisableInput(Cast<APlayerController>(GetController()));
+		
+		//Destroy();
+	}
+	
+	return  DamageAmount;
+	
 }

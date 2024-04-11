@@ -36,13 +36,18 @@ int UHealthComp::GetCurrentHealth() const
 
 bool UHealthComp::TakeDamage(int DamageToTake)
 {
-	CurrentHealth = CurrentHealth - FMath::Min(CurrentHealth , DamageToTake);
+	CurrentHealth = CurrentHealth - DamageToTake;
+	UE_LOG(LogTemp, Display, TEXT("Damage Taken %i"), DamageToTake)
+	UE_LOG(LogTemp, Display, TEXT("Current Health %i"), CurrentHealth)
 	return CurrentHealth <= 0;
 }
 
 float UHealthComp::GetHealthPercentage() const
 {
-	return GetMaxHealth()/CurrentHealth;
+	//UE_LOG(LogTemp, Display, TEXT("MAxHealth %i"), GetMaxHealth())
+	float procent = static_cast<float>(CurrentHealth / (float)GetMaxHealth());
+	//UE_LOG(LogTemp, Display, TEXT("Health procetn %f"), procent)
+	return procent;
 }
 
 void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)

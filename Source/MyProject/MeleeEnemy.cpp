@@ -4,6 +4,7 @@
 #include "MeleeEnemy.h"
 
 #include "KismetTraceUtils.h"
+#include "Engine/DamageEvents.h"
 
 void AMeleeEnemy::Attack()
 {
@@ -18,9 +19,10 @@ void AMeleeEnemy::Attack()
 		UEngineTypes::ConvertToTraceType(ECC_Pawn),false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
 		FColor::Red, FColor::Green, 30.f);
 
-	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
+	AActor* ActorHit = HitResult.GetActor();
 	if(ActorHit)
 	{
+		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
 		//Implement for the ActorHit to take damage
 		
 	}

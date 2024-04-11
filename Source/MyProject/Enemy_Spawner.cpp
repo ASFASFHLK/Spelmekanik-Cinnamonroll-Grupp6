@@ -3,6 +3,7 @@
 
 #include "Enemy_Spawner.h"
 
+#include "AIController.h"
 #include "BaseEnemy.h"
 
 // Sets default values
@@ -31,6 +32,7 @@ void AEnemy_Spawner::SpawnEnemy()
 	{
 		return;
 	}
+	
 	FActorSpawnParameters SpawnParams;
 	FRotator Rotation = FRotator(0.0f, 0.0f, 0.0f);
 	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypeOne, SpawnLocation, Rotation, SpawnParams);
@@ -38,7 +40,8 @@ void AEnemy_Spawner::SpawnEnemy()
 	if(Enemy)
 	{
 		UE_LOG(LogTemp, Display, TEXT("I have been Spawned"));
-		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent")); 
+		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
+		Enemy->SpawnDefaultController();
 	}
 	else
 	{

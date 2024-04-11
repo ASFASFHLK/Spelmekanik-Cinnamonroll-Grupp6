@@ -36,13 +36,13 @@ int UHealthComp::GetCurrentHealth() const
 
 bool UHealthComp::TakeDamage(int DamageToTake)
 {
-	CurrentHealth = CurrentHealth - FMath::Min(CurrentHealth , DamageToTake);
+	CurrentHealth = CurrentHealth - DamageToTake;
 	return CurrentHealth <= 0;
 }
 
 float UHealthComp::GetHealthPercentage() const
 {
-	return GetMaxHealth()/CurrentHealth;
+	return CurrentHealth/(float)GetMaxHealth();
 }
 
 void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)

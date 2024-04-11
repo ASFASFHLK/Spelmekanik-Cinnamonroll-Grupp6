@@ -6,6 +6,7 @@
 #include "BaseCharacter.h"
 #include "BaseEnemy.generated.h"
 
+class AAIController;
 DECLARE_DYNAMIC_DELEGATE(FOnDeath);
 
 UCLASS()
@@ -33,12 +34,16 @@ public:
 	
 	virtual void Attack();
 
+	TSubclassOf<AAIController> GetAiController() const { return AiController;} 
+
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
-	
-
+		
+	UPROPERTY(EditDefaultsOnly, Category="Controller")
+	TSubclassOf<AAIController> AiController;
+		
 
 private:
 

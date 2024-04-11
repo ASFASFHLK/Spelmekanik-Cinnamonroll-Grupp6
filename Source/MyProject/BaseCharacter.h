@@ -16,7 +16,8 @@ public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
 	UHealthComp* GetHealthComponent() const {return HealthComp;}
-
+	UFUNCTION()
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -42,8 +43,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f; 
 
-	UFUNCTION()
-	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 
 	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 public:	

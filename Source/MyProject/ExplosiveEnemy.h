@@ -15,5 +15,11 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 	GENERATED_BODY()
 
 private:
+	void Explode();
 	virtual void Attack() override;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float ExplosionRadius;
+
+	
 };

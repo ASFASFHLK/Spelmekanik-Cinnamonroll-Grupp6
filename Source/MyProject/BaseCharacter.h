@@ -15,6 +15,7 @@ class MYPROJECT_API ABaseCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
+	UHealthComp* GetHealthComponent() const {return HealthComp;}
 
 
 protected:
@@ -23,7 +24,6 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UHealthComp* HealthComp;
-	
 	
 	UPROPERTY(EditDefaultsOnly)
 	float JumpHeight;

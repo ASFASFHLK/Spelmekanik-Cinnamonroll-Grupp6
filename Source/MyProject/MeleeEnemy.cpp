@@ -3,15 +3,20 @@
 
 #include "MeleeEnemy.h"
 
+#include "HealthComp.h"
 #include "KismetTraceUtils.h"
+<<<<<<< Updated upstream
+=======
+
+#include "Engine/DamageEvents.h"
+>>>>>>> Stashed changes
 
 void AMeleeEnemy::Attack()
 {
 	Super::Attack();
 	FVector test = (GetActorForwardVector() * 100) + GetActorLocation();
-	TArray<AActor*> ActorsToIgnore;
+	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
-	TArray<EObjectTypeQuery> ObjectTypes;
 	
 	
 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),test,20,
@@ -21,8 +26,14 @@ void AMeleeEnemy::Attack()
 	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
 	if(ActorHit)
 	{
+<<<<<<< Updated upstream
+=======
+
+		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
+>>>>>>> Stashed changes
 		//Implement for the ActorHit to take damage
 		
+
 	}
 	
 	

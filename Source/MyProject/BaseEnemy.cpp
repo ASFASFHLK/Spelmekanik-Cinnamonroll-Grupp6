@@ -2,6 +2,9 @@
 
 
 #include "BaseEnemy.h"
+
+#include "Enemy_Spawner.h"
+#include "HealthComp.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -22,6 +25,28 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	}
 }
 
+<<<<<<< Updated upstream
+=======
+
+float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	
+	if(DamageTaken >= HealthComp->GetCurrentHealth()) // If we die 
+	{
+		UE_LOG(LogTemp, Display, TEXT("I am dead"));
+		if(OnDeath.IsBound())
+		{
+			UE_LOG(LogTemp, Display, TEXT("I am bound"));
+		}
+		OnDeath.ExecuteIfBound(); // calls the event 
+	}
+	
+	return DamageTaken;
+}
+
+>>>>>>> Stashed changes
 void ABaseEnemy::Attack()
 {
 	CurrentAttackCooldown = AttackCooldown;

@@ -44,7 +44,8 @@ protected:
 
 	UFUNCTION()
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-	
+
+	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

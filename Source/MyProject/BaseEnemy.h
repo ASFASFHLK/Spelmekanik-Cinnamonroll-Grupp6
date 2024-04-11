@@ -19,15 +19,18 @@ public:
 
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
+	bool GetIsStunned() const {return IsStunned;}
+
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
 
+	UFUNCTION(BlueprintCallable)
+	void StunWithTimer(bool Stun, float StunnedTime);
 	
 	virtual void Attack();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
-
 	
 private:
 
@@ -44,6 +47,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float TargetIsCloseRange;
+
+	UPROPERTY()
+	bool IsStunned;
 
 	UPROPERTY()
 	float CurrentAttackCooldown;

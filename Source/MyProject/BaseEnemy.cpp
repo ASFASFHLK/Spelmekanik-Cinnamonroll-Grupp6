@@ -22,6 +22,12 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	}
 }
 
+
+void ABaseEnemy::StunWithTimer(bool Stun, float StunnedTime)
+{
+	
+}
+
 void ABaseEnemy::Attack()
 {
 	CurrentAttackCooldown = AttackCooldown;

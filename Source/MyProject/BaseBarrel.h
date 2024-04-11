@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/Actor.h"
 #include "BaseBarrel.generated.h"
 
@@ -19,8 +20,25 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	class UHealthComp* HealthComp;
+
+	virtual void Explode(AController* EventInstigator);
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+	float ExplosionRadius;
+
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+	float DamageDealt;
+
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+	float Height;
 };

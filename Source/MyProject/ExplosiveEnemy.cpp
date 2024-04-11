@@ -4,6 +4,7 @@
 #include "ExplosiveEnemy.h"
 
 #include "HealthComp.h"
+#include "Engine/DamageEvents.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 void AExplosiveEnemy::Attack()
@@ -17,16 +18,17 @@ void AExplosiveEnemy::Explode()
 	const FVector Height = GetActorUpVector() + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
-	
-	
-	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),Height,ExplosionRadius,
+
+	UKismetSystemLibrary::SphereTraceSingle(this,Height,Height,ExplosionRadius,
 		UEngineTypes::ConvertToTraceType(ECC_Pawn),
 		false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
-		FColor::Red, FColor::Green, 30.f);
+		FColor::Red, FColor::Green, 2.f);
 
-	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
-	if(ActorHit)
+	if(AActor* ActorHit = HitResult.GetActor())
 	{
-		ActorHit->GetHealthComponent()->TakeDamage(Damage);
+		ActorHit->TakeDamage(DamageDealt, FDamageEvent(),
+			GetController(), this);
+		
 	}
+	Destroy();
 }

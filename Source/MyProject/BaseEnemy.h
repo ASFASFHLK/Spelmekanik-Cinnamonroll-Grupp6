@@ -14,11 +14,7 @@ class MYPROJECT_API ABaseEnemy : public ABaseCharacter
 {
 	GENERATED_BODY()
 
-
-	
 public:
-
-	
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintCallable)
@@ -34,16 +30,9 @@ public:
 	
 	virtual void Attack();
 
-	TSubclassOf<AAIController> GetAiController() const { return AiController;} 
-
-
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
-		
-	UPROPERTY(EditDefaultsOnly, Category="Controller")
-	TSubclassOf<AAIController> AiController;
-		
 
 private:
 

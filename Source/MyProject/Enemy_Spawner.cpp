@@ -40,7 +40,11 @@ void AEnemy_Spawner::SpawnEnemy()
 	if(Enemy)
 	{
 		UE_LOG(LogTemp, Display, TEXT("I have been Spawned"));
-		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
+		if(!Enemy->OnDeath.IsBound())
+		{
+			Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
+		}
+
 		Enemy->SpawnDefaultController();
 	}
 	else

@@ -35,11 +35,8 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	if(DamageTaken >= HealthComp->GetCurrentHealth()) // If we die 
 	{
 		UE_LOG(LogTemp, Display, TEXT("I am dead"));
-		if(OnDeath.IsBound())
-		{
-			UE_LOG(LogTemp, Display, TEXT("I am bound"));
-		}
-		OnDeath.ExecuteIfBound(); // calls the event 
+		OnDeath.ExecuteIfBound(); // calls the event
+		OnDeath.Clear();
 	}
 	
 	return DamageTaken;

@@ -20,10 +20,16 @@ public:
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
+	UFUNCTION(BlueprintNativeEvent, Category = "Events")
+	void  OnDeath();
 
-	
 	virtual void Attack();
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	float DamageDealt = 10.f;
+
+	
 private:
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -42,5 +48,8 @@ private:
 
 	UPROPERTY()
 	float CurrentAttackCooldown;
+
+	
+
 };
 

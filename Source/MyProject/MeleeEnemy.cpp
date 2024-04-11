@@ -4,6 +4,7 @@
 #include "MeleeEnemy.h"
 
 #include "KismetTraceUtils.h"
+#include "Engine/DamageEvents.h"
 
 void AMeleeEnemy::Attack()
 {
@@ -11,17 +12,16 @@ void AMeleeEnemy::Attack()
 	FVector test = (GetActorForwardVector() * 100) + GetActorLocation();
 	TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
-	TArray<EObjectTypeQuery> ObjectTypes;
 	
 	
 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),test,20,
-		UEngineTypes::ConvertToTraceType(ECC_Pawn),false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
-		FColor::Red, FColor::Green, 30.f);
+		UEngineTypes::ConvertToTraceType(ECC_Pawn),false,
+		ActorsToIgnore, EDrawDebugTrace::None,HitResult,true,
+		FColor::Red, FColor::Green, 0.f);
 
-	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
-	if(ActorHit)
+	if(AActor* ActorHit = HitResult.GetActor())
 	{
-		//Implement for the ActorHit to take damage
+		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
 		
 	}
 	

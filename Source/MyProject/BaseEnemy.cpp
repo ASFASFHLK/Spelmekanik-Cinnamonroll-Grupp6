@@ -22,6 +22,11 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	}
 }
 
+void ABaseEnemy::OnDeath_Implementation()
+{
+
+}
+
 void ABaseEnemy::Attack()
 {
 	CurrentAttackCooldown = AttackCooldown;

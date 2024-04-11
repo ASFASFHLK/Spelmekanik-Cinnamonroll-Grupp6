@@ -3,6 +3,7 @@
 
 #include "BaseCharacter.h"
 #include "HealthComp.h"
+#include "Engine/DamageEvents.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -70,6 +71,34 @@ void ABaseCharacter::MoveSidesAxis(float Value)
 	
 }
 
+
+float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	
+	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	if(EventInstigator->GetCharacter() == this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		return 0;
+	}
+
+	
+	
+	if(HealthComp->TakeDamage(Damage))
+	{
+		Destroy();
+	}
+	
+	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
+}
+
+float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent,
+	AController* EventInstigator, AActor* DamageCauser)
+{
+	UE_LOG(LogTemp, Display, TEXT("FÅR TIKKGPPGPPGP"));
+	return Super::InternalTakeRadialDamage(Damage, RadialDamageEvent, EventInstigator, DamageCauser);
+}
 
 
 // Called every frame

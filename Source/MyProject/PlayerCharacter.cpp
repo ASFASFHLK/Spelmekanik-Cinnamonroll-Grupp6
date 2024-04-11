@@ -3,9 +3,24 @@
 
 #include "PlayerCharacter.h"
 
+#include "GunBase.h"
+#include "HealthComp.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Engine/DamageEvents.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+
+void APlayerCharacter::Fire()
+{
+	if(!EquipedGun)
+	{
+		return;
+	}
+	
+	
+	
+}
 
 void APlayerCharacter::LookUp(float Value)
 {
@@ -13,6 +28,11 @@ void APlayerCharacter::LookUp(float Value)
 	if (Controller == nullptr or Value == 0.0f)
 	{
 		return;
+	}
+	
+	if(InvertCamera)
+	{
+		Value = Value * -1;
 	}
 	AddControllerPitchInput(Value * LookUpSpeed);
 
@@ -28,6 +48,44 @@ void APlayerCharacter::LookSides(float Value)
 
 	AddControllerYawInput(Value * LookSideSpeed);
 	
+}
+
+// should be moved the gunbase class 
+void APlayerCharacter::Shoot()
+
+
+{	//Character = Cast<AActor*>(this->GetOwner());
+	if(this == nullptr || this->GetController() == nullptr){
+		return;
+	}
+
+	UWorld* const World = GetWorld();
+	if(World){
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		FHitResult HitResult;
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
+
+		if(ShotSound){
+			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+		}
+		
+		if(ShotEffect){
+
+		}
+		
+		if(!HitResult.GetActor())
+		{
+			return;
+		}
+		UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+		HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
+		
+	}
 }
 
 APlayerCharacter::APlayerCharacter()
@@ -54,4 +112,37 @@ APlayerCharacter::APlayerCharacter()
 
 	// sets default position
 	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+}
+
+void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
+	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APlayerCharacter::LookSides);
+	//PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &APlayerCharacter::Shoot);
+}
+
+float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+
+	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	if(EventInstigator->GetCharacter() == this)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		return 0;
+	}
+	
+	if(HealthComp->TakeDamage(DamageAmount))
+	{
+		SetActorEnableCollision(false);
+		SetActorHiddenInGame(true);
+		// Call gamemode end game
+		DisableInput(Cast<APlayerController>(GetController()));
+		
+		//Destroy();
+	}
+	
+	return  DamageAmount;
+	
 }

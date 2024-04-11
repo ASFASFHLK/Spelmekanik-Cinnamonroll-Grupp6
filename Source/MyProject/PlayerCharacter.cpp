@@ -3,9 +3,22 @@
 
 #include "PlayerCharacter.h"
 
+#include "GunBase.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+
+void APlayerCharacter::Fire()
+{
+	if(!EquipedGun)
+	{
+		return;
+	}
+	
+	
+	
+}
 
 void APlayerCharacter::LookUp(float Value)
 {
@@ -33,6 +46,36 @@ void APlayerCharacter::LookSides(float Value)
 
 	AddControllerYawInput(Value * LookSideSpeed);
 	
+}
+
+// should be moved the gunbase class 
+void APlayerCharacter::Shoot()
+
+
+{	//Character = Cast<AActor*>(this->GetOwner());
+	if(this == nullptr || this->GetController() == nullptr){
+		return;
+	}
+
+	UWorld* const World = GetWorld();
+	if(World){
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		FHitResult HitResult;
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 5);
+
+		if(ShotSound){
+			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+		}
+		
+		if(ShotEffect){
+
+		}
+	}
 }
 
 APlayerCharacter::APlayerCharacter()
@@ -66,5 +109,5 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
 	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APlayerCharacter::LookSides);
-	
+	//PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &APlayerCharacter::Shoot);
 }

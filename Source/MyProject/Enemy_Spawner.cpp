@@ -18,41 +18,44 @@ AEnemy_Spawner::AEnemy_Spawner()
 void AEnemy_Spawner::BeginPlay()
 {
 	Super::BeginPlay();
-	//ABaseEnemy::OnDeath.AddDynamic(this, &AEnemy_Spawner::SpawnEnemy);
 
-	SpawnEnemy();
-	AmountOfEnemiesSpawned++;
-	
+	for(int i = 0; i <= AmountToSpawnAtStart; i++)
+	{
+		SpawnEnemy();
+		AmountOfEnemiesSpawned++;
+	}
 }
 
 void AEnemy_Spawner::SpawnEnemy()
 {
-	
-	if(EnemyTypeOne == nullptr)
+	if(Enemies.Num() < 1 or SpawnLocation.Num() < 1)
 	{
 		return;
 	}
 	
-	FActorSpawnParameters SpawnParams;
-	FRotator Rotation = FRotator(0.0f, 0.0f, 0.0f);
-	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypeOne, SpawnLocation, Rotation, SpawnParams);
+	const FVector SpawnPoint = SpawnLocation[LocationIndex].Pos;
+	LocationIndex++;
+	
+	// Resets the location 
+	if(LocationIndex >= SpawnLocation.Num())
+	{
+		LocationIndex = 0;
+	}
+	
+	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
+	
+	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(Enemies[EnemyIndex], SpawnPoint, FRotator(), FActorSpawnParameters());
 
 	if(Enemy)
 	{
 		UE_LOG(LogTemp, Display, TEXT("I have been Spawned"));
-		if(!Enemy->OnDeath.IsBound())
-		{
-			Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
-		}
-
+		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
 		Enemy->SpawnDefaultController();
 	}
 	else
 	{
 		UE_LOG(LogTemp, Display, TEXT("I have not been  Spawned"));
 	}
-	
-
 }
 
 void AEnemy_Spawner::OnDeathEvent()

@@ -6,6 +6,18 @@
 #include "GameFramework/Actor.h"
 #include "Enemy_Spawner.generated.h"
 
+
+
+
+USTRUCT(BlueprintType)
+struct FSpawnLocation
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
+	FVector Pos;
+};
+
+
 UCLASS()
 class MYPROJECT_API AEnemy_Spawner : public AActor
 {
@@ -17,32 +29,33 @@ public:
 	UFUNCTION()
 	void SpawnEnemy();
 
-	UPROPERTY(EditAnywhere, Category = "Spawn")
-	FVector SpawnLocation;
-
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
 
-	
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<class ABaseEnemy> EnemyTypeOne;
-	
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ABaseEnemy> EnemyTypeTwo;
-
-	UPROPERTY(VisibleInstanceOnly)
-	int AmountOfEnemiesSpawned = 0;
-
-	UPROPERTY(VisibleInstanceOnly)
-	int AmountOfEnemiesKilled = 0;
-	
-	UPROPERTY(EditDefaultsOnly)
-	int EnemiesToKill = 10;
-
+private:
+	// Called when the game starts or when spawned
 	UFUNCTION()
 	void OnDeathEvent();
+	
+	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
+	TArray<FSpawnLocation> SpawnLocation;
+
+	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
+	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
+
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings")
+	int AmountToSpawnAtStart = 4;
+	
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings")
+	int EnemiesToKill = 10;
+	
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info")
+	int AmountOfEnemiesSpawned = 0;
+
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info")
+	int AmountOfEnemiesKilled = 0;
+	
+	int LocationIndex = 0;
 
 public:	
 	// Called every frame

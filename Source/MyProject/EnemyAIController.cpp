@@ -22,5 +22,5 @@ void AEnemyAIController::BeginPlay()
 void AEnemyAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	SetFocus(Enemy->GetCurrentTarget());
+	//SetFocus(Enemy->GetCurrentTarget());
 }

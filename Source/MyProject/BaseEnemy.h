@@ -6,11 +6,14 @@
 #include "BaseCharacter.h"
 #include "BaseEnemy.generated.h"
 
+class AAIController;
+DECLARE_DYNAMIC_DELEGATE(FOnDeath);
 
 UCLASS()
 class MYPROJECT_API ABaseEnemy : public ABaseCharacter
 {
 	GENERATED_BODY()
+
 public:
 	virtual void BeginPlay() override;
 	
@@ -20,16 +23,17 @@ public:
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
-	UFUNCTION(BlueprintNativeEvent, Category = "Events")
-	void  OnDeath();
 
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	
+	FOnDeath OnDeath;
+	
 	virtual void Attack();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
 
-	
 private:
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -48,8 +52,5 @@ private:
 
 	UPROPERTY()
 	float CurrentAttackCooldown;
-
-	
-
 };
 

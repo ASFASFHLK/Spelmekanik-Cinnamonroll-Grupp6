@@ -25,8 +25,7 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	}
 }
 
-<<<<<<< Updated upstream
-=======
+
 
 float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
@@ -46,7 +45,7 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	return DamageTaken;
 }
 
->>>>>>> Stashed changes
+
 void ABaseEnemy::Attack()
 {
 	CurrentAttackCooldown = AttackCooldown;

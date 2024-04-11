@@ -42,8 +42,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f; 
 
-	UFUNCTION()
-	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 	
 public:	
 	// Called every frame
@@ -51,5 +50,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION()
+	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 };

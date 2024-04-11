@@ -5,11 +5,8 @@
 
 #include "HealthComp.h"
 #include "KismetTraceUtils.h"
-<<<<<<< Updated upstream
-=======
-
 #include "Engine/DamageEvents.h"
->>>>>>> Stashed changes
+
 
 void AMeleeEnemy::Attack()
 {
@@ -26,11 +23,10 @@ void AMeleeEnemy::Attack()
 	ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor());
 	if(ActorHit)
 	{
-<<<<<<< Updated upstream
-=======
+
 
 		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
->>>>>>> Stashed changes
+
 		//Implement for the ActorHit to take damage
 		
 

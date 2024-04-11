@@ -13,7 +13,5 @@ void UBTService_CheckIfStunned::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	Enemy = Cast<ABaseEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-	UE_LOG(LogTemp, Display, TEXT("%s"),Enemy->GetIsStunned() ? TEXT("True") : TEXT("False"));
 
-	MyBlackBoardComponent->SetValueAsBool("Stunned", Enemy->GetIsStunned());
 }

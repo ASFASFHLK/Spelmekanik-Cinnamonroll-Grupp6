@@ -43,16 +43,16 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
 
-	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	int AmountToSpawnAtStart = 4;
 	
-	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	int EnemiesToKill = 10;
 	
-	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly)
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	int AmountOfEnemiesSpawned = 0;
 
-	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly)
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly,  meta=(AllowPrivateAccess=true))
 	int AmountOfEnemiesKilled = 0;
 	
 	int LocationIndex = 0;

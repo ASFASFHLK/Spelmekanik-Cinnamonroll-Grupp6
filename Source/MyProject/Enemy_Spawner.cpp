@@ -10,8 +10,7 @@
 AEnemy_Spawner::AEnemy_Spawner()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PrimaryActorTick.bCanEverTick = false;
 }
 
 // Called when the game starts or when spawned
@@ -19,7 +18,7 @@ void AEnemy_Spawner::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for(int i = 0; i <= AmountToSpawnAtStart; i++)
+	for(int i = 0; i < AmountToSpawnAtStart; i++)
 	{
 		SpawnEnemy();
 		AmountOfEnemiesSpawned++;
@@ -28,7 +27,7 @@ void AEnemy_Spawner::BeginPlay()
 
 void AEnemy_Spawner::SpawnEnemy()
 {
-	if(Enemies.Num() < 1 or SpawnLocation.Num() < 1)
+	if(Enemies.Num() < 1 or SpawnLocation.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return;
 	}
@@ -48,13 +47,13 @@ void AEnemy_Spawner::SpawnEnemy()
 
 	if(Enemy)
 	{
-		UE_LOG(LogTemp, Display, TEXT("I have been Spawned"));
+		UE_LOG(LogTemp, Display, TEXT("I have been Spawned %c"), GetName());
 		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
 		Enemy->SpawnDefaultController();
 	}
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("I have not been  Spawned"));
+		UE_LOG(LogTemp, Warning, TEXT("I have not been Spawned %c"), GetName());
 	}
 }
 
@@ -71,7 +70,7 @@ void AEnemy_Spawner::OnDeathEvent()
 	
 	if(AmountOfEnemiesKilled >= EnemiesToKill)
 	{
-		//Endgame with player winner
+		//Endgame with player as winner
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
 		
 	}

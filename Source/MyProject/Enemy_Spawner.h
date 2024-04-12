@@ -10,7 +10,7 @@
 
 
 USTRUCT(BlueprintType)
-struct FSpawnLocation
+struct FSpawnLocation // a bit of a work around as FArrays can not hold FVectors 
 {
 	GENERATED_BODY()
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
@@ -43,16 +43,16 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
 
-	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings")
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly)
 	int AmountToSpawnAtStart = 4;
 	
-	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings")
+	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly)
 	int EnemiesToKill = 10;
 	
-	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info")
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly)
 	int AmountOfEnemiesSpawned = 0;
 
-	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info")
+	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly)
 	int AmountOfEnemiesKilled = 0;
 	
 	int LocationIndex = 0;

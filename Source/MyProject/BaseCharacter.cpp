@@ -3,6 +3,7 @@
 
 #include "BaseCharacter.h"
 
+#include "BaseBarrel.h"
 #include "BaseEnemy.h"
 #include "DefaultGamemode.h"
 #include "HealthComp.h"
@@ -80,10 +81,12 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
-	if(EventInstigator->GetCharacter() == this)
+	if(EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		
 		return 0;
+		
 	}
 	
 	if(HealthComp->TakeDamage(Damage)) // Checks if we are dead

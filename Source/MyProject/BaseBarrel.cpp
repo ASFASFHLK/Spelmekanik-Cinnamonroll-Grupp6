@@ -4,6 +4,7 @@
 #include "BaseBarrel.h"
 #include "HealthComp.h"
 #include "Engine/DamageEvents.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
@@ -28,18 +29,14 @@ void ABaseBarrel::Explode(AController* EventInstigator)
 	const FVector End = GetActorUpVector() * Height + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
-	
-	UKismetSystemLibrary::SphereTraceSingle(this,Start,End,ExplosionRadius,
-		UEngineTypes::ConvertToTraceType(ECC_Pawn),
-		false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
-		FColor::Red, FColor::Green, 2.f);
 
-	if(AActor* ActorHit = HitResult.GetActor())
-	{
-		ActorHit->TakeDamage(DamageDealt, FDamageEvent(),
-			EventInstigator, this);
-		
-	}
+	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
+		ExplosionRadius,DamageType,ActorsToIgnore, this, EventInstigator,true, ECC_Pawn);
+
+	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,true,5.f);
+	
+	
+
 	Destroy();
 }
 

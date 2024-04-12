@@ -41,7 +41,9 @@ protected:
 	
 	
 	UPROPERTY(EditAnywhere, Category = "Movement")
-	float MovementSpeed = 300.0f; 
+	float MovementSpeed = 300.0f;
+
+	
 
 
 

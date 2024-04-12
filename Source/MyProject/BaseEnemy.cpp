@@ -39,7 +39,7 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 		// calls the event
 		if(!OnDeath.ExecuteIfBound())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
+			//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
 		}	
 		OnDeath.Clear();
 		Destroy();

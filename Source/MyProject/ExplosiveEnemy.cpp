@@ -5,6 +5,7 @@
 
 #include "HealthComp.h"
 #include "Engine/DamageEvents.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 void AExplosiveEnemy::Attack()
@@ -19,16 +20,10 @@ void AExplosiveEnemy::Explode()
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
 
-	UKismetSystemLibrary::SphereTraceSingle(this,Height,Height,ExplosionRadius,
-		UEngineTypes::ConvertToTraceType(ECC_Pawn),
-		false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
-		FColor::Red, FColor::Green, 2.f);
+	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
+		ExplosionRadius,DamageType,ActorsToIgnore, this, GetController(),
+		true, ECC_Pawn);
 
-	if(AActor* ActorHit = HitResult.GetActor())
-	{
-		ActorHit->TakeDamage(DamageDealt, FDamageEvent(),
-			GetController(), this);
-		
-	}
+	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,true,5.f);
 	Destroy();
 }

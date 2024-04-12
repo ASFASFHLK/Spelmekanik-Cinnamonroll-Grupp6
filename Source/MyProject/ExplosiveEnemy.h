@@ -19,6 +19,9 @@ private:
 	virtual void Attack() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<UDamageType> DamageType;
+	
+	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ExplosionRadius;
 
 	

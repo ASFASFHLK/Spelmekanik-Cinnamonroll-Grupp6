@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DamageEvents.h"
 #include "GameFramework/Actor.h"
 #include "BaseBarrel.generated.h"
 
@@ -20,6 +19,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	
+
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	class UHealthComp* HealthComp;
 
@@ -32,6 +33,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+	TSubclassOf<UDamageType> DamageType;
 
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 	float ExplosionRadius;

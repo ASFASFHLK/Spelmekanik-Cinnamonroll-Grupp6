@@ -47,13 +47,13 @@ void AEnemy_Spawner::SpawnEnemy()
 
 	if(Enemy)
 	{
-		UE_LOG(LogTemp, Display, TEXT("I have been Spawned %c"), GetName());
+		UE_LOG(LogTemp, Display, TEXT("I have been Spawned %c"), *GetName());
 		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
 		Enemy->SpawnDefaultController();
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("I have not been Spawned %c"), GetName());
+		UE_LOG(LogTemp, Warning, TEXT("I have not been Spawned %c"), *GetName());
 	}
 }
 

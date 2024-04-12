@@ -127,24 +127,14 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	AActor* DamageCauser)
 {
 
-	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
-	if(EventInstigator->GetCharacter() == this)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
-		return 0;
-	}
+	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	
-	if(HealthComp->TakeDamage(DamageAmount))
+	if(DamageTaken >= HealthComp->GetCurrentHealth())
 	{
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
-		SetActorEnableCollision(false);
-		SetActorHiddenInGame(true);
-		// Call gamemode end game
 		DisableInput(Cast<APlayerController>(GetController()));
-		
-		//Destroy();
 	}
 	
-	return  DamageAmount;
+	return DamageTaken;
 	
 }

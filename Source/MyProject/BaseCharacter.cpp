@@ -79,28 +79,18 @@ void ABaseCharacter::MoveSidesAxis(float Value)
 float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
 {
-	
 	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
 	if(EventInstigator->GetCharacter() == this)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
 		return 0;
 	}
-
 	
-	
-	if(HealthComp->TakeDamage(Damage))
+	if(HealthComp->TakeDamage(Damage)) // Checks if we are dead
 	{
-		if(this->IsA(ABaseEnemy::StaticClass()))
-		{
-			Destroy();
-		}else
-		{
-			
-		}
-		
+		SetActorEnableCollision(false);
+		SetActorHiddenInGame(true);
 	}
-	
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
 }
 

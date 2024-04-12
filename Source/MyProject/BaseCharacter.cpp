@@ -108,7 +108,6 @@ float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent 
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input

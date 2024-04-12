@@ -1,15 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "PlayerCharacter.h"
-
 #include "DefaultGamemode.h"
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 void APlayerCharacter::Fire()
@@ -18,12 +15,9 @@ void APlayerCharacter::Fire()
 	{
 		return;
 	}
-	
-	
-	
 }
 
-void APlayerCharacter::LookUp(float Value)
+void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
 {
 
 	if (Controller == nullptr or Value == 0.0f)
@@ -31,18 +25,17 @@ void APlayerCharacter::LookUp(float Value)
 		return;
 	}
 	
-	if(InvertCamera)
+	if(InvertCamera) // Inverts camera controls 
 	{
 		Value = Value * -1;
 	}
-	AddControllerPitchInput(Value * LookUpSpeed);
-
 	
+	AddControllerPitchInput(Value * LookUpSpeed);
 }
 
 void APlayerCharacter::LookSides(float Value)
 {
-	if (Controller == nullptr or Value == 0.0f)
+	if (Controller == nullptr or Value == 0.0f) // Prevents nullptr and invalid input 
 	{
 		return;
 	}
@@ -83,6 +76,7 @@ void APlayerCharacter::Shoot()
 		{
 			return;
 		}
+		
 		UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
 		HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
 		
@@ -99,7 +93,7 @@ APlayerCharacter::APlayerCharacter()
 	CharacterCamera->SetupAttachment(GetCapsuleComponent());
 	// Makes the camera rotate with the character
 	CharacterCamera->bUsePawnControlRotation = true;
-	// Sets the default position 
+	// Sets the default position of the camera
 	CharacterCamera->SetRelativeLocation(FVector(-10.f, 0.f, 60.f));
 
 	// Creates the default mesh 
@@ -128,7 +122,8 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 {
 
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	
+
+	// Player Specific Damage handler 
 	if(DamageTaken >= HealthComp->GetCurrentHealth())
 	{
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);

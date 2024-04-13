@@ -6,6 +6,7 @@
 #include "BaseCharacter.h"
 #include "PlayerCharacter.generated.h"
 
+class UModifierComponent;
 class UNiagaraSystem;
 class UCameraComponent;
 class USpringArmComponent;
@@ -18,11 +19,13 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	UModifierComponent* ModifierComponent;
+
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
 	TSubclassOf<AGunBase> EquipedGun;
-	
-
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
@@ -61,9 +64,6 @@ private:
 
 
 public:
-
-
-
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gameplay")
 	FVector MuzzleOffset = FVector(100,0,10);

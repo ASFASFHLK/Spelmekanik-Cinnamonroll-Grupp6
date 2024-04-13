@@ -42,6 +42,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 	float DamageDealt;
 
-	UPROPERTY(EditAnywhere, Category = "Explosion")
-	float Height;
+	UPROPERTY()
+	bool Exploded;
+
+	
 };

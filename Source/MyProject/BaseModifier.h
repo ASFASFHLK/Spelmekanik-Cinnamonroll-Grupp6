@@ -3,29 +3,32 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "GameFramework/Actor.h"
 #include "BaseModifier.generated.h"
 
+class APlayerCharacter;
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class MYPROJECT_API UBaseModifier : public UActorComponent
+UCLASS()
+class MYPROJECT_API ABaseModifier : public AActor
 {
 	GENERATED_BODY()
-
+	
 public:	
-	// Sets default values for this component's properties
-	UBaseModifier();
+	// Sets default values for this actor's properties
+	ABaseModifier();
 
 protected:
-	// Called when the game starts
+	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere)
-	FString Name;
+	UPROPERTY()
+	APlayerCharacter* PlayerCharacter;
 
 public:	
 	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void Tick(float DeltaTime) override;
 
-		
+	virtual void OnAdded();
+	virtual void OnRemoved();
+
 };

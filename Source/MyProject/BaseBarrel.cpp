@@ -25,11 +25,9 @@ void ABaseBarrel::BeginPlay()
 
 void ABaseBarrel::Explode(AController* EventInstigator)
 {
-	const FVector Start = GetActorUpVector() + GetActorLocation();
-	const FVector End = GetActorUpVector() * Height + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
-	FHitResult HitResult;
-
+	
+	Exploded = true;
 	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
 		ExplosionRadius,DamageType,ActorsToIgnore, this, EventInstigator,true, ECC_Pawn);
 
@@ -43,7 +41,7 @@ void ABaseBarrel::Explode(AController* EventInstigator)
 float ABaseBarrel::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
 {
-	if(HealthComp->TakeDamage(DamageAmount))
+	if(!Exploded && HealthComp->TakeDamage(DamageAmount))
 	{
 		Explode(EventInstigator);
 	}

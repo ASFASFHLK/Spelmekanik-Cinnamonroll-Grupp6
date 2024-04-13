@@ -3,32 +3,39 @@
 
 #include "BaseModifier.h"
 
-// Sets default values for this component's properties
-UBaseModifier::UBaseModifier()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+#include "PlayerCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
-	// ...
+// Sets default values
+ABaseModifier::ABaseModifier()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+
 }
 
-
-// Called when the game starts
-void UBaseModifier::BeginPlay()
+// Called when the game starts or when spawned
+void ABaseModifier::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 	
 }
 
-
 // Called every frame
-void UBaseModifier::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void ABaseModifier::Tick(float DeltaTime)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	Super::Tick(DeltaTime);
 
-	// ...
 }
+
+void ABaseModifier::OnAdded()
+{
+	PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
+}
+
+void ABaseModifier::OnRemoved()
+{
+	Destroy();
+}
+
 

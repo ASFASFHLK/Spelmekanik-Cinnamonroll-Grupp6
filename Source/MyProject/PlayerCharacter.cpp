@@ -4,6 +4,7 @@
 #include "DefaultGamemode.h"
 #include "GunBase.h"
 #include "HealthComp.h"
+#include "ModifierComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
@@ -107,6 +108,8 @@ APlayerCharacter::APlayerCharacter()
 
 	// sets default position
 	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+
+	ModifierComponent = CreateDefaultSubobject<UModifierComponent>(TEXT("Modifier Component"));
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

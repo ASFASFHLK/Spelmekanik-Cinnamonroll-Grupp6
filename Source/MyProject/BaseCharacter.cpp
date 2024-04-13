@@ -8,6 +8,7 @@
 #include "DefaultGamemode.h"
 #include "HealthComp.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -108,6 +109,13 @@ float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent 
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	StunTimer -= DeltaTime;
+
+	if(IsStunned && StunTimer <= 0)
+	{
+		ResetStun();
+		IsStunned = false;
+	}
 }
 
 // Called to bind functionality to input
@@ -124,4 +132,21 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Released, this , &ACharacter::StopJumping);
 	
 }
+
+
+//Maybe should be moved to a component of its own
+void ABaseCharacter::ApplyStun(float const TimeStunned)
+{
+	UE_LOG(LogTemp, Warning, TEXT("I got stunned"));
+	GetCharacterMovement()->SetMovementMode(MOVE_None);
+	StunTimer = TimeStunned;
+	IsStunned = true;
+}
+
+void ABaseCharacter::ResetStun()
+{
+	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+}
+
+
 

@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "BaseBarrel.generated.h"
 
+class ABaseCharacter;
+
 UCLASS()
 class MYPROJECT_API ABaseBarrel : public AActor
 {
@@ -32,18 +34,26 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-private:
-	UPROPERTY(EditAnywhere, Category = "Explosion")
-	TSubclassOf<UDamageType> DamageType;
-
+protected:
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 	float ExplosionRadius;
+	
+	TArray<ABaseCharacter*> CharactersHit;
+	
+	
+private:
 
+	UPROPERTY(EditAnywhere, Category = "Explosion")
+	TSubclassOf<UDamageType> DamageType;
+	
 	UPROPERTY(EditAnywhere, Category = "Explosion")
 	float DamageDealt;
 
 	UPROPERTY()
 	bool Exploded;
+
+	UPROPERTY()
+	TArray<FHitResult> HitResults;
 
 	
 };

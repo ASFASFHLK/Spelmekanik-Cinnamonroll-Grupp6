@@ -39,7 +39,6 @@ protected:
 	UFUNCTION()
 	virtual void MoveSidesAxis(float Value);
 	
-	
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f;
 	
@@ -50,5 +49,13 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void ApplyStun(float TimeStunned);
+	void ResetStun() const;
+
+private:
+	float StunTimer;
+	bool IsStunned;
+	void ResetStun();
 
 };

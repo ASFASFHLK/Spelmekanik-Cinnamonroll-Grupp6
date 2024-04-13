@@ -52,5 +52,6 @@ private:
 
 	UPROPERTY()
 	float CurrentAttackCooldown;
+	
 };
 

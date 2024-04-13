@@ -18,7 +18,7 @@ void AExplosiveEnemy::Explode()
 {
 	const FVector Height = GetActorUpVector() + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
-	FHitResult HitResult;
+	
 
 	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
 		ExplosionRadius,DamageType,ActorsToIgnore, this, GetController(),

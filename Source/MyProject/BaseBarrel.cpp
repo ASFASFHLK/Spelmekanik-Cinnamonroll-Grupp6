@@ -2,6 +2,8 @@
 
 
 #include "BaseBarrel.h"
+
+#include "BaseCharacter.h"
 #include "HealthComp.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
@@ -28,14 +30,26 @@ void ABaseBarrel::Explode(AController* EventInstigator)
 	const TArray<AActor*> ActorsToIgnore;
 	
 	Exploded = true;
-	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
-		ExplosionRadius,DamageType,ActorsToIgnore, this, EventInstigator,true, ECC_Pawn);
 
+	const FVector End = GetActorLocation() + FVector(ExplosionRadius,ExplosionRadius,0);
+	const FCollisionShape Sphere = FCollisionShape::MakeSphere(ExplosionRadius);
+	
+	GetWorld()->SweepMultiByChannel(HitResults,GetActorLocation(), End,
+		FQuat::Identity, ECC_Pawn,Sphere);
+
+	for(int i = 0; i<HitResults.Num(); i++)
+	{
+		if(HitResults[i].GetActor()->IsA(ABaseCharacter::StaticClass()))
+		{
+			ABaseCharacter* Target = Cast<ABaseCharacter>(HitResults[i].GetActor());
+			Target->TakeDamage(DamageDealt,FDamageEvent(),EventInstigator,this);
+			CharactersHit.Add(Target);
+		}
+	}
 	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,true,5.f);
 	
 	
-
-	Destroy();
+	
 }
 
 float ABaseBarrel::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
@@ -44,6 +58,7 @@ float ABaseBarrel::TakeDamage(float DamageAmount, FDamageEvent const& DamageEven
 	if(!Exploded && HealthComp->TakeDamage(DamageAmount))
 	{
 		Explode(EventInstigator);
+		Destroy(); 
 	}
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }

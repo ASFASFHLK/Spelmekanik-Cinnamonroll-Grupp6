@@ -32,7 +32,16 @@ void UModifierComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if(ModifierOne)
+	{
+		ModifierOne->OnUpdate(DeltaTime);
+	}
+	if(ModifierTwo)
+	{
+		ModifierTwo->OnUpdate(DeltaTime);
+	}
+
+
 }
 
 void UModifierComponent::ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace)

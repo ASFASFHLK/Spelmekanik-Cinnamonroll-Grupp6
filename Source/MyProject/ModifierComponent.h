@@ -29,11 +29,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace);
 	
-private:
-	UPROPERTY()
+public:
+	UPROPERTY(BlueprintReadWrite)
 	ABaseModifier* ModifierOne;
 	
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	ABaseModifier* ModifierTwo;
 		
 };

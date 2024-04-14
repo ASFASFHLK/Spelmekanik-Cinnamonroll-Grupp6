@@ -16,6 +16,7 @@ class MYPROJECT_API ADashModifier : public ABaseModifier
 
 	virtual void OnAdded() override;
 	virtual void OnRemoved() override;
+	virtual void OnUpdate(float DeltaTime) override;
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Ability")
@@ -23,6 +24,12 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	bool IsDashing;
+
+	UPROPERTY(EditAnywhere, Category = "Ability")
+	float DashCoolDown;
+
+	UPROPERTY()
+	float Timer;
 
 	void Dash();
 };

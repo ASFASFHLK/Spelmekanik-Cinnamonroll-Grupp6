@@ -11,6 +11,7 @@ void ADashModifier::OnAdded()
 	Super::OnAdded();
 
 	PlayerCharacter->InputComponent->BindAction("Dash", IE_Pressed, this, &ADashModifier::Dash);
+	Timer = 0;
 }
 
 void ADashModifier::OnRemoved()
@@ -18,11 +19,27 @@ void ADashModifier::OnRemoved()
 	Super::OnRemoved();
 }
 
+void ADashModifier::OnUpdate(float DeltaTime)
+{
+	Super::OnUpdate(DeltaTime);
+	
+	if(IsDashing)
+	{
+		Timer -= DeltaTime;
+		if(Timer <= 0)
+		{
+			IsDashing = false;
+		}
+	}
+}
+
 void ADashModifier::Dash()
 {
-	const FVector ForwardDirection = PlayerCharacter->GetActorRotation().Vector();
-
+	if(!IsDashing)
+	{
+		const FVector ForwardDirection = PlayerCharacter->GetActorRotation().Vector();
 		PlayerCharacter->LaunchCharacter(ForwardDirection * DashDistance, true, true);
-	
-	
+		Timer = DashCoolDown;
+		IsDashing = true;
+	}
 }

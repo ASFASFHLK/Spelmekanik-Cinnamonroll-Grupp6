@@ -43,8 +43,9 @@ void APlayerCharacter::ShotGunShot()
 		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		FHitResult HitResult;
 		FCollisionQueryParams QueryParams;
-		for (int i = 1; i < Pellets; ++i)
+		for (int i = 0; i < Pellets; ++i)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Iteration %i"), i);
 			FRotator Spread = SpawnRotation;
 			double XSpread = FMath::RandRange(0.0f, 30.f);
 			float YSpread = FMath::RandRange(0.0f, 30.f);
@@ -54,18 +55,17 @@ void APlayerCharacter::ShotGunShot()
 			Spread.Yaw += ZSpread;
 			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), FColor::Red, false, 1.5f);
-			if(!HitResult.GetActor())
+			if(HitResult.GetActor())
 			{
-				return;
-			}
-			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
-			if(ShotSound){
-				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
-			}
-			
-			if(ShotEffect){
+				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
+				if(ShotSound){
+					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+				}
+				
+				if(ShotEffect){
 
+				}
 			}
 		}
 	}

@@ -9,13 +9,7 @@
 
 class ASpawnerGate;
 
-USTRUCT(BlueprintType)
-struct FSpawnLocation // a bit of a work around as FArrays can not hold FVectors 
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
-	FVector Pos;
-};
+
 
 
 UCLASS()
@@ -37,9 +31,6 @@ private:
 	UFUNCTION()
 	void OnDeathEvent();
 	
-	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
-	TArray<FSpawnLocation> SpawnLocation;
-
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
 

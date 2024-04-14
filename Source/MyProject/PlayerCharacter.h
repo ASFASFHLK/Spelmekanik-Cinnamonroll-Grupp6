@@ -33,15 +33,21 @@ private:
 	UPROPERTY()
 	bool bCanShoot = true;
 	UPROPERTY()
-	float ReloadTime = 3;
+	bool bCanceledShot = false;
 	UPROPERTY()
-	float BurstTime = 0.1f;
+	float ReloadTime = 0.8f;
+	UPROPERTY()
+	float BurstTime = 0.3f;
 	UPROPERTY()
 	int Pellets = 12;
 	UPROPERTY()
 	float Damage = 2;
 	UPROPERTY()
 	int Bursts = 5;
+	UPROPERTY()
+	int ShotDistance = 800;
+	UPROPERTY()
+	int BurstCheck = 0;
 	UPROPERTY()
 	FTimerHandle ShootTimerHandle = FTimerHandle();
 	UPROPERTY()
@@ -73,6 +79,8 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void Shoot();
 
+	UFUNCTION(BlueprintCallable)
+	void CancelShot();
 
 	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess= true), Category = "Gun")
 	UNiagaraSystem* ShotEffect;

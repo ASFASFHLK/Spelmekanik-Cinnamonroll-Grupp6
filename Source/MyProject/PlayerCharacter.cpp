@@ -25,11 +25,17 @@ void APlayerCharacter::Fire()
 
 void APlayerCharacter::UseShotGun()
 {
-		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
 	UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
-	// for (int b = 0; b < Bursts; ++b)
-	// {
-	// }
+	if(BurstCheck < Bursts && !bCanceledShot)
+	{
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+		++BurstCheck;
+	} else 
+	{
+		BurstCheck = 0;
+		UE_LOG(LogTemp, Warning, TEXT("BurstCheck = %i"), BurstCheck);
+		GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+	}
 }
 
 void APlayerCharacter::ShotGunShot()
@@ -45,7 +51,6 @@ void APlayerCharacter::ShotGunShot()
 		FCollisionQueryParams QueryParams;
 		for (int i = 0; i < Pellets; ++i)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Iteration %i"), i);
 			FRotator Spread = SpawnRotation;
 			double XSpread = FMath::RandRange(0.0f, 30.f);
 			float YSpread = FMath::RandRange(0.0f, 30.f);
@@ -54,7 +59,7 @@ void APlayerCharacter::ShotGunShot()
 			Spread.Pitch += YSpread;
 			Spread.Yaw += ZSpread;
 			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), FColor::Red, false, 1.5f);
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
 				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -69,6 +74,7 @@ void APlayerCharacter::ShotGunShot()
 			}
 		}
 	}
+	UseShotGun();
 }
 
 void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
@@ -103,16 +109,20 @@ void APlayerCharacter::Shoot()
 {	//Character = Cast<AActor*>(this->GetOwner());
 	if(bCanShoot)
 	{
+		bCanceledShot = false;
 		if(this == nullptr || this->GetController() == nullptr){
 			return;
 		}
-
 		if(UWorld* const World = GetWorld()){
 			UseShotGun();
 			bCanShoot = false;
-			World->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
 		}
 	}
+}
+
+void APlayerCharacter::CancelShot()
+{
+	bCanceledShot = true;	
 }
 
 APlayerCharacter::APlayerCharacter()

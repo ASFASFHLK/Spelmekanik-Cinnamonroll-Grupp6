@@ -44,7 +44,8 @@ private:
 	int Bursts = 5;
 	UPROPERTY()
 	FTimerHandle ShootTimerHandle = FTimerHandle();
-	
+	UPROPERTY()
+	FTimerHandle BurstTimerHandle = FTimerHandle();
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	float LookUpSpeed = 2.0;
 

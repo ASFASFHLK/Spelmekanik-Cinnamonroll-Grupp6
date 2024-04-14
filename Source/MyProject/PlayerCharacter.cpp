@@ -25,6 +25,16 @@ void APlayerCharacter::Fire()
 
 void APlayerCharacter::UseShotGun()
 {
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+	UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
+	// for (int b = 0; b < Bursts; ++b)
+	// {
+	// }
+}
+
+void APlayerCharacter::ShotGunShot()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I shot a shot"));
 	UWorld* const World = GetWorld();
 	if(World)
 	{
@@ -33,27 +43,23 @@ void APlayerCharacter::UseShotGun()
 		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		FHitResult HitResult;
 		FCollisionQueryParams QueryParams;
-		for (int b = 0; b < Bursts; ++b)
+		for (int i = 1; i < Pellets; ++i)
 		{
-			for (int i = 0; i < Pellets; ++i)
+			FRotator Spread = SpawnRotation;
+			double XSpread = FMath::RandRange(0.0f, 30.f);
+			float YSpread = FMath::RandRange(0.0f, 30.f);
+			float ZSpread = FMath::RandRange(0.0f, 30.f);
+			Spread.Roll += XSpread;
+			Spread.Pitch += YSpread;
+			Spread.Yaw += ZSpread;
+			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * 3000), FColor::Red, false, 1.5f);
+			if(!HitResult.GetActor())
 			{
-				FRotator Spread = FRotator::ZeroRotator;
-				float XSpread = FMath::RandRange(0.f, 30.f);
-				float YSpread = FMath::RandRange(0.f, 30.f);
-				float ZSpread = FMath::RandRange(0.f, 30.f);
-				Spread.Roll = XSpread;
-				Spread.Pitch = YSpread;
-				Spread.Yaw = ZSpread;
-				QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-				World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + ((SpawnRotation.Vector() + Spread.Vector()) * 3000), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + ((SpawnRotation.Vector() + Spread.Vector()) * 3000), FColor::Red, false, 1.5f);
-				if(!HitResult.GetActor())
-				{
-					return;
-				}
-				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
+				return;
 			}
-			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, BurstTime, false);
+			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
 			if(ShotSound){
 				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 			}
@@ -63,11 +69,6 @@ void APlayerCharacter::UseShotGun()
 			}
 		}
 	}
-}
-
-void APlayerCharacter::ShotGunShot()
-{
-	
 }
 
 void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
@@ -108,10 +109,8 @@ void APlayerCharacter::Shoot()
 
 		if(UWorld* const World = GetWorld()){
 			UseShotGun();
-			World->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
 			bCanShoot = false;
-			
-		
+			World->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
 		}
 	}
 }

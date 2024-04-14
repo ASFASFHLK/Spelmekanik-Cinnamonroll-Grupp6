@@ -11,6 +11,6 @@ void UBTService_HasLineOfSight::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	Enemy = Cast<ABaseEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-
+	
 	MyBlackBoardComponent->SetValueAsBool("HasLineOfSight", OwnerComp.GetAIOwner()->LineOfSightTo(Enemy->GetCurrentTarget()));
 }

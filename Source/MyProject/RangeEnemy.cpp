@@ -5,11 +5,23 @@
 
 #include "RangedEnemyProjectile.h"
 
+ARangeEnemy::ARangeEnemy()
+{
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Spawn Point"));
+	ProjectileSpawnPoint->SetupAttachment(RootComponent);
+}
+
 void ARangeEnemy::Attack()
 {
 	Super::Attack();
-	FVector Location = GetActorLocation();
-	FRotator Rotation(0.0f, 0.0f, 0.0f);
+	
+	FVector Location = GetActorLocation() + FVector(100,0, 0);
+	FRotator Rotation = GetActorRotation();
+	
 	FActorSpawnParameters SpawnInfo;
-	GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location, Rotation, SpawnInfo);
+	ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location,
+		Rotation, SpawnInfo);
+
+	SpawnedProjectile->SetOwner(this);
+	
 }

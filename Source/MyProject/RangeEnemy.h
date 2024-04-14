@@ -12,10 +12,17 @@ UCLASS()
 class MYPROJECT_API ARangeEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
+public:	
+	// Sets default values for this actor's properties
+	ARangeEnemy();
 
 private:
 	virtual void Attack() override;
+	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ARangedEnemyProjectile> Projectile;
+
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* ProjectileSpawnPoint;
 };
 

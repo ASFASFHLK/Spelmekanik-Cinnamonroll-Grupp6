@@ -3,7 +3,10 @@
 
 #include "RangedEnemyProjectile.h"
 
+#include "BaseCharacter.h"
+#include "PlayerCharacter.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/GameplayStaticsTypes.h"
 
@@ -12,14 +15,19 @@ ARangedEnemyProjectile::ARangedEnemyProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
+	RootComponent = ProjectileMesh;
 
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+	
+	
 }
 
 // Called when the game starts or when spawned
 void ARangedEnemyProjectile::BeginPlay()
 {
-	UE_LOG(LogTemp, Display, TEXT("BLRJAR"));
 	Super::BeginPlay();
+	ProjectileMesh->OnComponentHit.AddDynamic(this, &ARangedEnemyProjectile::OnHit);
 	
 }
 
@@ -33,18 +41,23 @@ void ARangedEnemyProjectile::Tick(float DeltaTime)
 void ARangedEnemyProjectile::OnHit(UPrimitiveComponent* hitComp, AActor* otherActor, UPrimitiveComponent* otherComp,
 	FVector normalImpulse, const FHitResult& HitResult)
 {
-	UE_LOG(LogTemp, Display, TEXT("asdasdasd"));
-	//Get a reference as to who spawned the actor
-	AActor* projectileOwner = GetOwner();
-
-	if(AActor* ActorHit = HitResult.GetActor())
+	if(ProjectileOwner == nullptr)
 	{
-		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), projectileOwner->GetInstigatorController(), this);
-		
-	}
-	if (otherActor != NULL && otherActor != this && otherActor != projectileOwner) {
-		
 		Destroy();
+		return;
 	}
+	
+	if(APlayerCharacter* PlayerHit = Cast<APlayerCharacter>(HitResult.GetActor()))
+	{
+		PlayerHit->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
+		
+	}
+		Destroy();
+}
+
+void ARangedEnemyProjectile::SetOwner(AActor* NewOwner)
+{
+	Super::SetOwner(NewOwner);
+	ProjectileOwner = NewOwner;
 }
 

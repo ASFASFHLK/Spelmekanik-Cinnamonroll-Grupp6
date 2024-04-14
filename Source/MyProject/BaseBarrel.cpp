@@ -46,7 +46,7 @@ void ABaseBarrel::Explode(AController* EventInstigator)
 			CharactersHit.Add(Target);
 		}
 	}
-	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,true,5.f);
+	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
 	
 	
 	

@@ -24,6 +24,6 @@ void AExplosiveEnemy::Explode()
 		ExplosionRadius,DamageType,ActorsToIgnore, this, GetController(),
 		true, ECC_Pawn);
 
-	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,true,5.f);
+	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
 	Destroy();
 }

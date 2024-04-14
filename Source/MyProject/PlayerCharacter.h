@@ -35,6 +35,14 @@ private:
 	UPROPERTY()
 	float ReloadTime = 3;
 	UPROPERTY()
+	float BurstTime = 0.1f;
+	UPROPERTY()
+	int Pellets = 12;
+	UPROPERTY()
+	float Damage = 2;
+	UPROPERTY()
+	int Bursts = 5;
+	UPROPERTY()
 	FTimerHandle ShootTimerHandle = FTimerHandle();
 	
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
@@ -50,6 +58,10 @@ private:
 	void Reload();
 	UFUNCTION(BlueprintCallable)
 	void Fire();
+	UFUNCTION()
+	void UseShotGun();
+	UFUNCTION()
+	void ShotGunShot();
 	
 	UFUNCTION()
 	void LookUp(float Value);

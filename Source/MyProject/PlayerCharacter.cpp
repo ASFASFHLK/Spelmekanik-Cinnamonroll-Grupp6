@@ -23,6 +23,53 @@ void APlayerCharacter::Fire()
 	}
 }
 
+void APlayerCharacter::UseShotGun()
+{
+	UWorld* const World = GetWorld();
+	if(World)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FHitResult HitResult;
+		FCollisionQueryParams QueryParams;
+		for (int b = 0; b < Bursts; ++b)
+		{
+			for (int i = 0; i < Pellets; ++i)
+			{
+				FRotator Spread = FRotator::ZeroRotator;
+				float XSpread = FMath::RandRange(0.f, 30.f);
+				float YSpread = FMath::RandRange(0.f, 30.f);
+				float ZSpread = FMath::RandRange(0.f, 30.f);
+				Spread.Roll = XSpread;
+				Spread.Pitch = YSpread;
+				Spread.Yaw = ZSpread;
+				QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+				World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + ((SpawnRotation.Vector() + Spread.Vector()) * 3000), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + ((SpawnRotation.Vector() + Spread.Vector()) * 3000), FColor::Red, false, 1.5f);
+				if(!HitResult.GetActor())
+				{
+					return;
+				}
+				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
+			}
+			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, BurstTime, false);
+			if(ShotSound){
+				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+			}
+			
+			if(ShotEffect){
+
+			}
+		}
+	}
+}
+
+void APlayerCharacter::ShotGunShot()
+{
+	
+}
+
 void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
 {
 
@@ -59,36 +106,13 @@ void APlayerCharacter::Shoot()
 			return;
 		}
 
-		UWorld* const World = GetWorld();
-		if(World){
-			APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
-			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-			const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-			FCollisionQueryParams QueryParams;
-			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-			FHitResult HitResult;
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
-			DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 1.5f);
-
-			if(ShotSound){
-				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
-			}
-			
-			if(ShotEffect){
-
-			}
-			
-			if(!HitResult.GetActor())
-			{
-				return;
-			}
-			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+		if(UWorld* const World = GetWorld()){
+			UseShotGun();
+			World->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
 			bCanShoot = false;
-			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-			HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
 			
 		
-	}
+		}
 	}
 }
 

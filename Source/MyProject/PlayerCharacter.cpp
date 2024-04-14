@@ -10,6 +10,11 @@
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 
+void APlayerCharacter::Reload()
+{
+	bCanShoot = true;
+}
+
 void APlayerCharacter::Fire()
 {
 	if(!EquipedGun)
@@ -47,40 +52,43 @@ void APlayerCharacter::LookSides(float Value)
 
 // should be moved the gunbase class 
 void APlayerCharacter::Shoot()
-
-
 {	//Character = Cast<AActor*>(this->GetOwner());
-	if(this == nullptr || this->GetController() == nullptr){
-		return;
-	}
-
-	UWorld* const World = GetWorld();
-	if(World){
-		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
-		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-		FHitResult HitResult;
-		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
-		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 1.5f);
-
-		if(ShotSound){
-			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
-		}
-		
-		if(ShotEffect){
-
-		}
-		
-		if(!HitResult.GetActor())
-		{
+	if(bCanShoot)
+	{
+		if(this == nullptr || this->GetController() == nullptr){
 			return;
 		}
+
+		UWorld* const World = GetWorld();
+		if(World){
+			APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+			const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+			FCollisionQueryParams QueryParams;
+			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+			FHitResult HitResult;
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
+			DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 1.5f);
+
+			if(ShotSound){
+				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+			}
+			
+			if(ShotEffect){
+
+			}
+			
+			if(!HitResult.GetActor())
+			{
+				return;
+			}
+			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+			bCanShoot = false;
+			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
+			
 		
-		UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-		HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
-		
+	}
 	}
 }
 

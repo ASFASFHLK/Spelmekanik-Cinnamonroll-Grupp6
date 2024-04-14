@@ -30,6 +30,13 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
 
+	UPROPERTY()
+	bool bCanShoot = true;
+	UPROPERTY()
+	float ReloadTime = 3;
+	UPROPERTY()
+	FTimerHandle ShootTimerHandle = FTimerHandle();
+	
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	float LookUpSpeed = 2.0;
 
@@ -39,6 +46,8 @@ private:
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	bool InvertCamera = false;
 
+	UFUNCTION()
+	void Reload();
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 	

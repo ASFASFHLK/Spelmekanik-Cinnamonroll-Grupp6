@@ -13,6 +13,7 @@
 void APlayerCharacter::Reload()
 {
 	bCanShoot = true;
+	UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
 }
 
 void APlayerCharacter::Fire()
@@ -26,14 +27,31 @@ void APlayerCharacter::Fire()
 void APlayerCharacter::UseShotGun()
 {
 	UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
-	if(BurstCheck < Bursts && !bCanceledShot)
+	if(GetWorld()->GetTimerManager().IsTimerPaused(BurstTimerHandle) && !bCanceledShot)
 	{
+		BurstCheck = 0;
+		GetWorld()->GetTimerManager().UnPauseTimer(BurstTimerHandle);
 		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
 		++BurstCheck;
-	} else 
+		UE_LOG(LogTemp, Warning, TEXT("BurstCheckt = %i"), BurstCheck);
+	}
+	if(BurstCheck == 0 && !bCanceledShot) //crashed after this was added
+	{
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("First shot = %i"), BurstCheck);//crash
+		ShotGunShot();
+	}
+	else if(BurstCheck < Bursts - 1 && !bCanceledShot)
+	{
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("BurstChecknormal = %i"), BurstCheck);
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+	}
+	else//not necessary?
 	{
 		BurstCheck = 0;
 		UE_LOG(LogTemp, Warning, TEXT("BurstCheck = %i"), BurstCheck);
+		CancelShot();
 		GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
 	}
 }
@@ -59,7 +77,7 @@ void APlayerCharacter::ShotGunShot()
 			Spread.Pitch += YSpread;
 			Spread.Yaw += ZSpread;
 			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);//crash
 			if(HitResult.GetActor())
 			{
 				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -122,7 +140,12 @@ void APlayerCharacter::Shoot()
 
 void APlayerCharacter::CancelShot()
 {
-	bCanceledShot = true;	
+	bCanceledShot = true;
+	if(GetWorld())
+	{
+		GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
+		GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+	}	
 }
 
 APlayerCharacter::APlayerCharacter()

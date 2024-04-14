@@ -38,10 +38,11 @@ void AChronoLockModifier::OnUpdate(float DeltaTime)
 	{
 		CurrentTimer-= AdjustedTime;
 	}
-	FString TimerMessage = FString::Printf(TEXT("Slow down time: %f"), CurrentTimer);
+	/*FString TimerMessage = FString::Printf(TEXT("Slow down time: %f"), CurrentTimer);
 	if(GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow,
-			TimerMessage);	
+			TimerMessage);
+			*/
 }
 
 
@@ -55,4 +56,9 @@ void AChronoLockModifier::RevertToNormalTime()
 {
 	IsActivated = false;
 	UGameplayStatics::SetGlobalTimeDilation(this, 1);
+}
+
+float AChronoLockModifier::GetPercent()
+{
+	return CurrentTimer/AmountOfTime;
 }

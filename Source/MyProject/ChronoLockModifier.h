@@ -18,12 +18,17 @@ class MYPROJECT_API AChronoLockModifier : public ABaseModifier
 	virtual void OnAdded() override;
 	virtual void OnUpdate(float DeltaTime) override;
 
+	
+
 private:
 	void SlowDownTime();
 	void RevertToNormalTime();
 	
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	float SlowDownAmount;
+
+	UFUNCTION(BlueprintCallable)
+	float GetPercent();
 
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	float AmountOfTime;
@@ -36,8 +41,6 @@ private:
 
 	UPROPERTY()
 	float AdjustedTime;
-
-	
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Ability")
 	UInputAction* IaSpecialAbility;

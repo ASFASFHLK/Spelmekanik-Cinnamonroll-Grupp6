@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MyProject.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\Module.MyProject.cpp.obj"
+"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\ExplosiveEnemy.cpp.obj"
+"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\PlayerCharacter.cpp.obj"
+"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\Default.rc2.res"
+/OUT:"C:\Users\june\Documents\GitHub\Spelmekanik-Cinnamonroll-Grupp6\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\UnrealEditor-MyProject.lib"

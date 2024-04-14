@@ -7,7 +7,7 @@
 #include "Enemy_Spawner.generated.h"
 
 
-
+class ASpawnerGate;
 
 USTRUCT(BlueprintType)
 struct FSpawnLocation // a bit of a work around as FArrays can not hold FVectors 
@@ -56,7 +56,11 @@ private:
 	int AmountOfEnemiesKilled = 0;
 	
 	int LocationIndex = 0;
+	UPROPERTY()
+	TArray<ASpawnerGate*> SpawnerGates;
 
+	void GetSpawnGatesInScene();
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

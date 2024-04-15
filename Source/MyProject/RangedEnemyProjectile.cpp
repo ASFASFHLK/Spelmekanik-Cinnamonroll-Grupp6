@@ -4,6 +4,7 @@
 #include "RangedEnemyProjectile.h"
 
 #include "BaseCharacter.h"
+#include "BaseEnemy.h"
 #include "PlayerCharacter.h"
 #include "Engine/DamageEvents.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -27,7 +28,7 @@ ARangedEnemyProjectile::ARangedEnemyProjectile()
 void ARangedEnemyProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	ProjectileMesh->OnComponentHit.AddDynamic(this, &ARangedEnemyProjectile::OnHit);
+	ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ARangedEnemyProjectile::OnOverlapBegin);
 	
 }
 
@@ -38,8 +39,8 @@ void ARangedEnemyProjectile::Tick(float DeltaTime)
 
 }
 
-void ARangedEnemyProjectile::OnHit(UPrimitiveComponent* hitComp, AActor* otherActor, UPrimitiveComponent* otherComp,
-	FVector normalImpulse, const FHitResult& HitResult)
+void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(ProjectileOwner == nullptr)
 	{
@@ -47,12 +48,18 @@ void ARangedEnemyProjectile::OnHit(UPrimitiveComponent* hitComp, AActor* otherAc
 		return;
 	}
 	
-	if(APlayerCharacter* PlayerHit = Cast<APlayerCharacter>(HitResult.GetActor()))
+	if(APlayerCharacter* PlayerHit = Cast<APlayerCharacter>(SweepResult.GetActor()))
 	{
 		PlayerHit->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
 		
 	}
-		Destroy();
+	
+	 if(Cast<ABaseEnemy>(SweepResult.GetActor()))
+	{
+		return;
+	}
+	
+	Destroy();
 }
 
 void ARangedEnemyProjectile::SetOwner(AActor* NewOwner)

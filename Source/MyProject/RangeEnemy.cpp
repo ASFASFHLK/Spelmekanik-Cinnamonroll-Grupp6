@@ -22,6 +22,8 @@ void ARangeEnemy::Attack()
 	ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location,
 		Rotation, SpawnInfo);
 
-	SpawnedProjectile->SetOwner(this);
-	
+	if(SpawnedProjectile)
+	{
+		SpawnedProjectile->SetOwner(this);
+	}
 }

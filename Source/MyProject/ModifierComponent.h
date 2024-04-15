@@ -33,7 +33,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	ABaseModifier* ModifierOne;
 	
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(BlueprintReadWrite)
 	ABaseModifier* ModifierTwo;
 		
 };

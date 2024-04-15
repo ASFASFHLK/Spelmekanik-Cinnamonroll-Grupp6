@@ -50,7 +50,9 @@ void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedCompo
 	
 	if(APlayerCharacter* PlayerHit = Cast<APlayerCharacter>(SweepResult.GetActor()))
 	{
+		if(ProjectileOwner != nullptr){
 		PlayerHit->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
+			}
 		
 	}
 	

@@ -38,8 +38,8 @@ private:
 	float ReloadTime = 0.8f;
 	UPROPERTY()
 	float BurstTime = 0.3f;
-	UPROPERTY()
-	int Pellets = 12;
+	UPROPERTY(EditAnywhere)
+	int Pellets = 20;
 	UPROPERTY(EditAnywhere)
 	float Damage = 5;
 	UPROPERTY()

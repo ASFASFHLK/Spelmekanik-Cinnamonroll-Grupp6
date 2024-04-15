@@ -19,5 +19,8 @@ class MYPROJECT_API AWaterBarrel : public ABaseBarrel
 private:
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	float TimeStunned;
+
+	UPROPERTY(EditAnywhere, Category = "Ability")
+	float SlowAmount;
 	
 };

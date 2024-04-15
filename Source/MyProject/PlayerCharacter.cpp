@@ -10,12 +10,88 @@
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 
+void APlayerCharacter::Reload()
+{
+	bCanShoot = true;
+	BurstCheck = 0;
+	UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
+}
+
 void APlayerCharacter::Fire()
 {
 	if(!EquipedGun)
 	{
 		return;
 	}
+}
+
+void APlayerCharacter::UseShotGun()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
+	if(BurstCheck == 0 && !bCanceledShot) //crashed after this was added
+	{
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("First shot = %i"), BurstCheck);//crash
+		ShotGunShot();
+	}
+	if(GetWorld()->GetTimerManager().IsTimerPaused(BurstTimerHandle) && !bCanceledShot)
+	{
+		GetWorld()->GetTimerManager().UnPauseTimer(BurstTimerHandle);
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("BurstCheckt = %i"), BurstCheck);
+	}
+	else if(BurstCheck < Bursts - 1 && !bCanceledShot)
+	{
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("BurstChecknormal = %i"), BurstCheck);
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+	}
+	// else//not necessary?
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("BurstCheck = %i"), BurstCheck);
+	// 	CancelShot();
+	// 	GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+	// }
+}
+
+void APlayerCharacter::ShotGunShot()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I shot a shot"));
+	UWorld* const World = GetWorld();
+	if(World)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FHitResult HitResult;
+		FCollisionQueryParams QueryParams;
+		for (int i = 0; i < Pellets; ++i)
+		{
+			FRotator Spread = SpawnRotation;
+			double XSpread = FMath::RandRange(0.0f, 30.f);
+			float YSpread = FMath::RandRange(0.0f, 30.f);
+			float ZSpread = FMath::RandRange(0.0f, 30.f);
+			Spread.Roll += XSpread;
+			Spread.Pitch += YSpread;
+			Spread.Yaw += ZSpread;
+			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);//crash
+			if(HitResult.GetActor())
+			{
+				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetController(), this );
+				if(ShotSound){
+					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+				}
+				
+				if(ShotEffect){
+
+				}
+			}
+		}
+	}
+	UseShotGun();
 }
 
 void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
@@ -47,41 +123,32 @@ void APlayerCharacter::LookSides(float Value)
 
 // should be moved the gunbase class 
 void APlayerCharacter::Shoot()
-
-
 {	//Character = Cast<AActor*>(this->GetOwner());
-	if(this == nullptr || this->GetController() == nullptr){
-		return;
-	}
-
-	UWorld* const World = GetWorld();
-	if(World){
-		APlayerController* PlayerController = Cast<APlayerController>(this->GetController());
-		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-		FHitResult HitResult;
-		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), ECollisionChannel::ECC_Pawn, QueryParams);
-		DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * 3000), FColor::Red, false, 1.5f);
-
-		if(ShotSound){
-			UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
-		}
-		
-		if(ShotEffect){
-
-		}
-		
-		if(!HitResult.GetActor())
-		{
+	if(bCanShoot)
+	{
+		bCanceledShot = false;
+		if(this == nullptr || this->GetController() == nullptr){
 			return;
 		}
-		
-		UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-		HitResult.GetActor()->TakeDamage(10.f, FDamageEvent(),GetController(), this );
-		
+		if(UWorld* const World = GetWorld()){
+			UseShotGun();
+			bCanShoot = false;
+		}
 	}
+}
+
+void APlayerCharacter::CancelShot()
+{
+	if(GetWorld())
+	{
+		if(!bCanceledShot)
+		{
+			bCanceledShot = true;
+			BurstCheck = 0;
+			GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
+			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+		}
+	}	
 }
 
 APlayerCharacter::APlayerCharacter()

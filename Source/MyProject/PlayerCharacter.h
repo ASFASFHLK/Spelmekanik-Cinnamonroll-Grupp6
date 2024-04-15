@@ -30,6 +30,28 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
 
+	UPROPERTY()
+	bool bCanShoot = true;
+	UPROPERTY()
+	bool bCanceledShot = false;
+	UPROPERTY()
+	float ReloadTime = 0.8f;
+	UPROPERTY()
+	float BurstTime = 0.3f;
+	UPROPERTY()
+	int Pellets = 12;
+	UPROPERTY()
+	float Damage = 2;
+	UPROPERTY()
+	int Bursts = 5;
+	UPROPERTY()
+	int ShotDistance = 800;
+	UPROPERTY()
+	int BurstCheck = 0;
+	UPROPERTY()
+	FTimerHandle ShootTimerHandle = FTimerHandle();
+	UPROPERTY()
+	FTimerHandle BurstTimerHandle = FTimerHandle();
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	float LookUpSpeed = 2.0;
 
@@ -39,8 +61,14 @@ private:
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	bool InvertCamera = false;
 
+	UFUNCTION()
+	void Reload();
 	UFUNCTION(BlueprintCallable)
 	void Fire();
+	UFUNCTION()
+	void UseShotGun();
+	UFUNCTION()
+	void ShotGunShot();
 	
 	UFUNCTION()
 	void LookUp(float Value);
@@ -51,6 +79,8 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void Shoot();
 
+	UFUNCTION(BlueprintCallable)
+	void CancelShot();
 
 	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess= true), Category = "Gun")
 	UNiagaraSystem* ShotEffect;

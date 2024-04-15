@@ -16,7 +16,6 @@ void UBTService_PlayerLocation::TickNode(UBehaviorTreeComponent& OwnerComp, uint
 
 	UBlackboardComponent* MyBlackBoardComponent = OwnerComp.GetBlackboardComponent();
 	APawn* Player = UGameplayStatics::GetPlayerPawn(this, 0);
-	UE_LOG(LogTemp, Display, TEXT("%s"), *Player->GetActorLocation().ToString());
 
 	if(MyBlackBoardComponent)
 	{

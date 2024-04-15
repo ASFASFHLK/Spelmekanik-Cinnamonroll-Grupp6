@@ -33,6 +33,7 @@ void APlayerCharacter::UseShotGun()
 		++BurstCheck;
 		UE_LOG(LogTemp, Warning, TEXT("First shot = %i"), BurstCheck);//crash
 		ShotGunShot();
+		
 	}
 	if(GetWorld()->GetTimerManager().IsTimerPaused(BurstTimerHandle) && !bCanceledShot)
 	{

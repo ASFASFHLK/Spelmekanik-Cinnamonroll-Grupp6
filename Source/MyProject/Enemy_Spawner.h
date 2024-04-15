@@ -7,15 +7,9 @@
 #include "Enemy_Spawner.generated.h"
 
 
+class ASpawnerGate;
 
 
-USTRUCT(BlueprintType)
-struct FSpawnLocation // a bit of a work around as FArrays can not hold FVectors 
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
-	FVector Pos;
-};
 
 
 UCLASS()
@@ -38,9 +32,6 @@ private:
 	void OnDeathEvent();
 	
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
-	TArray<FSpawnLocation> SpawnLocation;
-
-	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
 
 	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
@@ -56,7 +47,11 @@ private:
 	int AmountOfEnemiesKilled = 0;
 	
 	int LocationIndex = 0;
+	UPROPERTY()
+	TArray<ASpawnerGate*> SpawnerGates;
 
+	void GetSpawnGatesInScene();
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

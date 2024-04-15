@@ -1,0 +1,21 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\waveinformation.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\waveinformation.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\noexporttypes.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\serialization\\testundeclaredscriptstructobjectreferences.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\core\\public\\math\\unitconversion.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\core\\public\\math\\unitconversion.inl",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\core\\public\\internationalization\\polyglottextdata.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\waveinformation.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\explosiveenemy.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\explosiveenemy.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\baseenemy.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\basecharacter.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\basecharacter.generated.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\baseenemy.generated.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\explosiveenemy.generated.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\source\\myproject\\healthcomp.h",
+            "c:\\users\\june\\documents\\github\\spelmekanik-cinnamonroll-grupp6\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\healthcomp.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\engine\\damageevents.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\damageevents.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystatics.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetsystemlibrary.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetsystemlibrary.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\sound\\dialoguetypes.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\dialoguetypes.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystaticstypes.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystaticstypes.generated.h",
+            "d:\\epic\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystatics.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

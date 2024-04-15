@@ -25,5 +25,7 @@ void AExplosiveEnemy::Explode()
 		true, ECC_Pawn);
 
 	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
+	const bool Discard = OnDeath.ExecuteIfBound();
+
 	Destroy();
 }

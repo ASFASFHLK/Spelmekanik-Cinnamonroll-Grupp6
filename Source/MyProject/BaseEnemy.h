@@ -25,6 +25,8 @@ public:
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
+	int32 GetCost() const {return Cost;}
 	
 	FOnDeath OnDeath;
 	
@@ -49,6 +51,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float TargetIsCloseRange;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	int32 Cost;
 
 	UPROPERTY()
 	float CurrentAttackCooldown;

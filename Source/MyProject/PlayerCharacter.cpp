@@ -13,6 +13,7 @@
 void APlayerCharacter::Reload()
 {
 	bCanShoot = true;
+	BurstCheck = 0;
 	UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
 }
 
@@ -27,19 +28,18 @@ void APlayerCharacter::Fire()
 void APlayerCharacter::UseShotGun()
 {
 	UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
-	if(GetWorld()->GetTimerManager().IsTimerPaused(BurstTimerHandle) && !bCanceledShot)
-	{
-		BurstCheck = 0;
-		GetWorld()->GetTimerManager().UnPauseTimer(BurstTimerHandle);
-		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
-		++BurstCheck;
-		UE_LOG(LogTemp, Warning, TEXT("BurstCheckt = %i"), BurstCheck);
-	}
 	if(BurstCheck == 0 && !bCanceledShot) //crashed after this was added
 	{
 		++BurstCheck;
 		UE_LOG(LogTemp, Warning, TEXT("First shot = %i"), BurstCheck);//crash
 		ShotGunShot();
+	}
+	if(GetWorld()->GetTimerManager().IsTimerPaused(BurstTimerHandle) && !bCanceledShot)
+	{
+		GetWorld()->GetTimerManager().UnPauseTimer(BurstTimerHandle);
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
+		++BurstCheck;
+		UE_LOG(LogTemp, Warning, TEXT("BurstCheckt = %i"), BurstCheck);
 	}
 	else if(BurstCheck < Bursts - 1 && !bCanceledShot)
 	{
@@ -47,13 +47,12 @@ void APlayerCharacter::UseShotGun()
 		UE_LOG(LogTemp, Warning, TEXT("BurstChecknormal = %i"), BurstCheck);
 		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &APlayerCharacter::ShotGunShot, BurstTime, false);
 	}
-	else//not necessary?
-	{
-		BurstCheck = 0;
-		UE_LOG(LogTemp, Warning, TEXT("BurstCheck = %i"), BurstCheck);
-		CancelShot();
-		GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
-	}
+	// else//not necessary?
+	// {
+	// 	UE_LOG(LogTemp, Warning, TEXT("BurstCheck = %i"), BurstCheck);
+	// 	CancelShot();
+	// 	GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+	// }
 }
 
 void APlayerCharacter::ShotGunShot()
@@ -140,11 +139,15 @@ void APlayerCharacter::Shoot()
 
 void APlayerCharacter::CancelShot()
 {
-	bCanceledShot = true;
 	if(GetWorld())
 	{
-		GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
-		GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+		if(!bCanceledShot)
+		{
+			bCanceledShot = true;
+			BurstCheck = 0;
+			GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
+			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
+		}
 	}	
 }
 

@@ -75,3 +75,7 @@ DerivedDataCache/*
 /Plugins/Developer/RiderLink/Intermediate/Build/Linux
 /Plugins/Developer/RiderLink/Source
 /.idea
+
+# FMOD plugins
+/Plugins/FMODStudio/*
+/Plugins/FMODStudioNiagara/*

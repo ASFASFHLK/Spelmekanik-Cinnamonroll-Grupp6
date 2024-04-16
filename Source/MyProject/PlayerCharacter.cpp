@@ -8,6 +8,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 void APlayerCharacter::Reload()
@@ -152,6 +153,13 @@ void APlayerCharacter::CancelShot()
 	}	
 }
 
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GetCharacterMovement()->AirControl = AirTime; 
+}
+
 APlayerCharacter::APlayerCharacter()
 {
 	// Sets the default player size 
@@ -202,5 +210,27 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	}
 	
 	return DamageTaken;
+	
+}
+
+void APlayerCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if(GetCharacterMovement()->IsFalling() && false)
+	{
+		float mouseX;
+		float mouseY;
+		const APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		PlayerController->GetMousePosition(mouseX, mouseY); // should be cached
+		const float AxisValue = PlayerController->GetInputAxisValue( TEXT("LookRight"));
+		const float MoveValue = AxisValue * mouseX;
+
+		if(MoveValue > 0.5f)
+		{
+			
+		}
+		
+	}
 	
 }

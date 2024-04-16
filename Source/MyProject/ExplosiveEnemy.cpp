@@ -14,6 +14,18 @@ void AExplosiveEnemy::Attack()
 	Explode();
 }
 
+
+
+
+bool AExplosiveEnemy::BothInPosition()
+{
+	if(!IAmInPosition || !PartnerInPosition)
+	{
+		return false;
+	}
+	return true;
+}
+
 void AExplosiveEnemy::Explode()
 {
 	const FVector Height = GetActorUpVector() + GetActorLocation();

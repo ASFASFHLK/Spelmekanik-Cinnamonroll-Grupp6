@@ -6,6 +6,7 @@
 #include "BaseCharacter.h"
 #include "BaseEnemy.generated.h"
 
+class ASquad;
 class AAIController;
 DECLARE_DYNAMIC_DELEGATE(FOnDeath);
 
@@ -26,15 +27,28 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-	int32 GetCost() const {return Cost;}
+	bool HasPartner() const;
+
+	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
+
+	void AlertPartnerOfDeath();
+	
+	void MyPartnerHasDied();
+
+	ABaseEnemy* GetPartner() const {return Partner;}
+	
+	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}
 	
 	FOnDeath OnDeath;
 	
 	virtual void Attack();
 
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
+
+	
 
 private:
 
@@ -52,11 +66,13 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float TargetIsCloseRange;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Combat")
-	int32 Cost;
-
 	UPROPERTY()
 	float CurrentAttackCooldown;
 	
+	UPROPERTY(VisibleAnywhere, Category = "Squad")
+	ASquad* MySquad;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Squad")
+	ABaseEnemy* Partner;
 };
 

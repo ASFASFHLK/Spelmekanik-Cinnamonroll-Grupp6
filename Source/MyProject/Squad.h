@@ -7,6 +7,7 @@
 #include "Containers/Map.h"
 #include "Squad.generated.h"
 
+class ASquadManager;
 class ABaseEnemy;
 
 UCLASS()
@@ -26,18 +27,27 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+	void SetSquadManager(ASquadManager* SquadManager) {MySquadManager = SquadManager;}
+	bool FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor);
+	void FindNewPartner(ABaseEnemy* Enemy);
+	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	int32 SquadValue = 10;
+	int32 SquadValue = 5;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	TArray<TSubclassOf<ABaseEnemy>> SquadMembers;
-
+	UPROPERTY(VisibleAnywhere, Category = "Squad")
+	TArray<ABaseEnemy*> SquadMembers;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
 	TArray<TSubclassOf<ABaseEnemy>> EnemyTypes;
 
+	UPROPERTY(VisibleAnywhere)
+	ASquadManager* MySquadManager;
 
-
-	void CreateMembers();
+	void CreateSquadMembers();
+	void BindAllSquadMembers();
+	void BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo);
 
 };

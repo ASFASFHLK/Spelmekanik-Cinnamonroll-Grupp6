@@ -4,6 +4,7 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "SquadManager.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Tasks/GameplayTask_SpawnActor.h"
 
@@ -19,7 +20,8 @@ ASquad::ASquad()
 void ASquad::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	CreateSquadMembers();
+	BindAllSquadMembers();
 	
 }
 
@@ -30,17 +32,85 @@ void ASquad::Tick(float DeltaTime)
 
 }
 
-void ASquad::CreateMembers()
+void ASquad::CreateSquadMembers()
 {
-	int32 Next;
-	while(SquadValue >= 0)
+	while(SquadValue > 0)
 	{
-		Next = UKismetMathLibrary::RandomIntegerInRange(0, EnemyTypes.Num()-1);
+		const int32 NextToSpawn = UKismetMathLibrary::RandomIntegerInRange(0, EnemyTypes.Num()-1);
 		
 		
-		FVector SpawnLocation = FVector::ZeroVector; // Set your desired spawn location
-		FRotator SpawnRotation = FRotator::ZeroRotator; // Set your desired spawn rotation
-		ABaseEnemy* SpawnedActor = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[Next], SpawnLocation, SpawnRotation);
+		ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[NextToSpawn],
+			GetActorLocation(), FRotator(), FActorSpawnParameters());
+		if(SpawnedEnemy == nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Null"));
+			return;
+		}
+		SpawnedEnemy->SpawnDefaultController();
+		SpawnedEnemy->SetSquad(this);
+		SquadMembers.Add(SpawnedEnemy);
+		SquadValue--;
 	}
 }
+
+void ASquad::BindAllSquadMembers()
+{
+	ABaseEnemy* PreviousEnemy = nullptr;
+	for(ABaseEnemy* Enemy : SquadMembers)
+	{
+		if(!Enemy->HasPartner())
+		{
+			if(PreviousEnemy != nullptr)
+			{
+				BindPartners(Enemy,PreviousEnemy);
+				PreviousEnemy = nullptr;
+			}else
+			{
+				PreviousEnemy = Enemy;
+			}
+		}
+	}
+}
+
+void ASquad::BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo)
+{
+	EnemyOne->SetPartner(EnemyTwo);
+	EnemyTwo->SetPartner(EnemyOne);
+}
+
+bool ASquad::FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor)
+{
+	for(ABaseEnemy* Enemy : SquadMembers)
+	{
+		if(!Enemy->HasPartner() && Enemy != EnemyToFindPartnerFor)
+		{
+			if(!SquadMembers.Contains(EnemyToFindPartnerFor)){
+				SquadMembers.Add(EnemyToFindPartnerFor);
+			}
+			BindPartners(Enemy,EnemyToFindPartnerFor);
+			EnemyToFindPartnerFor->SetSquad(this);
+			return true;
+		}
+	}
+	return false;
+}
+
+void ASquad::FindNewPartner(ABaseEnemy* Enemy)
+{
+	if(MySquadManager)
+	{
+		MySquadManager->AssignNewPartner(Enemy, this);
+	}
+}
+
+void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
+{
+	SquadMembers.Remove(EnemyToRemove);
+	if(SquadMembers.Num() == 0)
+	{
+		Destroy();
+	}
+}
+
+
 

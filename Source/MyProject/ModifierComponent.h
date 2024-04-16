@@ -21,6 +21,8 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
+	int MaxModifiersAllowed = 3;
 
 public:	
 	// Called every frame
@@ -28,8 +30,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace);
-	
+
+	void SetMaxModifiersAllowed(int NewValue);
 public:
+	
+
+	
+	UPROPERTY(BlueprintReadWrite)
+	TArray<ABaseModifier*> Modifiers;
+	
 	UPROPERTY(BlueprintReadWrite)
 	ABaseModifier* ModifierOne;
 	

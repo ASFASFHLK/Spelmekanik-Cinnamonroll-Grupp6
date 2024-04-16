@@ -13,6 +13,10 @@ EBTNodeResult::Type UBTTask_ExplosiveInPosition::ExecuteTask(UBehaviorTreeCompon
 	Enemy = Cast<AExplosiveEnemy>(AIController->GetPawn());
 	AExplosiveEnemy* EnemyPartner = Cast<AExplosiveEnemy>(Enemy->GetPartner());
 	Enemy->IAmInPosition = true;
-	EnemyPartner->PartnerInPosition = true;
+
+	if(EnemyPartner)
+	{
+		EnemyPartner->PartnerInPosition = true;
+	}
 	return Super::ExecuteTask(OwnerComp, NodeMemory);
 }

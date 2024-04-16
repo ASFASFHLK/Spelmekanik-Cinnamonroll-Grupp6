@@ -26,6 +26,13 @@ bool AExplosiveEnemy::BothInPosition()
 	return true;
 }
 
+void AExplosiveEnemy::Test(FVector Destination)
+{
+	//FVector Testing;
+	//UGameplayStatics::SuggestProjectileVelocity_CustomArc(this, &Testing, GetActorLocation(), Destination)
+	//LaunchCharacter()
+}
+
 void AExplosiveEnemy::Explode()
 {
 	const FVector Height = GetActorUpVector() + GetActorLocation();

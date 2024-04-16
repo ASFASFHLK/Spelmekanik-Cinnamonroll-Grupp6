@@ -25,6 +25,9 @@ public:
 	
 	
 private:
+	UFUNCTION(BlueprintCallable)
+	void Test(FVector Destination);
+	
 	void Explode();
 	virtual void Attack() override;
 

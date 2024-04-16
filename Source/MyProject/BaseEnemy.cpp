@@ -33,7 +33,7 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 {
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	
-	if(DamageTaken >= HealthComp->GetCurrentHealth()) // If we die 
+	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
 		UE_LOG(LogTemp, Display, TEXT("I am dead"));
 		// calls the event

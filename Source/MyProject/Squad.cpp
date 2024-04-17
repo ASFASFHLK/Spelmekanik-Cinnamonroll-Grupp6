@@ -20,8 +20,14 @@ ASquad::ASquad()
 void ASquad::BeginPlay()
 {
 	Super::BeginPlay();
-	CreateSquadMembers();
-	BindAllSquadMembers();
+	if(RandomlyGenerated)
+	{
+		CreateSquadMembers();
+	}
+	if(PartnerEnabled)
+	{
+		BindAllSquadMembers();
+	}
 	
 }
 
@@ -37,13 +43,11 @@ void ASquad::CreateSquadMembers()
 	while(SquadValue > 0)
 	{
 		const int32 NextToSpawn = UKismetMathLibrary::RandomIntegerInRange(0, EnemyTypes.Num()-1);
-		
-		
 		ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[NextToSpawn],
 			GetActorLocation(), FRotator(), FActorSpawnParameters());
+		
 		if(SpawnedEnemy == nullptr)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Null"));
 			return;
 		}
 		SpawnedEnemy->SpawnDefaultController();
@@ -55,18 +59,17 @@ void ASquad::CreateSquadMembers()
 
 void ASquad::BindAllSquadMembers()
 {
-	ABaseEnemy* PreviousEnemy = nullptr;
 	for(ABaseEnemy* Enemy : SquadMembers)
 	{
 		if(!Enemy->HasPartner())
 		{
-			if(PreviousEnemy != nullptr)
+			if(MemberWithoutPartner != nullptr)
 			{
-				BindPartners(Enemy,PreviousEnemy);
-				PreviousEnemy = nullptr;
+				BindPartners(Enemy,MemberWithoutPartner);
+				MemberWithoutPartner = nullptr;
 			}else
 			{
-				PreviousEnemy = Enemy;
+				MemberWithoutPartner = Enemy;
 			}
 		}
 	}
@@ -80,17 +83,15 @@ void ASquad::BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo)
 
 bool ASquad::FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor)
 {
-	for(ABaseEnemy* Enemy : SquadMembers)
+	if(MemberWithoutPartner && MemberWithoutPartner != EnemyToFindPartnerFor)
 	{
-		if(!Enemy->HasPartner() && Enemy != EnemyToFindPartnerFor)
-		{
-			if(!SquadMembers.Contains(EnemyToFindPartnerFor)){
-				SquadMembers.Add(EnemyToFindPartnerFor);
-			}
-			BindPartners(Enemy,EnemyToFindPartnerFor);
+		if(!SquadMembers.Contains(EnemyToFindPartnerFor)){
+			SquadMembers.Add(EnemyToFindPartnerFor);
 			EnemyToFindPartnerFor->SetSquad(this);
-			return true;
 		}
+		BindPartners(MemberWithoutPartner,EnemyToFindPartnerFor);
+		MemberWithoutPartner = nullptr;
+		return true;
 	}
 	return false;
 }
@@ -99,7 +100,10 @@ void ASquad::FindNewPartner(ABaseEnemy* Enemy)
 {
 	if(MySquadManager)
 	{
-		MySquadManager->AssignNewPartner(Enemy, this);
+		if(!MySquadManager->AssignNewPartner(Enemy, this))
+		{
+			MemberWithoutPartner = Enemy;
+		}
 	}
 }
 

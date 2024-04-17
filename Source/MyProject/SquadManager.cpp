@@ -29,11 +29,11 @@ void ASquadManager::Tick(float DeltaTime)
 
 }
 
-void ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad)
+bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad)
 {
 	if(OriginalSquad->FindSquadMemberToBind(EnemyToAssign))
 	{
-		return;
+		return true;
 	}
 	
 	for(ASquad* Squad : MySquads)
@@ -41,9 +41,10 @@ void ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* Original
 		if(Squad->FindSquadMemberToBind(EnemyToAssign))
 		{
 			OriginalSquad->RemoveFromSquad(EnemyToAssign);
-			break;
+			return true;
 		}
 	}
+	return false;
 }
 
 void ASquadManager::SpawnSquads()

@@ -26,7 +26,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	void AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad);
+	bool AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad);
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")

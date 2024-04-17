@@ -32,6 +32,7 @@ public:
 	bool FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor);
 	void FindNewPartner(ABaseEnemy* Enemy);
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
+	
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
@@ -43,8 +44,17 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
 	TArray<TSubclassOf<ABaseEnemy>> EnemyTypes;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ASquadManager* MySquadManager;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Squad")
+	bool RandomlyGenerated;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Squad")
+	bool PartnerEnabled;
+
+	UPROPERTY(VisibleAnywhere)
+	ABaseEnemy* MemberWithoutPartner;
 
 	void CreateSquadMembers();
 	void BindAllSquadMembers();

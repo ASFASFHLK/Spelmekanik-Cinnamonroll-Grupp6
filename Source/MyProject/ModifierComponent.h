@@ -6,8 +6,11 @@
 #include "Components/ActorComponent.h"
 #include "ModifierComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUpdate, float, update);
 
 class ABaseModifier;
+
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MYPROJECT_API UModifierComponent : public UActorComponent
@@ -23,6 +26,9 @@ protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int MaxModifiersAllowed = 3;
+	FOnUpdate ModifierUpdates;
+	void AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,  const int ModifierPlace);
+	void RemoveModifer(const int ModifierPlace);
 
 public:	
 	// Called every frame

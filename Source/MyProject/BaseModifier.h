@@ -29,6 +29,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void OnAdded();
+	UFUNCTION()
 	virtual void OnUpdate(float DeltaTime);
 	virtual void OnRemoved();
 

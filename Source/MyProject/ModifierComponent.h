@@ -40,15 +40,7 @@ public:
 	void SetMaxModifiersAllowed(int NewValue);
 public:
 	
-
-	
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadOnly)
 	TArray<ABaseModifier*> Modifiers;
 	
-	UPROPERTY(BlueprintReadWrite)
-	ABaseModifier* ModifierOne;
-	
-	UPROPERTY(BlueprintReadWrite)
-	ABaseModifier* ModifierTwo;
-		
 };

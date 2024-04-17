@@ -42,10 +42,16 @@ void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModi
 
 void UModifierComponent::RemoveModifer(const int ModifierPlace)
 {
-	Modifiers[ModifierPlace]->OnRemoved();
-	Modifiers[ModifierPlace]->Destroy();
-	ModifierUpdates.RemoveDynamic(Modifiers[ModifierPlace], &ABaseModifier::OnUpdate);
+	ABaseModifier* Target = Modifiers[ModifierPlace];
 	
+	if(Target == nullptr)
+	{
+		return;
+	}
+	
+	Target->OnRemoved();
+	Target->Destroy();
+	ModifierUpdates.RemoveDynamic(Target, &ABaseModifier::OnUpdate);
 }
 
 // Called every frame

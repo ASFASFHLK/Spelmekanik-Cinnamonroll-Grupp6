@@ -20,7 +20,6 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 
 	if(MovementComponent->IsFalling())
 	{
-		
 		if(CurrentSpeedInc >= MaxSpeed or SpeedAdded)
 		{
 			return;
@@ -29,6 +28,7 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 		UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
 		CurrentSpeedInc+= SpeedInc;
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
+		Accumulator = 0;
 	}
 	else
 	{

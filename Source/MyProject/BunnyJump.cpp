@@ -10,8 +10,6 @@ void ABunnyJump::OnAdded()
 {
 	Super::OnAdded();
 	MovementComponent = PlayerCharacter->GetCharacterMovement();
-	DefaultSpeed = MovementComponent->MaxWalkSpeed;
-	UE_LOG(LogTemp, Warning, TEXT("Default speed %f"), DefaultSpeed)
 }
 
 void ABunnyJump::OnUpdate(float DeltaTime)
@@ -38,7 +36,7 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 			UE_LOG(LogTemp, Warning, TEXT("Reseting speed"))
 			CurrentSpeedInc = 0;
 			Accumulator = 0;
-			MovementComponent->MaxWalkSpeed = DefaultSpeed;
+			MovementComponent->MaxWalkSpeed = PlayerCharacter->DefaultMovementSpeed;
 		}
 		SpeedAdded = false;
 	}

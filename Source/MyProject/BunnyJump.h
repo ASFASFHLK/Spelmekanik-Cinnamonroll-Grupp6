@@ -28,8 +28,7 @@ private:
 	float CurrentSpeedInc = 0;
 	UPROPERTY()
 	class UCharacterMovementComponent* MovementComponent;
-
-	float DefaultSpeed = 0;
+	
 	bool SpeedAdded = false; 
 	
 };

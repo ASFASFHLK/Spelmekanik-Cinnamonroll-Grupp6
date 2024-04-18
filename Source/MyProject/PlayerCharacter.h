@@ -103,7 +103,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gameplay")
 	FVector MuzzleOffset = FVector(100,0,10);
-
+	float DefaultMovementSpeed = 0;
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
 

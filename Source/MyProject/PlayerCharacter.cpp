@@ -203,7 +203,7 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	// Player Specific Damage handler 
-	if(DamageTaken >= HealthComp->GetCurrentHealth())
+	if( 0 >= HealthComp->GetCurrentHealth())
 	{
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
 		DisableInput(Cast<APlayerController>(GetController()));

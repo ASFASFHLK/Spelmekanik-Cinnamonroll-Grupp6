@@ -14,7 +14,20 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
 
+public:
+	
+	bool BothInPosition();
+	UPROPERTY()
+	bool PartnerInPosition;
+
+	UPROPERTY()
+	bool IAmInPosition;
+	
+	
 private:
+	UFUNCTION(BlueprintCallable)
+	void Test(FVector Destination);
+	
 	void Explode();
 	virtual void Attack() override;
 
@@ -23,6 +36,4 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ExplosionRadius;
-
-	
 };

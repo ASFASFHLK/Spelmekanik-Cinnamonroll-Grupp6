@@ -22,6 +22,7 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UModifierComponent* ModifierComponent;
+
 	
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")

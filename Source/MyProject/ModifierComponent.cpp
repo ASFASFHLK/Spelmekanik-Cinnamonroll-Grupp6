@@ -23,25 +23,24 @@ void UModifierComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	Modifiers.SetNum(MaxModifiersAllowed);
-	for(int i = 0; i < MaxModifiersAllowed; i++)
-	{
-		Modifiers[i] = nullptr;
-	}
+	Modifiers.SetNum(MaxModifiersAllowed);// sets the default size 
+	
+	// sets up the default modifer array 
 }
 
 
-void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace)
+void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace, TArray<ABaseModifier*>& List)
 {
 	ABaseModifier* CreatedModifier = NewObject<ABaseModifier>(this, NewModifier);
 	CreatedModifier->OnAdded();
 	UE_LOG(LogTemp, Warning, TEXT("Added a Modifer with the name %ls"), *CreatedModifier->GetName());
-	Modifiers[ModifierPlace] = CreatedModifier;
+	List[ModifierPlace] = CreatedModifier;
 	ModifierUpdates.AddDynamic(CreatedModifier, &ABaseModifier::OnUpdate);
 }
 
-void UModifierComponent::RemoveModifer(const int ModifierPlace)
+void UModifierComponent::RemoveModifer(const int ModifierPlace, TArray<ABaseModifier*>& List)
 {
+	// might be a bit redundant 
 	ABaseModifier* Target = Modifiers[ModifierPlace];
 	
 	if(Target == nullptr)
@@ -71,33 +70,34 @@ void UModifierComponent::ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier,
 	}
 	if(Modifiers[ModifierPlace] != nullptr)
 	{
-		RemoveModifer(ModifierPlace);
+		RemoveModifer(ModifierPlace, Modifiers);
 	}
-	AddNewModifier(NewModifier, ModifierPlace);
+	AddNewModifier(NewModifier, ModifierPlace, Modifiers);
 }
 
 void UModifierComponent::SetMaxModifiersAllowed(int NewValue)
 {
-
 	if(NewValue < MaxModifiersAllowed)
 	{
 		UE_LOG(LogTemp, Display, TEXT("I will remove all modifers that excided the maximum amount allowed"));
 		for(int i = MaxModifiersAllowed -1; i > NewValue; i--)
 		{
-			RemoveModifer(i);
-		}
-		// has to be duplicate due to order that it has to happen in 
-		Modifiers.SetNum(MaxModifiersAllowed);
-	}
-	else
-	{
-		Modifiers.SetNum(MaxModifiersAllowed);
-		for(int i = MaxModifiersAllowed; i < NewValue; i++)
-		{
-			Modifiers[i] = nullptr;
+			RemoveModifer(i, Modifiers);
 		}
 	}
+	Modifiers.SetNum(MaxModifiersAllowed);
 	MaxModifiersAllowed = NewValue;
+}
+
+void UModifierComponent::SetUp()
+{
+	DefaultModifiers_Internal.SetNum(DefaultModifiers.Num());
+	int i = 0;
+	for (const TSubclassOf<ABaseModifier> DefaultMod : DefaultModifiers)
+	{
+		AddNewModifier(DefaultMod, i, DefaultModifiers_Internal);
+		i++;
+	}
 }
 
 

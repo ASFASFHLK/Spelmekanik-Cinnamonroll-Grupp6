@@ -21,14 +21,30 @@ public:
 	// Sets default values for this component's properties
 	UModifierComponent();
 
+private:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	int MaxModifiersAllowed = 3;
+	
+	FOnUpdate ModifierUpdates;
+
+	void AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,  const int ModifierPlace, TArray<ABaseModifier*>& List);
+	void RemoveModifer(const int ModifierPlace, TArray<ABaseModifier*>& List);
+
+	// Modifier containers 
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess= "true"))
+	TArray<ABaseModifier*> Modifiers;
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess= "true"))
+	TArray<ABaseModifier*> DefaultModifiers_Internal;
+
+	UPROPERTY(EditDefaultsOnly)
+	TArray<TSubclassOf<ABaseModifier>> DefaultModifiers; 
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
-	int MaxModifiersAllowed = 3;
-	FOnUpdate ModifierUpdates;
-	void AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,  const int ModifierPlace);
-	void RemoveModifer(const int ModifierPlace);
+
+	
+
 
 public:	
 	// Called every frame
@@ -38,9 +54,8 @@ public:
 	void ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace);
 
 	void SetMaxModifiersAllowed(int NewValue);
-public:
-	
-	UPROPERTY(BlueprintReadOnly)
-	TArray<ABaseModifier*> Modifiers;
+	UFUNCTION()
+	void SetUp(); 
+
 	
 };

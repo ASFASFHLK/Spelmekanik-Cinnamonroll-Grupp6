@@ -157,7 +157,11 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetCharacterMovement()->AirControl = AirTime; 
+	GetCharacterMovement()->AirControl = AirTime;
+	if(ModifierComponent != nullptr)
+	{
+		ModifierComponent->SetUp(); // prevents a de-sync 
+	}
 }
 
 APlayerCharacter::APlayerCharacter()

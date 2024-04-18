@@ -16,7 +16,7 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 {
 	Super::OnUpdate(DeltaTime);
 
-	if(MovementComponent->IsFalling())
+	if(MovementComponent->IsFalling()) // will have the funny side effect of adding speed when falling 
 	{
 		if(CurrentSpeedInc >= MaxSpeed or SpeedAdded)
 		{

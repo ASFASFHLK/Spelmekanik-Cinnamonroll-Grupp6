@@ -26,6 +26,12 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 		SpeedAdded = true;
 		UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
 		CurrentSpeedInc+= SpeedInc;
+		if(CurrentSpeedInc > MaxSpeed) // fixes a bug that can cause us to go faster than we are allowed to 
+		{
+			MovementComponent->MaxWalkSpeed = MaxSpeed;
+			return;
+		}
+		
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
 	}
 	else

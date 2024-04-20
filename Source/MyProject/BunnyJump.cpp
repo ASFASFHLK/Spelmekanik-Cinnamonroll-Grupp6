@@ -18,6 +18,7 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 
 	if(MovementComponent->IsFalling()) // will have the funny side effect of adding speed when falling 
 	{
+		Accumulator = 0;
 		if(CurrentSpeedInc >= MaxSpeed or SpeedAdded)
 		{
 			return;
@@ -26,16 +27,15 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 		UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
 		CurrentSpeedInc+= SpeedInc;
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
-		Accumulator = 0;
 	}
 	else
 	{
 		Accumulator+= DeltaTime;
-		if(Accumulator > Timing)
+		if(Accumulator > Timing && CurrentSpeedInc > 0)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Reseting speed"))
 			CurrentSpeedInc = 0;
-			Accumulator = 0;
+			//Accumulator = 0;
 			MovementComponent->MaxWalkSpeed = PlayerCharacter->DefaultMovementSpeed;
 		}
 		SpeedAdded = false;

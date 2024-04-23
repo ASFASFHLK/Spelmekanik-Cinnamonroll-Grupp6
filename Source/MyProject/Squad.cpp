@@ -144,6 +144,10 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	SquadMembers.Remove(EnemyToRemove);
 	if(SquadMembers.Num() == 0)
 	{
+		if(MySquadManager)
+		{
+			MySquadManager->SquadDied(this);
+		}
 		Destroy();
 	}
 }

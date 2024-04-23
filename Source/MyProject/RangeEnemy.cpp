@@ -14,15 +14,14 @@ ARangeEnemy::ARangeEnemy()
 void ARangeEnemy::Attack()
 {
 	Super::Attack();
-	
-	FVector Location = GetActorLocation() + FVector(100,0, 0);
-	FRotator Rotation = GetActorRotation();
-	
-	FActorSpawnParameters SpawnInfo;
-	ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location,
-		Rotation, SpawnInfo);
 
-	if(SpawnedProjectile)
+	const FVector Location = GetActorLocation() + FVector(100,0, 0);
+	const FRotator Rotation = GetActorRotation();
+
+	const FActorSpawnParameters SpawnInfo;
+
+	if(ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location,
+		Rotation, SpawnInfo))
 	{
 		SpawnedProjectile->SetOwner(this);
 	}

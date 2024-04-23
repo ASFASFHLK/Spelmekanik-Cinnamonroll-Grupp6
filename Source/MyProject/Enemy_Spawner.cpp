@@ -6,6 +6,7 @@
 #include "BaseEnemy.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpawnerGate.h"
+#include "SquadManager.h"
 
 // Sets default values
 AEnemy_Spawner::AEnemy_Spawner()
@@ -20,6 +21,8 @@ void AEnemy_Spawner::BeginPlay()
 	Super::BeginPlay();
 
 	GetSpawnGatesInScene();
+	SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
+	
 	
 	for(int i = 0; i < AmountToSpawnAtStart; i++)
 	{
@@ -29,8 +32,14 @@ void AEnemy_Spawner::BeginPlay()
 }
 
 void AEnemy_Spawner::SpawnEnemy()
-{
+{/*
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
+	{
+		return;
+	}
+	*/
+
+	if(SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return;
 	}
@@ -44,6 +53,13 @@ void AEnemy_Spawner::SpawnEnemy()
 		LocationIndex = 0;
 	}
 	
+	ASquad* Squad = GetWorld()->SpawnActor<ASquad>(SquadType, SpawnPoint, FRotator(),FActorSpawnParameters());
+	if(Squad)
+	{
+		Squad->SetSquadManager(SquadManager);
+		SquadManager->AddSquad(Squad);
+	}
+	/*
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	
 	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(Enemies[EnemyIndex], SpawnPoint, FRotator(), FActorSpawnParameters());
@@ -58,8 +74,9 @@ void AEnemy_Spawner::SpawnEnemy()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("I have not been Spawned %ls"), *GetName());
 	}
+	*/
 }
-
+/*
 void AEnemy_Spawner::OnDeathEvent()
 {
 	UE_LOG(LogTemp, Display, TEXT("I have been called"));
@@ -78,6 +95,7 @@ void AEnemy_Spawner::OnDeathEvent()
 		
 	}
 }
+*/
 
 void AEnemy_Spawner::GetSpawnGatesInScene()
 {

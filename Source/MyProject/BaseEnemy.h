@@ -51,11 +51,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	float DamageDealt = 10.f;
 
+	UPROPERTY(VisibleAnywhere, Category = "Squad")
+	ASquad* MySquad;
 	
+	virtual void Tick(float DeltaSeconds) override;
 
 private:
-
-	virtual void Tick(float DeltaSeconds) override;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	AActor* CurrentTarget;
@@ -72,8 +73,7 @@ private:
 	UPROPERTY()
 	float CurrentAttackCooldown;
 	
-	UPROPERTY(VisibleAnywhere, Category = "Squad")
-	ASquad* MySquad;
+	
 	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ABaseEnemy* Partner;

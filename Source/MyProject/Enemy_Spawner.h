@@ -7,6 +7,8 @@
 #include "Enemy_Spawner.generated.h"
 
 
+class ASquad;
+class ASquadManager;
 class ASpawnerGate;
 
 
@@ -30,6 +32,8 @@ private:
 	// Called when the game starts or when spawned
 	UFUNCTION()
 	void OnDeathEvent();
+	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
+	TSubclassOf<ASquad> SquadType;
 	
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TArray<TSubclassOf<class ABaseEnemy>> Enemies;
@@ -45,6 +49,9 @@ private:
 
 	UPROPERTY(VisibleInstanceOnly, Category="Spawner Info", BlueprintReadOnly,  meta=(AllowPrivateAccess=true))
 	int AmountOfEnemiesKilled = 0;
+
+	UPROPERTY(VisibleAnywhere)
+	ASquadManager* SquadManager;
 	
 	int LocationIndex = 0;
 	UPROPERTY()

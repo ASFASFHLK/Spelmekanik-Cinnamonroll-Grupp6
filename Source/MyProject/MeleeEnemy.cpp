@@ -8,6 +8,10 @@
 #include "Engine/DamageEvents.h"
 
 
+void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
+{
+}
+
 void AMeleeEnemy::Attack()
 {
 	Super::Attack();

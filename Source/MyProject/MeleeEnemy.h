@@ -13,6 +13,10 @@ UCLASS()
 class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintNativeEvent)
+	void ThrowExplosiveEnemy();
 
 private:
 	virtual void Attack() override;

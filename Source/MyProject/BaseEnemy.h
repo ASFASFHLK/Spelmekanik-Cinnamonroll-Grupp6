@@ -21,6 +21,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	AActor* GetCurrentTarget() const {return CurrentTarget;}
 
+	UFUNCTION(BlueprintCallable)
+	ABaseEnemy* GetPartner() const {return Partner;}
+
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
@@ -35,7 +38,7 @@ public:
 	
 	void MyPartnerHasDied();
 
-	ABaseEnemy* GetPartner() const {return Partner;}
+	
 	
 	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}
 	

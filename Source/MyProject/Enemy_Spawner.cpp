@@ -31,6 +31,10 @@ void AEnemy_Spawner::BeginPlay()
 	}
 }
 
+void AEnemy_Spawner::OnDeathEvent()
+{
+}
+
 void AEnemy_Spawner::SpawnEnemy()
 {/*
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 

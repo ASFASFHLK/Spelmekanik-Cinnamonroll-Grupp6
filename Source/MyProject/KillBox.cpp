@@ -16,7 +16,7 @@ void AKillBox::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		UE_LOG(LogTemp, Warning, TEXT("I have been killed by the big mean killbox"));
 		const bool Discard = Enemy->OnDeath.ExecuteIfBound();
 		Enemy->SetActorEnableCollision(false);
-		Destroy();
+		Enemy->HasDied();
 		return;
 	}
 	APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor);

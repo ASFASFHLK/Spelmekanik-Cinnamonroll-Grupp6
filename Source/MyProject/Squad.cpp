@@ -8,13 +8,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Tasks/GameplayTask_SpawnActor.h"
 
-// Sets default values
-ASquad::ASquad()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 
-}
 
 // Called when the game starts or when spawned
 void ASquad::BeginPlay()
@@ -22,7 +16,10 @@ void ASquad::BeginPlay()
 	Super::BeginPlay();
 	if(RandomlyGenerated)
 	{
-		CreateSquadMembers();
+		CreateRandomSquadMembers();
+	}else
+	{
+		CreateSpecifiedSquadMembers();
 	}
 	if(PartnerEnabled)
 	{
@@ -31,6 +28,8 @@ void ASquad::BeginPlay()
 	
 }
 
+
+
 // Called every frame
 void ASquad::Tick(float DeltaTime)
 {
@@ -38,12 +37,45 @@ void ASquad::Tick(float DeltaTime)
 
 }
 
-void ASquad::CreateSquadMembers()
+void ASquad::CreateRandomSquadMembers()
 {
 	while(SquadValue > 0)
 	{
 		const int32 NextToSpawn = UKismetMathLibrary::RandomIntegerInRange(0, EnemyTypes.Num()-1);
 		ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[NextToSpawn],
+			GetActorLocation(), FRotator(), FActorSpawnParameters());
+		
+		if(SpawnedEnemy == nullptr)
+		{
+			return;
+		}
+		SpawnedEnemy->SpawnDefaultController();
+		SpawnedEnemy->SetSquad(this);
+		SquadMembers.Add(SpawnedEnemy);
+		SquadValue--;
+	}
+}
+
+void ASquad::CreateSpecifiedSquadMembers()
+{
+	for(int i = 0; i < NumberOfExplosive; i++)
+	{
+		ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[0],
+			GetActorLocation(), FRotator(), FActorSpawnParameters());
+		
+		if(SpawnedEnemy == nullptr)
+		{
+			return;
+		}
+		SpawnedEnemy->SpawnDefaultController();
+		SpawnedEnemy->SetSquad(this);
+		SquadMembers.Add(SpawnedEnemy);
+		SquadValue--;
+	}
+
+	for(int i = 0; i < NumberOfMelee; i++)
+	{
+		ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<ABaseEnemy>(EnemyTypes[1],
 			GetActorLocation(), FRotator(), FActorSpawnParameters());
 		
 		if(SpawnedEnemy == nullptr)

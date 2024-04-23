@@ -14,10 +14,6 @@ UCLASS()
 class MYPROJECT_API ASquad : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ASquad();
 
 protected:
 	// Called when the game starts or when spawned
@@ -38,6 +34,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
 	int32 SquadValue = 5;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Squad")
+	int32 NumberOfExplosive;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Squad")
+	int32 NumberOfMelee;
+
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	TArray<ABaseEnemy*> SquadMembers;
 	
@@ -56,7 +58,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	ABaseEnemy* MemberWithoutPartner;
 
-	void CreateSquadMembers();
+	void CreateRandomSquadMembers();
+	void CreateSpecifiedSquadMembers();
 	void BindAllSquadMembers();
 	void BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo);
 

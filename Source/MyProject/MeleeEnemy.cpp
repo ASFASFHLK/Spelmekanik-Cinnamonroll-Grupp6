@@ -34,8 +34,8 @@ void AMeleeEnemy::ResetThrowTimer()
 
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
 	CurrentThrowTimer -= DeltaSeconds;
-	
 	if(CurrentThrowTimer <= 0)
 	{
 		SetCanThrow(true);
@@ -57,7 +57,7 @@ void AMeleeEnemy::Attack()
 	FHitResult HitResult;
 	
 	
-	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),End,20,
+	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),End,50,
 		UEngineTypes::ConvertToTraceType(ECC_Pawn),false,ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true,
 		FColor::Red, FColor::Green, 1.5f);
 

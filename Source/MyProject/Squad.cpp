@@ -109,16 +109,8 @@ void ASquad::BindAllSquadMembers()
 
 void ASquad::BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo)
 {
-	if(EnemyOne and EnemyTwo)
-	{
-		EnemyOne->SetPartner(EnemyTwo);
-		EnemyTwo->SetPartner(EnemyOne);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("a squad member is empty"))
-	}
-
+	EnemyOne->SetPartner(EnemyTwo);
+	EnemyTwo->SetPartner(EnemyOne);
 }
 
 bool ASquad::FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor)
@@ -149,27 +141,15 @@ void ASquad::FindNewPartner(ABaseEnemy* Enemy)
 
 void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 {
-	if(EnemyToRemove)
+	SquadMembers.Remove(EnemyToRemove);
+	if(SquadMembers.Num() == 0)
 	{
-		try
+		if(MySquadManager)
 		{
-			if(SquadMembers.Num() > 0)
-			{
-				SquadMembers.Remove(EnemyToRemove);
-			}
-		
-			if(SquadMembers.Num() == 0)
-			{
-				Destroy();
-			}
+			MySquadManager->SquadDied(this);
 		}
-		catch (...)
-		{
-			UE_LOG(LogTemp, Display, TEXT("This should not crash the game"))
-		}
-
+		Destroy();
 	}
-
 }
 
 

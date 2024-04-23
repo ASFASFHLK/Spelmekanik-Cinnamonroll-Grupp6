@@ -35,6 +35,11 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
 		AlertPartnerOfDeath();
+		if(MySquad)
+		{
+			MySquad->RemoveFromSquad(this);
+		}
+		
 		// calls the event
 		if(!OnDeath.ExecuteIfBound())
 		{
@@ -62,14 +67,15 @@ void ABaseEnemy::AlertPartnerOfDeath()
 	{
 		Partner->MyPartnerHasDied();
 	}
-
-	MySquad->RemoveFromSquad(this);
 }
 
 void ABaseEnemy::MyPartnerHasDied()
 {
 	Partner = nullptr;
-	MySquad->FindNewPartner(this);
+	if(MySquad)
+	{
+		MySquad->FindNewPartner(this);
+	}
 }
 
 

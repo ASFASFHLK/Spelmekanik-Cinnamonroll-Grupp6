@@ -4,6 +4,7 @@
 #include "ExplosiveEnemy.h"
 
 #include "HealthComp.h"
+#include "Squad.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -38,6 +39,9 @@ void AExplosiveEnemy::Explode()
 
 	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
 	const bool Discard = OnDeath.ExecuteIfBound();
-
+	if(MySquad)
+	{
+		MySquad->RemoveFromSquad(this);
+	}
 	Destroy();
 }

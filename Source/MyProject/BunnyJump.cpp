@@ -31,7 +31,6 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 			MovementComponent->MaxWalkSpeed = MaxSpeed;
 			return;
 		}
-		
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
 	}
 	else

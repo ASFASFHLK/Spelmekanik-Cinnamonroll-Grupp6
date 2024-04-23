@@ -23,6 +23,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	UModifierComponent* ModifierComponent;
 
+	
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
 	TSubclassOf<AGunBase> EquipedGun;
@@ -48,6 +49,11 @@ private:
 	int ShotDistance = 800;
 	UPROPERTY()
 	int BurstCheck = 0;
+
+	UPROPERTY(EditAnywhere)
+	float AirTime = 3;
+
+	
 	UPROPERTY()
 	FTimerHandle ShootTimerHandle = FTimerHandle();
 	UPROPERTY()
@@ -91,13 +97,13 @@ private:
 	USoundBase* FireSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* HitSound;
-
+	virtual void BeginPlay() override;
 
 public:
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gameplay")
 	FVector MuzzleOffset = FVector(100,0,10);
-
+	float DefaultMovementSpeed = 0;
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
 
@@ -105,5 +111,7 @@ public:
 	APlayerCharacter();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	virtual void Tick(float DeltaSeconds) override;
+
 	
 };

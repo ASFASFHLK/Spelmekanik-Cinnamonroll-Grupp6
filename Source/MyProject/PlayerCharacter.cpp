@@ -8,6 +8,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 void APlayerCharacter::Reload()
@@ -152,6 +153,18 @@ void APlayerCharacter::CancelShot()
 	}	
 }
 
+void APlayerCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GetCharacterMovement()->AirControl = AirTime;
+	DefaultMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
+	if(ModifierComponent != nullptr)
+	{
+		ModifierComponent->SetUp(); // prevents a de-sync 
+	}
+}
+
 APlayerCharacter::APlayerCharacter()
 {
 	// Sets the default player size 
@@ -195,12 +208,18 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	// Player Specific Damage handler 
-	if(DamageTaken >= HealthComp->GetCurrentHealth())
+	if( 0 >= HealthComp->GetCurrentHealth())
 	{
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
 		DisableInput(Cast<APlayerController>(GetController()));
 	}
 	
 	return DamageTaken;
+	
+}
+
+void APlayerCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
 	
 }

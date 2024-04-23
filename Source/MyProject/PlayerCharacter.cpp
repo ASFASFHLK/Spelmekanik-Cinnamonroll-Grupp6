@@ -157,7 +157,12 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetCharacterMovement()->AirControl = AirTime; 
+	GetCharacterMovement()->AirControl = AirTime;
+	DefaultMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
+	if(ModifierComponent != nullptr)
+	{
+		ModifierComponent->SetUp(); // prevents a de-sync 
+	}
 }
 
 APlayerCharacter::APlayerCharacter()
@@ -216,21 +221,5 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	if(GetCharacterMovement()->IsFalling() && false)
-	{
-		float mouseX;
-		float mouseY;
-		const APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PlayerController->GetMousePosition(mouseX, mouseY); // should be cached
-		const float AxisValue = PlayerController->GetInputAxisValue( TEXT("LookRight"));
-		const float MoveValue = AxisValue * mouseX;
-
-		if(MoveValue > 0.5f)
-		{
-			
-		}
-		
-	}
 	
 }

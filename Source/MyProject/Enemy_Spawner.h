@@ -30,8 +30,9 @@ protected:
 
 private:
 	// Called when the game starts or when spawned
-	UFUNCTION()
-	void OnDeathEvent();
+	//UFUNCTION()
+	//void OnDeathEvent();
+
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TSubclassOf<ASquad> SquadType;
 	

@@ -22,8 +22,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Shoot();
+
+	UFUNCTION(BlueprintCallable)
+	void CancelShot();
 private:
 	UFUNCTION()
 	void ShotGunShot();

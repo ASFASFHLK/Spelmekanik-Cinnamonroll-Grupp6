@@ -32,7 +32,7 @@ private:
 	UCameraComponent* CharacterCamera;
 
 	UPROPERTY()
-	TSubclassOf<AGunBase> Gun;
+	AGunBase* Gun;
 	
 
 	UPROPERTY(EditAnywhere)
@@ -57,10 +57,10 @@ private:
 	void LookSides(float Value);
 	
 	UFUNCTION(BlueprintCallable)
-	void Shoot();
-
+	void Shoot() const;
+	
 	UFUNCTION(BlueprintCallable)
-	void CancelShot();
+	void CancelShot() const;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* FireSound;

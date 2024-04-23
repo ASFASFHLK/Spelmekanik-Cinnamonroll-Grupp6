@@ -38,35 +38,21 @@ void APlayerCharacter::LookSides(float Value)
 	AddControllerYawInput(Value * LookSideSpeed);
 }
 
-// should be moved the gunbase class 
-void APlayerCharacter::Shoot()
+void APlayerCharacter::Shoot() const
 {
-	Gun->Shoot();
-	if(bCanShoot)
+	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
+	if(Gun)
 	{
-		bCanceledShot = false;
-		if(this == nullptr || this->GetController() == nullptr){
-			return;
-		}
-		if(UWorld* const World = GetWorld()){
-			UseShotGun();
-			bCanShoot = false;
-		}
+		Gun->Shoot();
 	}
 }
 
-void APlayerCharacter::CancelShot()
+void APlayerCharacter::CancelShot() const
 {
-	if(GetWorld())
+	if(Gun)
 	{
-		if(!bCanceledShot)
-		{
-			bCanceledShot = true;
-			BurstCheck = 0;
-			GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
-			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &APlayerCharacter::Reload, ReloadTime, false);
-		}
-	}	
+		Gun->CancelShot();
+	}
 }
 
 void APlayerCharacter::BeginPlay()

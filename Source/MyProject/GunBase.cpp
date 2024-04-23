@@ -30,6 +30,32 @@ void AGunBase::Tick(float DeltaTime)
 
 void AGunBase::Shoot()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Shoot"));
+	if(bCanShoot)
+	{
+		bCanceledShot = false;
+		if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
+			return;
+		}
+		if(UWorld* const World = GetWorld()){
+			UseShotGun();
+			bCanShoot = false;
+		}
+	}
+}
+
+void AGunBase::CancelShot()
+{
+	if(GetWorld())
+ 	{
+ 		if(!bCanceledShot)
+ 		{
+ 			bCanceledShot = true;
+ 			BurstCheck = 0;
+ 			GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
+ 			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &AGunBase::Reload, ReloadTime, false);
+ 		}
+ 	}
 }
 
 void AGunBase::ShotGunShot()

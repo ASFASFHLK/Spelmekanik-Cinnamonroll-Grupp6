@@ -3,22 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BaseEnemy.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTask_DoAttack.generated.h"
+#include "BTTask_ThrowExplosive.generated.h"
 
+class AMeleeEnemy;
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API UBTTask_DoAttack : public UBTTaskNode
+class MYPROJECT_API UBTTask_ThrowExplosive : public UBTTaskNode
 {
 	GENERATED_BODY()
+
 public:
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
 private:
 	UPROPERTY()
-	ABaseEnemy* Enemy;
+	AMeleeEnemy* Enemy;
+	
 };

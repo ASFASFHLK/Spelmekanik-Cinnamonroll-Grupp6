@@ -39,9 +39,5 @@ void AExplosiveEnemy::Explode()
 
 	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
 	const bool Discard = OnDeath.ExecuteIfBound();
-	if(MySquad)
-	{
-		MySquad->RemoveFromSquad(this);
-	}
-	Destroy();
+	HasDied();
 }

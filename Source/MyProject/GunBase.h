@@ -27,9 +27,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CancelShot();
-private:
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
+	void RifleShot();
+	UFUNCTION(BlueprintCallable)
 	void ShotGunShot();
+	UFUNCTION(BlueprintCallable)
+	void LaserShot();
+private:
 	UFUNCTION()
 	void UseShotGun();
 	UFUNCTION()
@@ -52,6 +56,8 @@ private:
 	float BurstTime = 0.3f;
 	UPROPERTY(EditAnywhere)
 	int Pellets = 20;
+	UPROPERTY(BlueprintReadWrite, meta=(ClampMin = 0, UIMin = 0, ClampMax = 3, UIMax = 3, AllowPrivateAccess))
+	int GunType = 0;
 	UPROPERTY(EditAnywhere)
 	float Damage = 5;
 	UPROPERTY()

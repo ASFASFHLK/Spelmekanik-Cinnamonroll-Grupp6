@@ -58,9 +58,38 @@ void AGunBase::CancelShot()
  	}
 }
 
+void AGunBase::RifleShot()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I shot a rifleshot"));
+	UWorld* const World = GetWorld();
+	if(World)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FHitResult HitResult;
+		FCollisionQueryParams QueryParams;
+		FRotator Spread = SpawnRotation;
+		double XSpread = FMath::RandRange(-5.0f, 5.f);
+		double YSpread = FMath::RandRange(-5.0f, 5.f);
+		Spread.Yaw += XSpread;
+		Spread.Pitch += YSpread;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.0f);
+		if(HitResult.GetActor())
+		{
+			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
+			if(ShotSound){
+				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+			}
+		}
+	}
+}
+
 void AGunBase::ShotGunShot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I shot a shot"));
+	UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
 	UWorld* const World = GetWorld();
 	if(World)
 	{
@@ -72,14 +101,12 @@ void AGunBase::ShotGunShot()
 		for (int i = 0; i < Pellets; ++i)
 		{
 			FRotator Spread = SpawnRotation;
-			double XSpread = FMath::RandRange(0.0f, 30.f);
-			float YSpread = FMath::RandRange(0.0f, 30.f);
-			float ZSpread = FMath::RandRange(0.0f, 30.f);
-			Spread.Roll += XSpread;
+			double XSpread = FMath::RandRange(-15.0f, 15.f);
+			double YSpread = FMath::RandRange(-15.0f, 15.f);
+			Spread.Yaw += XSpread;
 			Spread.Pitch += YSpread;
-			Spread.Yaw += ZSpread;
 			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);//crash
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
 				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -91,6 +118,30 @@ void AGunBase::ShotGunShot()
 		}
 	}
 	UseShotGun();
+}
+
+void AGunBase::LaserShot()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I shot a lazershot"));
+	UWorld* const World = GetWorld();
+	if(World)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
+		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		FHitResult HitResult;
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), FColor::Red, false, 1.0f);
+		if(HitResult.GetActor())
+		{
+			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
+			if(ShotSound){
+				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
+			}
+		}
+	}
 }
 
 void AGunBase::UseShotGun()

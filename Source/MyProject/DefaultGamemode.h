@@ -17,6 +17,9 @@ class MYPROJECT_API ADefaultGamemode : public AGameModeBase
 public:
 	UFUNCTION()
 	void EndGame(bool PlayerWin);
+
+	UFUNCTION(BlueprintNativeEvent)
+	void StartShopPhase();
 	
 private:
 	UPROPERTY(EditDefaultsOnly)

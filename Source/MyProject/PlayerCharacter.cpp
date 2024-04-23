@@ -5,6 +5,7 @@
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "ModifierComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
@@ -163,6 +164,13 @@ void APlayerCharacter::BeginPlay()
 	{
 		ModifierComponent->SetUp(); // prevents a de-sync 
 	}
+
+
+}
+
+void APlayerCharacter::ShowHud(const bool Show)
+{
+
 }
 
 APlayerCharacter::APlayerCharacter()

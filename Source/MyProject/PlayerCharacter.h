@@ -52,7 +52,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float AirTime = 3;
-
 	
 	UPROPERTY()
 	FTimerHandle ShootTimerHandle = FTimerHandle();
@@ -98,7 +97,11 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* HitSound;
 	virtual void BeginPlay() override;
+	
 
+	UPROPERTY(EditDefaultsOnly)
+	bool StartWithHudVisible = true;
+	
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gameplay")
@@ -106,6 +109,8 @@ public:
 	float DefaultMovementSpeed = 0;
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
+	UFUNCTION(BlueprintCallable)
+	void ShowHud(const bool Show);
 
 public:
 	APlayerCharacter();

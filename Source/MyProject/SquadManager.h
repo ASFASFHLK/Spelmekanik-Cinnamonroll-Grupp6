@@ -28,16 +28,15 @@ public:
 
 	bool AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad);
 
+	void SquadDied(ASquad* SquadThatDied);
+
+	void AddSquad(ASquad* SquadToAdd);
+
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
 	int NumberOfSquads;
 
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	TArray<ASquad*> MySquads;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	TSubclassOf<ASquad> SquadType;
-
-	void SpawnSquads();
-
+	
 };

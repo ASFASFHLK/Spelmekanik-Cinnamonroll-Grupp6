@@ -14,12 +14,9 @@ ASquadManager::ASquadManager()
 
 }
 
-// Called when the game starts or when spawned
 void ASquadManager::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnSquads();
-	
 }
 
 // Called every frame
@@ -47,14 +44,19 @@ bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* Original
 	return false;
 }
 
-void ASquadManager::SpawnSquads()
+void ASquadManager::SquadDied(ASquad* SquadThatDied)
 {
-	for(int i = 0; i < NumberOfSquads; i++)
+	MySquads.Remove(SquadThatDied);
+
+	if(MySquads.Num() <= 0)
 	{
-		ASquad* SpawnedSquad = GetWorld()->SpawnActor<ASquad>(SquadType,
-			GetActorLocation(), FRotator(), FActorSpawnParameters());
-		MySquads.Add(SpawnedSquad);
-		SpawnedSquad->SetSquadManager(this);
+		UE_LOG(LogTemp, Display, TEXT("Alla dog"));
 	}
 }
+
+void ASquadManager::AddSquad(ASquad* SquadToAdd)
+{
+	MySquads.Add(SquadToAdd);
+}
+
 

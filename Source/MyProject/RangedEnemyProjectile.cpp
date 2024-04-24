@@ -20,8 +20,6 @@ ARangedEnemyProjectile::ARangedEnemyProjectile()
 	RootComponent = ProjectileMesh;
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
-	
-	
 }
 
 // Called when the game starts or when spawned
@@ -51,16 +49,15 @@ void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedCompo
 	if(APlayerCharacter* PlayerHit = Cast<APlayerCharacter>(SweepResult.GetActor()))
 	{
 		if(ProjectileOwner != nullptr){
-		PlayerHit->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
-			}
-		
+			PlayerHit->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
+		}
 	}
-	
-	 if(Cast<ABaseEnemy>(SweepResult.GetActor()))
+
+	//Kan vara det som krashar?
+	if(Cast<ABaseEnemy>(SweepResult.GetActor()))
 	{
 		return;
 	}
-	
 	Destroy();
 }
 

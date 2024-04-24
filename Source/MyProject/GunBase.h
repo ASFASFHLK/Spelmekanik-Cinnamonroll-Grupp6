@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "GunBase.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType)
 class MYPROJECT_API AGunBase : public AActor
 {
 	GENERATED_BODY()
@@ -52,6 +52,8 @@ private:
 	FVector MuzzleOffset = FVector(100,0,10);
 	UPROPERTY()
 	bool bCanShoot = true;
+	UPROPERTY()
+    bool bRifleShouldShoot = true;
 	UPROPERTY()
 	bool bCanceledShot = false;
 	UPROPERTY()

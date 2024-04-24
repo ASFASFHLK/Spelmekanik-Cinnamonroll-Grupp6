@@ -32,7 +32,7 @@ private:
 	UCameraComponent* CharacterCamera;
 
 	UPROPERTY()
-	AGunBase* Gun;
+	AGunBase* Gun = nullptr;
 	
 
 	UPROPERTY(EditAnywhere)

@@ -9,11 +9,17 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 {
 	if(PlayerWin)
 	{
-		UUserWidget* WinnerWidget = CreateWidget<UUserWidget>(GetWorld(),WinScreen);
-		WinnerWidget->AddToViewport();
+		StartShopPhase();
 	}else
 	{
 		UUserWidget* LoserWidget = CreateWidget<UUserWidget>(GetWorld(),LoseScreen);
 		LoserWidget->AddToViewport();
 	}
 }
+
+void ADefaultGamemode::StartShopPhase_Implementation()
+{
+	
+}
+
+

@@ -37,7 +37,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float AirTime = 3;
-
 	
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	float LookUpSpeed = 2.0;
@@ -65,14 +64,22 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* HitSound;
 	virtual void BeginPlay() override;
+	
 
+	UPROPERTY(EditDefaultsOnly)
+	bool StartWithHudVisible = true;
+	
 public:
 	UPROPERTY()
 	float DefaultMovementSpeed = 0;
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
 	UFUNCTION(BlueprintCallable)
+
+	void ShowHud(const bool Show);
+
 	void SetGun(AGunBase* NewGun);
+
 
 public:
 	APlayerCharacter();

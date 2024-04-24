@@ -45,6 +45,7 @@ protected:
 	float MovementSpeed = 300.0f;
 	
 	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

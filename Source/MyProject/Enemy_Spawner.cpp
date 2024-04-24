@@ -40,6 +40,11 @@ void AEnemy_Spawner::SpawnEnemy()
 	}
 	*/
 
+	if(AmountOfTotalSquads <= 0)
+	{
+		return;
+	}
+
 	if(SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return;
@@ -53,13 +58,14 @@ void AEnemy_Spawner::SpawnEnemy()
 	{
 		LocationIndex = 0;
 	}
-	
-	ASquad* Squad = GetWorld()->SpawnActor<ASquad>(SquadType, SpawnPoint, FRotator(),FActorSpawnParameters());
-	if(Squad)
+
+	if(ASquad* Squad = GetWorld()->SpawnActor<ASquad>(SquadType, SpawnPoint, FRotator(),FActorSpawnParameters()))
 	{
 		Squad->SetSquadManager(SquadManager);
 		SquadManager->AddSquad(Squad);
 	}
+
+	AmountOfTotalSquads--;
 	/*
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	

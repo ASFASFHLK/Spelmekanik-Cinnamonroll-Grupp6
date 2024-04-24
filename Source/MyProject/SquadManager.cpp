@@ -4,7 +4,9 @@
 #include "SquadManager.h"
 
 #include "AsyncTreeDifferences.h"
+#include "Enemy_Spawner.h"
 #include "Squad.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASquadManager::ASquadManager()
@@ -17,6 +19,7 @@ ASquadManager::ASquadManager()
 void ASquadManager::BeginPlay()
 {
 	Super::BeginPlay();
+	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 }
 
 // Called every frame
@@ -48,10 +51,7 @@ void ASquadManager::SquadDied(ASquad* SquadThatDied)
 {
 	MySquads.Remove(SquadThatDied);
 
-	if(MySquads.Num() <= 0)
-	{
-		UE_LOG(LogTemp, Display, TEXT("Alla dog"));
-	}
+	EnemySpawner->SpawnEnemy();
 }
 
 void ASquadManager::AddSquad(ASquad* SquadToAdd)

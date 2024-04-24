@@ -33,12 +33,10 @@ public:
 	bool HasPartner() const;
 
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
-
-	void AlertPartnerOfDeath();
 	
 	void MyPartnerHasDied();
 
-	
+	void HasDied();
 	
 	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}
 	
@@ -72,8 +70,6 @@ private:
 
 	UPROPERTY()
 	float CurrentAttackCooldown;
-	
-	
 	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ABaseEnemy* Partner;

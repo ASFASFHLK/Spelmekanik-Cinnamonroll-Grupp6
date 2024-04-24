@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "SquadManager.generated.h"
 
+class AEnemy_Spawner;
 class ASquad;
 
 UCLASS()
@@ -38,5 +39,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	TArray<ASquad*> MySquads;
+
+	UPROPERTY()
+	AEnemy_Spawner* EnemySpawner;
 	
 };

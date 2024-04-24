@@ -32,16 +32,11 @@ void AExplosiveEnemy::Explode()
 {
 	const TArray<AActor*> ActorsToIgnore;
 	
-
 	UGameplayStatics::ApplyRadialDamage(this, DamageDealt, GetActorLocation(),
 		ExplosionRadius,DamageType,ActorsToIgnore, this, GetController(),
 		true, ECC_Pawn);
 
 	DrawDebugSphere(GetWorld(),GetActorLocation(),ExplosionRadius,12,FColor::Red,false,3.f);
-	const bool Discard = OnDeath.ExecuteIfBound();
-	if(MySquad)
-	{
-		MySquad->RemoveFromSquad(this);
-	}
-	Destroy();
+	//const bool Discard = OnDeath.ExecuteIfBound();
+	HasDied();
 }

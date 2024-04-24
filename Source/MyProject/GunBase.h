@@ -33,6 +33,10 @@ public:
 	void ShotGunShot();
 	UFUNCTION(BlueprintCallable)
 	void LaserShot();
+	UFUNCTION(BlueprintCallable)
+	void ReloadShotGunShot();
+	UFUNCTION(BlueprintCallable)
+    void ChangeGunType();
 private:
 	UFUNCTION()
 	void UseShotGun();
@@ -62,6 +66,8 @@ private:
 	float Damage = 5;
 	UPROPERTY()
 	int Bursts = 5;
+	UPROPERTY()
+	int ShotGunReloadTime = 1;
 	UPROPERTY()
 	int ShotDistance = 800;
 	UPROPERTY()

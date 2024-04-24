@@ -38,8 +38,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	float AirTime = 3;
 
-	UFUNCTION(BlueprintCallable)
-	void SetGun(AGunBase* NewGun);
 	
 	UPROPERTY(EditAnywhere, Category="Camera Controll")
 	float LookUpSpeed = 2.0;
@@ -69,9 +67,12 @@ private:
 	virtual void BeginPlay() override;
 
 public:
+	UPROPERTY()
 	float DefaultMovementSpeed = 0;
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
+	UFUNCTION(BlueprintCallable)
+	void SetGun(AGunBase* NewGun);
 
 public:
 	APlayerCharacter();

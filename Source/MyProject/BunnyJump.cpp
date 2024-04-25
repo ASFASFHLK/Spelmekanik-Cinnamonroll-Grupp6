@@ -15,23 +15,28 @@ void ABunnyJump::OnAdded()
 void ABunnyJump::OnUpdate(float DeltaTime)
 {
 	Super::OnUpdate(DeltaTime);
-
+	if(PlayerCharacter->DefaultMovementSpeed > MaxSpeed) // prevents bjump from being a nerf when an speed buff is active 
+	{
+		return;
+	}
+	
 	if(MovementComponent->IsFalling()) // will have the funny side effect of adding speed when falling 
 	{
 		Accumulator = 0;
-		if(CurrentSpeedInc >= MaxSpeed or SpeedAdded)
+		if(MovementComponent->MaxWalkSpeed == MaxSpeed or SpeedAdded)
 		{
 			return;
 		}
 		SpeedAdded = true;
 		UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
 		CurrentSpeedInc+= SpeedInc;
-		if(CurrentSpeedInc > MaxSpeed) // fixes a bug that can cause us to go faster than we are allowed to 
-		{
-			MovementComponent->MaxWalkSpeed = MaxSpeed;
-			return;
-		}
+
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
+		if(MovementComponent->MaxWalkSpeed > MaxSpeed) // fixes a bug that can cause us to go faster than we are allowed to 
+		{
+			UE_LOG(LogTemp, Warning, TEXT("SpeedInc Vs MaxSpeed %f : %f"), CurrentSpeedInc, MaxSpeed)
+			MovementComponent->MaxWalkSpeed = MaxSpeed;
+		}
 	}
 	else
 	{
@@ -41,7 +46,10 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 			UE_LOG(LogTemp, Warning, TEXT("Reseting speed"))
 			CurrentSpeedInc = 0;
 			//Accumulator = 0;
+			UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
 			MovementComponent->MaxWalkSpeed = PlayerCharacter->DefaultMovementSpeed;
+			UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
+			
 		}
 		SpeedAdded = false;
 	}

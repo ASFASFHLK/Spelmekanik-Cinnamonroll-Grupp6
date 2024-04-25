@@ -22,13 +22,7 @@ void AEnemy_Spawner::BeginPlay()
 
 	GetSpawnGatesInScene();
 	SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
-	
-	
-	for(int i = 0; i < AmountToSpawnAtStart; i++)
-	{
-		SpawnEnemy();
-		AmountOfEnemiesSpawned++;
-	}
+	StartNextWave();
 }
 
 
@@ -40,7 +34,7 @@ void AEnemy_Spawner::SpawnEnemy()
 	}
 	*/
 
-	if(AmountOfTotalSquads <= 0)
+	if(AmountOfTotalSquadsToSpawn <= 0)
 	{
 		return;
 	}
@@ -65,7 +59,7 @@ void AEnemy_Spawner::SpawnEnemy()
 		SquadManager->AddSquad(Squad);
 	}
 
-	AmountOfTotalSquads--;
+	AmountOfTotalSquadsToSpawn--;
 	/*
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	
@@ -83,6 +77,18 @@ void AEnemy_Spawner::SpawnEnemy()
 	}
 	*/
 }
+
+void AEnemy_Spawner::StartNextWave()
+{
+	AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
+	for(int i = 0; i < AmountToSpawnAtStart; i++)
+	{
+		SpawnEnemy();
+		AmountOfEnemiesSpawned++;
+	}
+}
+
+
 /*
 void AEnemy_Spawner::OnDeathEvent()
 {

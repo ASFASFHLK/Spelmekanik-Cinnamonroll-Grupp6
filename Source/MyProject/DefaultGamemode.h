@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "DefaultGamemode.generated.h"
 
+class ASquadManager;
+class AEnemy_Spawner;
 /**
  * 
  */
@@ -20,6 +22,8 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
 	void StartShopPhase();
+	UFUNCTION(BlueprintCallable)
+	void StartNextWave();
 	
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -27,6 +31,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> LoseScreen;
-
+	UPROPERTY(VisibleInstanceOnly)
+	AEnemy_Spawner* SpawnerRef;
+	UPROPERTY(VisibleInstanceOnly)
+	ASquadManager* SquadRef;
 	
 };

@@ -24,6 +24,7 @@ public:
 	AEnemy_Spawner();
 	UFUNCTION()
 	void SpawnEnemy();
+	void StartNextWave();
 
 protected:
 	virtual void BeginPlay() override;
@@ -44,6 +45,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	int AmountOfTotalSquads = 6;
+	int AmountOfTotalSquadsToSpawn = 0;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	int EnemiesToKill = 10;

@@ -79,7 +79,7 @@ void AGunBase::CancelShot()
 
 void AGunBase::RifleShot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I shot a rifleshot"));
+	
 	UWorld* const World = GetWorld();
 	if(World)
 	{
@@ -97,7 +97,7 @@ void AGunBase::RifleShot()
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.0f);
 		if(HitResult.GetActor())
 		{
-			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
 			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
 			if(ShotSound){
 				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
@@ -108,7 +108,7 @@ void AGunBase::RifleShot()
 
 void AGunBase::ShotGunShot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
+	//UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
 	if(UWorld* const World = GetWorld())
 	{
 		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
@@ -127,7 +127,7 @@ void AGunBase::ShotGunShot()
 			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
-				UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+				//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
 				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
@@ -140,7 +140,7 @@ void AGunBase::ShotGunShot()
 
 void AGunBase::LaserShot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I shot a lazershot"));
+	//UE_LOG(LogTemp, Warning, TEXT("I shot a lazershot"));
 	if(UWorld* const World = GetWorld())
 	{
 		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
@@ -152,7 +152,7 @@ void AGunBase::LaserShot()
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), FColor::Red, false, 0.05f);
 		if(HitResult.GetActor())
 		{
-			UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
+			//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
 			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
 			if(ShotSound){
 				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
@@ -208,5 +208,5 @@ void AGunBase::Reload()
 {
 	bCanShoot = true;
 	BurstCheck = 0;
-	UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
 }

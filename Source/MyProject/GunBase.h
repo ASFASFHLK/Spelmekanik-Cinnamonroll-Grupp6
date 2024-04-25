@@ -74,4 +74,8 @@ private:
 	int ShotDistance = 800;
 	UPROPERTY()
 	int BurstCheck = 0;
+	UPROPERTY(EditDefaultsOnly, Category = "Gun")
+	float RifleShotCooldown;
+	UPROPERTY()
+	float CurrentRifleShotCooldown;
 };

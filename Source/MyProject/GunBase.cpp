@@ -30,6 +30,7 @@ void AGunBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	CurrentRifleShotCooldown -= DeltaTime;
 }
 
 void AGunBase::Shoot()
@@ -81,8 +82,9 @@ void AGunBase::RifleShot()
 {
 	
 	UWorld* const World = GetWorld();
-	if(World)
+	if(World && CurrentRifleShotCooldown <= 0)
 	{
+		CurrentRifleShotCooldown = RifleShotCooldown;
 		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
 		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		const FVector SpawnLocation = GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);

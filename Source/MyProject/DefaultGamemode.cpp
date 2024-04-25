@@ -3,7 +3,10 @@
 
 #include "DefaultGamemode.h"
 
+#include "Enemy_Spawner.h"
+#include "SquadManager.h"
 #include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 void ADefaultGamemode::EndGame(bool PlayerWin)
 {
@@ -15,6 +18,31 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 		UUserWidget* LoserWidget = CreateWidget<UUserWidget>(GetWorld(),LoseScreen);
 		LoserWidget->AddToViewport();
 	}
+}
+
+void ADefaultGamemode::StartNextWave()
+{
+	if(SpawnerRef == nullptr)
+	{
+		SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+		if(SpawnerRef == nullptr)
+		{
+			UE_LOG(LogTemp, Error, TEXT("There should be an Enemy_Spawner in the scene"))
+			return;
+		}
+	}
+
+	if(SquadRef == nullptr)
+	{
+		SquadRef = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
+		if(SquadRef == nullptr)
+		{
+			UE_LOG(LogTemp, Error, TEXT("There should be a SquadManager in the scene"))
+			return;
+		}
+	}
+	SpawnerRef->StartNextWave();
+	SquadRef->StartNextWave();
 }
 
 void ADefaultGamemode::StartShopPhase_Implementation()

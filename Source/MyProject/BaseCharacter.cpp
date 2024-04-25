@@ -83,7 +83,8 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
-	if(EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
+	
+	if(EventInstigator && EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
 		

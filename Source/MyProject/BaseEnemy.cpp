@@ -34,14 +34,17 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
-		AlertPartnerOfDeath();
+		
+		HasDied();
+		/*
 		// calls the event
 		if(!OnDeath.ExecuteIfBound())
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
 		}	
 		OnDeath.Clear();
-		Destroy();
+		*/
+		
 	}
 	
 	return DamageTaken;
@@ -56,20 +59,28 @@ bool ABaseEnemy::HasPartner() const
 	return true;
 }
 
-void ABaseEnemy::AlertPartnerOfDeath()
-{
-	if (Partner != nullptr)
-	{
-		Partner->MyPartnerHasDied();
-	}
 
-	MySquad->RemoveFromSquad(this);
-}
 
 void ABaseEnemy::MyPartnerHasDied()
 {
 	Partner = nullptr;
-	MySquad->FindNewPartner(this);
+	if(MySquad)
+	{
+		MySquad->FindNewPartner(this);
+	}
+}
+
+void ABaseEnemy::HasDied()
+{
+	if (Partner)
+	{
+		Partner->MyPartnerHasDied();
+	}
+	if(MySquad)
+	{
+		MySquad->RemoveFromSquad(this);
+	}
+	Destroy();
 }
 
 

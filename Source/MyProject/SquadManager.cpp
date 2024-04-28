@@ -3,8 +3,11 @@
 
 #include "SquadManager.h"
 
-#include "AsyncTreeDifferences.h"
+#include "DefaultGamemode.h"
+#include "Enemy_Spawner.h"
 #include "Squad.h"
+#include "GameFramework/GameModeBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASquadManager::ASquadManager()
@@ -14,19 +17,16 @@ ASquadManager::ASquadManager()
 
 }
 
-// Called when the game starts or when spawned
 void ASquadManager::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnSquads();
-	
+	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 }
 
 // Called every frame
 void ASquadManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad)
@@ -47,14 +47,30 @@ bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* Original
 	return false;
 }
 
-void ASquadManager::SpawnSquads()
+void ASquadManager::SquadDied(ASquad* SquadThatDied)
 {
-	for(int i = 0; i < NumberOfSquads; i++)
+	MySquads.Remove(SquadThatDied);
+	EnemySpawner->SpawnEnemy();
+	SquadsThatHaveDied++;
+	UE_LOG(LogTemp, Warning, TEXT("A squad has died, totals squads that have died %i"), SquadsThatHaveDied)
+	if(SquadsThatHaveDied >= NumbersOfSquadsThatNeedToDie)
 	{
-		ASquad* SpawnedSquad = GetWorld()->SpawnActor<ASquad>(SquadType,
-			GetActorLocation(), FRotator(), FActorSpawnParameters());
-		MySquads.Add(SpawnedSquad);
-		SpawnedSquad->SetSquadManager(this);
+		ADefaultGamemode* Gm = Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this));
+		if(Gm)
+		{
+			Gm->EndGame(true);
+		}
 	}
 }
+
+void ASquadManager::AddSquad(ASquad* SquadToAdd)
+{
+	MySquads.Add(SquadToAdd);
+}
+
+void ASquadManager::StartNextWave()
+{
+	SquadsThatHaveDied = 0;
+}
+
 

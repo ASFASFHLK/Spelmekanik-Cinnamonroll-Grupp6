@@ -17,16 +17,14 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 public:
 	
 	bool BothInPosition();
+	
 	UPROPERTY()
 	bool PartnerInPosition;
 
 	UPROPERTY()
 	bool IAmInPosition;
-	
-	
+
 private:
-	UFUNCTION(BlueprintCallable)
-	void Test(FVector Destination);
 	
 	void Explode();
 	virtual void Attack() override;

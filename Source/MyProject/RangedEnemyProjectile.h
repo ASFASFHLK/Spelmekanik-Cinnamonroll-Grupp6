@@ -16,6 +16,8 @@ class MYPROJECT_API ARangedEnemyProjectile : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ARangedEnemyProjectile();
+	UFUNCTION()
+	void ParriedPorjectile();
 
 protected:
 	// Called when the game starts or when spawned
@@ -24,9 +26,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-
-
 	
 	UFUNCTION(BlueprintCallable)
 	void OnOverlapBegin(UPrimitiveComponent* OverLappedComponent, AActor* OtherActor,

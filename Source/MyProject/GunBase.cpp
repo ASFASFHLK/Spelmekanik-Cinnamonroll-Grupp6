@@ -3,8 +3,12 @@
 
 #include "GunBase.h"
 
+#include "K2Node_DoOnceMultiInput.h"
 #include "PlayerCharacter.h"
+#include "RangedEnemyProjectile.h"
+#include "SWarningOrErrorBox.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -17,12 +21,15 @@ AGunBase::AGunBase()
 // Called when the game starts or when spawned
 void AGunBase::BeginPlay()
 {
+	Super::BeginPlay();
 	if(GetOwner())
 	{
 		GetOwner<APlayerCharacter>()->SetGun(this);
+		PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
+		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();	
+		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
+		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 	}
-	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -35,6 +42,7 @@ void AGunBase::Tick(float DeltaTime)
 
 void AGunBase::Shoot()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
 		return;
 	}
@@ -60,6 +68,13 @@ void AGunBase::Shoot()
 	case 2:
 		LaserShot();
 		break;
+	case 3:
+		if(bCanHit)
+		{
+			Punch();
+			GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, ShotGunReloadTime * 0.8f, false);
+		}
+		break;
 	default: UE_LOG(LogTemp, Warning, TEXT("Not correct GunType"));
 	}
 }
@@ -80,22 +95,17 @@ void AGunBase::CancelShot()
 
 void AGunBase::RifleShot()
 {
-	
-	UWorld* const World = GetWorld();
 	if(World && CurrentRifleShotCooldown <= 0)
 	{
-		CurrentRifleShotCooldown = RifleShotCooldown;
-		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
-		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
+		CurrentRifleShotCooldown = RifleShotCooldown;// Linus
+		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
 		FHitResult HitResult;
-		FCollisionQueryParams QueryParams;
 		FRotator Spread = SpawnRotation;
 		double XSpread = FMath::RandRange(-5.0f, 5.f);
 		double YSpread = FMath::RandRange(-5.0f, 5.f);
 		Spread.Yaw += XSpread;
 		Spread.Pitch += YSpread;
-		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.0f);
 		if(HitResult.GetActor())
 		{
@@ -111,21 +121,19 @@ void AGunBase::RifleShot()
 void AGunBase::ShotGunShot()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
-	if(UWorld* const World = GetWorld())
+	if(World)
 	{
-		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
-		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-		FHitResult HitResult;
-		FCollisionQueryParams QueryParams;
+		bCanShoot = false;
+		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		for (int i = 0; i < Pellets; ++i)
 		{
+			FHitResult HitResult;
 			FRotator Spread = SpawnRotation;
 			double XSpread = FMath::RandRange(-15.0f, 15.f);
 			double YSpread = FMath::RandRange(-15.0f, 15.f);
 			Spread.Yaw += XSpread;
 			Spread.Pitch += YSpread;
-			QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
@@ -137,20 +145,16 @@ void AGunBase::ShotGunShot()
 			}
 		}
 	}
-	bCanShoot = false;
 }
 
 void AGunBase::LaserShot()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("I shot a lazershot"));
-	if(UWorld* const World = GetWorld())
+	if(World)
 	{
-		APlayerController* PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
-		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		const FVector SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		FHitResult HitResult;
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
+		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), FColor::Red, false, 0.02f);
 		if(HitResult.GetActor())
 		{
@@ -168,6 +172,11 @@ void AGunBase::ReloadShotGunShot()
 	bCanShoot = true;
 }
 
+void AGunBase::ReloadPunch()
+{
+	bCanHit = true;
+}
+
 void AGunBase::ChangeGunType()
 {
 	if(GunType >= 3)
@@ -178,6 +187,42 @@ void AGunBase::ChangeGunType()
 	{
 		++GunType;
 	}
+}
+
+void AGunBase::Punch()
+{
+	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+	const TArray<AActor*> ActorsToIgnore = {GetOwner()};// might not work
+	// FHitResult HitResult;
+
+	TArray<FHitResult> HitResults;
+	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
+	for (FHitResult Result : HitResults)
+	{
+		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s just got punched"), *ActorHit->GetName());
+			ActorHit->Parry();
+			ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+		}
+		if(ARangedEnemyProjectile* ActorHit = Cast<ARangedEnemyProjectile>(Result.GetActor()))
+		{
+			FVector OutVelocity;
+			UGameplayStatics::SuggestProjectileVelocity_CustomArc(this,OutVelocity, ActorHit->GetActorLocation(), ActorHit->GetActorLocation() + (GetOwner()->GetActorRotation().Vector() * LaunchDistance));
+			ActorHit->ProjectileMovement->Velocity = OutVelocity;
+		}
+		
+	}
+	
+	
+	// UKismetSystemLibrary::SphereTraceSingle(this,SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true, FColor::Red, FColor::Green, 1.5f);
+	//
+	// if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor()))
+	// {
+	// 	ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+	// }
+	bCanHit = false;
 }
 
 void AGunBase::UseShotGun()

@@ -22,6 +22,10 @@ ARangedEnemyProjectile::ARangedEnemyProjectile()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 }
 
+void ARangedEnemyProjectile::ParriedPorjectile()
+{
+}
+
 // Called when the game starts or when spawned
 void ARangedEnemyProjectile::BeginPlay()
 {
@@ -53,12 +57,11 @@ void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedCompo
 		}
 	}
 
-	//Kan vara det som krashar?
 	if(Cast<ABaseEnemy>(SweepResult.GetActor()))
 	{
 		return;
 	}
-	Destroy();
+	Destroy();// fungerar inte
 }
 
 void ARangedEnemyProjectile::SetOwner(AActor* NewOwner)

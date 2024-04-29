@@ -43,7 +43,10 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f;
-	
+	UPROPERTY()
+	bool bIsParried = false;
+	UPROPERTY()
+	FTimerHandle ParryTimerHandle = FTimerHandle();
 	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public:	
@@ -55,6 +58,10 @@ public:
 
 	void ApplyStun(float TimeStunned);
 	void ResetStun() const;
+	UFUNCTION()
+	void Parry();
+	UFUNCTION()
+	void StopBeingParried();
 
 private:
 	float StunTimer;

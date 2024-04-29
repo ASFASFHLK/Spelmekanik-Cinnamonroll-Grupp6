@@ -52,6 +52,10 @@ void AMeleeEnemy::BeginPlay()
 void AMeleeEnemy::Attack()
 {
 	Super::Attack();
+	if(bIsParried)
+	{
+		return;
+	}
 	const FVector End = (GetActorForwardVector() * 100) + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;

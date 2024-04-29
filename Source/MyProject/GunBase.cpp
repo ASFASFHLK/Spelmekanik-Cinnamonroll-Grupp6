@@ -190,17 +190,29 @@ void AGunBase::Punch()
 {
 	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-	const TArray<AActor*> ActorsToIgnore = {this, GetOwner()};// might not work
-	FHitResult HitResult;
+	const TArray<AActor*> ActorsToIgnore = {GetOwner()};// might not work
+	// FHitResult HitResult;
 
-	// UKismetSystemLibrary::SphereTraceMulti(this, GetActorLocation())
-	
-	UKismetSystemLibrary::SphereTraceSingle(this,SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true, FColor::Red, FColor::Green, 1.5f);
-
-	if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor()))
+	TArray<FHitResult> HitResults;
+	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
+	for (FHitResult Result : HitResults)
 	{
-		ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%s just got punched"), *ActorHit->GetName());
+			ActorHit->TakeDamage(1000, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+			
+		}
+		
 	}
+	
+	
+	// UKismetSystemLibrary::SphereTraceSingle(this,SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true, FColor::Red, FColor::Green, 1.5f);
+	//
+	// if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor()))
+	// {
+	// 	ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+	// }
 	bCanHit = false;
 }
 

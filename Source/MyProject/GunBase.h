@@ -81,6 +81,8 @@ private:
 	UPROPERTY()
 	int ShotDistance = 800;
 	UPROPERTY()
+	int PunchDistance = 100;
+	UPROPERTY()
 	int BurstCheck = 0;
 	UPROPERTY(EditDefaultsOnly, Category = "Gun")
 	float RifleShotCooldown;

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "DetourCrowdAIController.h"
 #include "EnemyAIController.generated.h"
 
 class ABaseEnemy;
@@ -15,6 +16,7 @@ class MYPROJECT_API AEnemyAIController : public AAIController
 {
 	GENERATED_BODY()
 public:
+	AEnemyAIController(const FObjectInitializer& ObjectInitializer);
 
 private:
 	virtual void BeginPlay() override;

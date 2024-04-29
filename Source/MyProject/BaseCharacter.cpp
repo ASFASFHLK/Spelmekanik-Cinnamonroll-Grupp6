@@ -83,6 +83,7 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
 	
 	if(EventInstigator && EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
 	{
@@ -100,8 +101,19 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
 }
 
+void ABaseCharacter::Parry()
+{
+	bIsParried = true;
+	GetWorld()->GetTimerManager().SetTimer(ParryTimerHandle, this, &ABaseCharacter::StopBeingParried, 0.3f, false);
+}
+
+void ABaseCharacter::StopBeingParried()
+{
+	bIsParried = false;
+}
+
 float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent,
-	AController* EventInstigator, AActor* DamageCauser)
+                                               AController* EventInstigator, AActor* DamageCauser)
 {
 	return Super::InternalTakeRadialDamage(Damage, RadialDamageEvent, EventInstigator, DamageCauser);
 }

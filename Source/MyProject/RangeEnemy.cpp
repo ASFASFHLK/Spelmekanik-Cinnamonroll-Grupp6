@@ -14,6 +14,10 @@ ARangeEnemy::ARangeEnemy()
 void ARangeEnemy::Attack()
 {
 	Super::Attack();
+	if(bIsParried)
+	{
+		return;
+	}
 
 	const FVector Location = GetActorLocation() + FVector(100,0, 0);
 	const FRotator Rotation = GetActorRotation();

@@ -76,6 +76,8 @@ private:
 	float Damage = 5;
 	UPROPERTY()
 	int Bursts = 5;
+	UPROPERTY(EditAnywhere)
+	int LaunchDistance = 500;
 	UPROPERTY()
 	int ShotGunReloadTime = 1;
 	UPROPERTY()

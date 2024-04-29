@@ -5,8 +5,10 @@
 
 #include "K2Node_DoOnceMultiInput.h"
 #include "PlayerCharacter.h"
+#include "RangedEnemyProjectile.h"
 #include "SWarningOrErrorBox.h"
 #include "Engine/DamageEvents.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -40,6 +42,7 @@ void AGunBase::Tick(float DeltaTime)
 
 void AGunBase::Shoot()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
 		return;
 	}
@@ -200,8 +203,15 @@ void AGunBase::Punch()
 		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
 		{
 			UE_LOG(LogTemp, Warning, TEXT("%s just got punched"), *ActorHit->GetName());
-			ActorHit->TakeDamage(1000, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
-			
+			ActorHit->Parry();
+			ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+		}
+		if(ARangedEnemyProjectile* ActorHit = Cast<ARangedEnemyProjectile>(Result.GetActor()))
+		{
+			FVector OutVelocity;
+			UGameplayStatics::SuggestProjectileVelocity_CustomArc(this,OutVelocity, ActorHit->GetActorLocation(), ActorHit->GetActorLocation() + (GetOwner()->GetActorRotation().Vector() * LaunchDistance));
+			// ActorHit->ProjectileMovement->SetVelocityInLocalSpace(OutVelocity);
+			ActorHit->ProjectileMovement->Velocity = OutVelocity;
 		}
 		
 	}

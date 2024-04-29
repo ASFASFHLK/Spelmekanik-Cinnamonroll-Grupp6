@@ -2,10 +2,24 @@
 
 
 #include "EnemyAIController.h"
-
+#include "Navigation/CrowdFollowingComponent.h"
 #include "BaseEnemy.h"
-#include "Kismet/GameplayStatics.h"
 
+
+class UCrowdFollowingComponent;
+
+AEnemyAIController::AEnemyAIController(const FObjectInitializer& ObjectInitializer)
+
+		:Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>
+		(TEXT("PathFollowingComponent")))
+{
+	
+}
+
+	
+
+	
+	
 
 void AEnemyAIController::BeginPlay()
 {
@@ -22,5 +36,4 @@ void AEnemyAIController::BeginPlay()
 void AEnemyAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	//SetFocus(Enemy->GetCurrentTarget());
 }

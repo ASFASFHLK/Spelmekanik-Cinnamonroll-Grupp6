@@ -36,6 +36,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ReloadShotGunShot();
 	UFUNCTION(BlueprintCallable)
+	void ReloadPunch();
+	UFUNCTION(BlueprintCallable)
     void ChangeGunType();
 	UFUNCTION(BlueprintCallable)
     void Punch();
@@ -48,6 +50,8 @@ private:
 	FTimerHandle ShootTimerHandle = FTimerHandle();
 	UPROPERTY()
 	FTimerHandle BurstTimerHandle = FTimerHandle();
+	UPROPERTY()
+	FTimerHandle HitTimerHandle = FTimerHandle();
 	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess= true), Category = "Gun")
 	USoundBase* ShotSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gun")
@@ -59,12 +63,14 @@ private:
 	UPROPERTY()
 	bool bCanceledShot = false;
 	UPROPERTY()
+	bool bCanHit = true;
+	UPROPERTY()
 	float ReloadTime = 0.8f;
 	UPROPERTY()
 	float BurstTime = 0.3f;
 	UPROPERTY(EditAnywhere)
 	int Pellets = 20;
-	UPROPERTY(BlueprintReadWrite, meta=(ClampMin = 0, UIMin = 0, ClampMax = 3, UIMax = 3, AllowPrivateAccess))
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	int GunType = 0;
 	UPROPERTY(EditAnywhere)
 	float Damage = 5;

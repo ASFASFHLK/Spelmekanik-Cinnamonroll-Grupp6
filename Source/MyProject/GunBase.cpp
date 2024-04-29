@@ -3,7 +3,9 @@
 
 #include "GunBase.h"
 
+#include "K2Node_DoOnceMultiInput.h"
 #include "PlayerCharacter.h"
+#include "SWarningOrErrorBox.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -64,7 +66,11 @@ void AGunBase::Shoot()
 		LaserShot();
 		break;
 	case 3:
-		Punch();
+		if(bCanHit)
+		{
+			Punch();
+			GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, ShotGunReloadTime * 0.8f, false);
+		}
 		break;
 	default: UE_LOG(LogTemp, Warning, TEXT("Not correct GunType"));
 	}
@@ -114,6 +120,7 @@ void AGunBase::ShotGunShot()
 	//UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
 	if(World)
 	{
+		bCanShoot = false;
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		for (int i = 0; i < Pellets; ++i)
@@ -135,7 +142,6 @@ void AGunBase::ShotGunShot()
 			}
 		}
 	}
-	bCanShoot = false;
 }
 
 void AGunBase::LaserShot()
@@ -163,6 +169,11 @@ void AGunBase::ReloadShotGunShot()
 	bCanShoot = true;
 }
 
+void AGunBase::ReloadPunch()
+{
+	bCanHit = true;
+}
+
 void AGunBase::ChangeGunType()
 {
 	if(GunType >= 3)
@@ -177,20 +188,20 @@ void AGunBase::ChangeGunType()
 
 void AGunBase::Punch()
 {
-// 	const FVector End = (GetActorForwardVector() * 100) + GetActorLocation();
-// 	const TArray<AActor*> ActorsToIgnore;
-// 	FHitResult HitResult;
-//
-// 		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-// 		const FVector SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-// 	UKismetSystemLibrary::SphereTraceMulti(this, GetActorLocation())
-// 	
-// 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),End,50, UEngineTypes::ConvertToTraceType(ECC_Pawn),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true, FColor::Red, FColor::Green, 1.5f);
-//
-// 	if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor()))
-// 	{
-// 		ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
-// 	}
+	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+	const TArray<AActor*> ActorsToIgnore = {this, GetOwner()};// might not work
+	FHitResult HitResult;
+
+	// UKismetSystemLibrary::SphereTraceMulti(this, GetActorLocation())
+	
+	UKismetSystemLibrary::SphereTraceSingle(this,SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn),false, ActorsToIgnore, EDrawDebugTrace::ForDuration,HitResult,true, FColor::Red, FColor::Green, 1.5f);
+
+	if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(HitResult.GetActor()))
+	{
+		ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
+	}
+	bCanHit = false;
 }
 
 void AGunBase::UseShotGun()

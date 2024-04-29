@@ -37,6 +37,8 @@ public:
 	void ReloadShotGunShot();
 	UFUNCTION(BlueprintCallable)
     void ChangeGunType();
+	UFUNCTION(BlueprintCallable)
+    void Punch();
 private:
 	UFUNCTION()
 	void UseShotGun();
@@ -48,7 +50,7 @@ private:
 	FTimerHandle BurstTimerHandle = FTimerHandle();
 	UPROPERTY(EditDefaultsOnly,meta=(AllowPrivateAccess= true), Category = "Gun")
 	USoundBase* ShotSound;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gameplay")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gun")
 	FVector MuzzleOffset = FVector(100,0,10);
 	UPROPERTY()
 	bool bCanShoot = true;
@@ -78,4 +80,13 @@ private:
 	float RifleShotCooldown;
 	UPROPERTY()
 	float CurrentRifleShotCooldown;
-};
+	UPROPERTY()
+	APlayerController* PlayerController;
+	UPROPERTY()
+	FRotator SpawnRotation;
+	UPROPERTY()
+	FVector SpawnLocation;
+	FCollisionQueryParams QueryParams = FCollisionQueryParams();
+	UPROPERTY()
+	UWorld* const World = GetWorld();
+ };

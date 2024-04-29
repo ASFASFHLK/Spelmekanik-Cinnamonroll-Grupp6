@@ -70,6 +70,8 @@ private:
 	float BurstTime = 0.3f;
 	UPROPERTY(EditAnywhere)
 	int Pellets = 20;
+	UPROPERTY(EditAnywhere)
+	int PunchRadius = 100;
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	int GunType = 0;
 	UPROPERTY(EditAnywhere)
@@ -77,7 +79,7 @@ private:
 	UPROPERTY()
 	int Bursts = 5;
 	UPROPERTY(EditAnywhere)
-	int LaunchDistance = 500;
+	int LaunchDistance = 5000;
 	UPROPERTY()
 	int ShotGunReloadTime = 1;
 	UPROPERTY()

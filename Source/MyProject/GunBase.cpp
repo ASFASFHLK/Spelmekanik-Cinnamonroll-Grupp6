@@ -197,7 +197,7 @@ void AGunBase::Punch()
 	// FHitResult HitResult;
 
 	TArray<FHitResult> HitResults;
-	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), 50, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
+	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
 	for (FHitResult Result : HitResults)
 	{
 		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
@@ -210,7 +210,6 @@ void AGunBase::Punch()
 		{
 			FVector OutVelocity;
 			UGameplayStatics::SuggestProjectileVelocity_CustomArc(this,OutVelocity, ActorHit->GetActorLocation(), ActorHit->GetActorLocation() + (GetOwner()->GetActorRotation().Vector() * LaunchDistance));
-			// ActorHit->ProjectileMovement->SetVelocityInLocalSpace(OutVelocity);
 			ActorHit->ProjectileMovement->Velocity = OutVelocity;
 		}
 		

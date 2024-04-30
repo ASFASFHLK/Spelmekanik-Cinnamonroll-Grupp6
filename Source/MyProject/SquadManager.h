@@ -28,7 +28,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	bool AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad);
+	//bool AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad);
 
 	void SquadDied(ASquad* SquadThatDied);
 

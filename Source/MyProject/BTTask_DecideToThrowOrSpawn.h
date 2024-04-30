@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "BTTask_WhichType.generated.h"
+#include "BTTask_DecideToThrowOrSpawn.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API UBTTask_WhichType : public UBTTaskNode
+class MYPROJECT_API UBTTask_DecideToThrowOrSpawn : public UBTTaskNode
 {
 	GENERATED_BODY()
 public:

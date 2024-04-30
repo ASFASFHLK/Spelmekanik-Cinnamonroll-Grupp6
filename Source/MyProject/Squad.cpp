@@ -21,11 +21,6 @@ void ASquad::BeginPlay()
 	{
 		CreateSpecifiedSquadMembers();
 	}
-	if(PartnerEnabled)
-	{
-		BindAllSquadMembers();
-	}
-	
 }
 
 
@@ -89,6 +84,7 @@ void ASquad::CreateSpecifiedSquadMembers()
 	}
 }
 
+/*
 void ASquad::BindAllSquadMembers()
 {
 	for(ABaseEnemy* Enemy : SquadMembers)
@@ -107,11 +103,13 @@ void ASquad::BindAllSquadMembers()
 	}
 }
 
+
 void ASquad::BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo)
 {
 	EnemyOne->SetPartner(EnemyTwo);
 	EnemyTwo->SetPartner(EnemyOne);
 }
+
 
 bool ASquad::FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor)
 {
@@ -138,6 +136,7 @@ void ASquad::FindNewPartner(ABaseEnemy* Enemy)
 		}
 	}
 }
+*/
 
 void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 {

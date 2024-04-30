@@ -30,11 +30,11 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-	bool HasPartner() const;
+	//bool HasPartner() const;
 
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
 	
-	void MyPartnerHasDied();
+	//void MyPartnerHasDied();
 
 	void HasDied();
 	

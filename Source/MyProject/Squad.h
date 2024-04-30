@@ -7,6 +7,7 @@
 #include "Containers/Map.h"
 #include "Squad.generated.h"
 
+class AExplosiveEnemy;
 class ASquadManager;
 class ABaseEnemy;
 
@@ -25,10 +26,12 @@ public:
 
 
 	void SetSquadManager(ASquadManager* SquadManager) {MySquadManager = SquadManager;}
-	bool FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor);
-	void FindNewPartner(ABaseEnemy* Enemy);
+	//bool FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor);
+	//void FindNewPartner(ABaseEnemy* Enemy);
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
-	
+
+	UFUNCTION()
+	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd){ExplosiveEnemies.Add(EnemyToAdd);}
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
@@ -58,9 +61,12 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	ABaseEnemy* MemberWithoutPartner;
 
+	UPROPERTY(VisibleAnywhere)
+	TArray<AExplosiveEnemy*> ExplosiveEnemies;
+
 	void CreateRandomSquadMembers();
 	void CreateSpecifiedSquadMembers();
-	void BindAllSquadMembers();
-	void BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo);
+	//void BindAllSquadMembers();
+	//void BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo);
 
 };

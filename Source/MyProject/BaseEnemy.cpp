@@ -50,6 +50,7 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	return DamageTaken;
 }
 
+/*
 bool ABaseEnemy::HasPartner() const
 {
 	if(Partner == nullptr)
@@ -69,13 +70,11 @@ void ABaseEnemy::MyPartnerHasDied()
 		MySquad->FindNewPartner(this);
 	}
 }
+*/
 
 void ABaseEnemy::HasDied()
 {
-	if (Partner)
-	{
-		Partner->MyPartnerHasDied();
-	}
+	
 	if(MySquad)
 	{
 		MySquad->RemoveFromSquad(this);

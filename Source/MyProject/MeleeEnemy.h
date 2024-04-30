@@ -32,6 +32,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SpawnExplosiveEnemy();
 
+	UFUNCTION()
+	int32 GetGorillaType() const {return GorillaTypeInt;}
+
+	UFUNCTION()
+	int32 GetSpawnDesire() const {return SpawnerValue;}
+
+	UFUNCTION()
+	int32 GetThrowDesire() const {return ThrowerValue;}
+
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
@@ -58,6 +67,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Type")
 	FString GorillaType;
+
+	UPROPERTY(VisibleAnywhere, Category = "Type")
+	int32 GorillaTypeInt;
 
 	UFUNCTION()
 	void DecideWhichType();

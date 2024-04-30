@@ -7,6 +7,7 @@
 #include "ExplosiveEnemy.h"
 #include "HealthComp.h"
 #include "KismetTraceUtils.h"
+#include "Squad.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/DamageEvents.h"
 
@@ -35,7 +36,7 @@ void AMeleeEnemy::ResetThrowTimer()
 
 void AMeleeEnemy::SpawnExplosiveEnemy()
 {
-	ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
+	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
 		FRotator(),FActorSpawnParameters());
 		
 	if(SpawnedEnemy == nullptr)
@@ -43,6 +44,10 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 		return;
 	}
 	SpawnedEnemy->SpawnDefaultController();
+	if(MySquad)
+	{
+		MySquad->AddExplosiveToSquad(SpawnedEnemy);
+	}
 }
 
 void AMeleeEnemy::Tick(float DeltaSeconds)
@@ -58,7 +63,6 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 void AMeleeEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
 	DecideWhichType();
@@ -89,21 +93,30 @@ void AMeleeEnemy::Attack()
 	}
 }
 
+//
+//	Gives the actor a certain type of enemy they are based on the values given
+//
 void AMeleeEnemy::DecideWhichType()
 {
 	if(SpawnerValue + ThrowerValue < 8)
 	{
 		GorillaType = "Charger";
-		
-	}else if(SpawnerValue - ThrowerValue > 2)
-	{
-		GorillaType = "Thrower";
+		Tags.Add(FName("Charger"));
+		GorillaTypeInt = 0;
 		
 	}else if(ThrowerValue - SpawnerValue > 2)
 	{
+		GorillaType = "Thrower";
+		GorillaTypeInt = 1;
+		
+	}else if(SpawnerValue - ThrowerValue > 2)
+	{
 		GorillaType = "Spawner";
+		GorillaTypeInt = 2;
+		
 	}else
 	{
 		GorillaType = "Balanced";
+		GorillaTypeInt = 3;
 	}
 }

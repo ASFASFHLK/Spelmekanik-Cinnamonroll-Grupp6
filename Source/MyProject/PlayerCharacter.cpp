@@ -124,7 +124,7 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
 		DisableInput(Cast<APlayerController>(GetController()));
 	}
-	
+	OnTakeDamage_Implementation();
 	return DamageTaken;
 	
 }

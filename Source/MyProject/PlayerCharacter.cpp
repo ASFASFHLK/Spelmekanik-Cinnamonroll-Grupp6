@@ -17,6 +17,7 @@ void APlayerCharacter::SetGun(AGunBase* NewGun)
 	Gun = NewGun;
 }
 
+
 void APlayerCharacter::LookUp(float Value) // Prevents nullptr and invalid input 
 {
 	if (Controller == nullptr or Value == 0.0f)
@@ -124,7 +125,8 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(false);
 		DisableInput(Cast<APlayerController>(GetController()));
 	}
-	OnTakeDamage_Implementation();
+	OnTakeDamage();
+	//OnDamage();
 	return DamageTaken;
 	
 }

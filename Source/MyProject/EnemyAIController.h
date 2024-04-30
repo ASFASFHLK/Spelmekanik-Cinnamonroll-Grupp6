@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "DetourCrowdAIController.h"
+#include "Navigation/CrowdFollowingComponent.h"
 #include "EnemyAIController.generated.h"
 
 class ABaseEnemy;
@@ -27,5 +28,8 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "AI")
 	UBehaviorTree* AIBehavior;
+
+	
+	void SetAvoidanceQuality(ECrowdAvoidanceQuality::Type Quality) const;
 
 };

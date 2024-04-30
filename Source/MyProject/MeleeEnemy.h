@@ -29,19 +29,36 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResetThrowTimer();
 
+	UFUNCTION(BlueprintCallable)
+	void SpawnExplosiveEnemy();
+
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
+	UFUNCTION()
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
 	virtual void Attack() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ThrowTimer;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ABaseEnemy> ExplosiveEnemy;
+
 	UPROPERTY()
 	float CurrentThrowTimer;
 
-	
-	
+	UPROPERTY(VisibleAnywhere, Category = "Type")
+	int ThrowerValue;
 
+	UPROPERTY(VisibleAnywhere, Category = "Type")
+	int SpawnerValue;
+
+	UPROPERTY(VisibleAnywhere, Category = "Type")
+	FString GorillaType;
+
+	UFUNCTION()
+	void DecideWhichType();
 };

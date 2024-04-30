@@ -4,6 +4,7 @@
 #include "MeleeEnemy.h"
 
 #include "AIController.h"
+#include "ExplosiveEnemy.h"
 #include "HealthComp.h"
 #include "KismetTraceUtils.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -32,6 +33,18 @@ void AMeleeEnemy::ResetThrowTimer()
 	SetCanThrow(false);
 }
 
+void AMeleeEnemy::SpawnExplosiveEnemy()
+{
+	ABaseEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
+		FRotator(),FActorSpawnParameters());
+		
+	if(SpawnedEnemy == nullptr)
+	{
+		return;
+	}
+	SpawnedEnemy->SpawnDefaultController();
+}
+
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -45,6 +58,10 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 void AMeleeEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SpawnerValue = FMath::RandRange(0, 10);
+	ThrowerValue = FMath::RandRange(0, 10);
+	DecideWhichType();
 	CurrentThrowTimer = 0;
 }
 
@@ -69,5 +86,24 @@ void AMeleeEnemy::Attack()
 	{
 		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
 
+	}
+}
+
+void AMeleeEnemy::DecideWhichType()
+{
+	if(SpawnerValue + ThrowerValue < 8)
+	{
+		GorillaType = "Charger";
+		
+	}else if(SpawnerValue - ThrowerValue > 2)
+	{
+		GorillaType = "Thrower";
+		
+	}else if(ThrowerValue - SpawnerValue > 2)
+	{
+		GorillaType = "Spawner";
+	}else
+	{
+		GorillaType = "Balanced";
 	}
 }

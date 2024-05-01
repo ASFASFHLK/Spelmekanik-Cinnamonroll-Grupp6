@@ -86,8 +86,10 @@ void AEnemy_Spawner::StartNextWave()
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < AmountToSpawnAtStart; i++)
 	{
-		SpawnEnemy();
-		AmountOfEnemiesSpawned++;
+		if(SpawnEnemy())
+		{
+			AmountOfEnemiesSpawned++;
+		}
 	}
 }
 

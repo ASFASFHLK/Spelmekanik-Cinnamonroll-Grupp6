@@ -11,6 +11,7 @@ void ASpeedModifier::OnAdded()
 	Super::OnAdded();
 
 	OriginalMovementSpeed = PlayerCharacter->GetCharacterMovement()->MaxWalkSpeed;
+	PlayerCharacter->DefaultMovementSpeed = NewMovementSpeed;
 	PlayerCharacter->GetCharacterMovement()->MaxWalkSpeed = NewMovementSpeed;
 }
 

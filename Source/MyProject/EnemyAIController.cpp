@@ -3,14 +3,31 @@
 
 #include "EnemyAIController.h"
 
-#include "BaseEnemy.h"
-#include "Kismet/GameplayStatics.h"
+#include <strmif.h>
 
+#include "Navigation/CrowdFollowingComponent.h"
+#include "BaseEnemy.h"
+
+
+class UCrowdFollowingComponent;
+
+AEnemyAIController::AEnemyAIController(const FObjectInitializer& ObjectInitializer)
+
+		:Super(ObjectInitializer.SetDefaultSubobjectClass<UCrowdFollowingComponent>
+		(TEXT("PathFollowingComponent")))
+{
+	
+}
+
+	
+
+	
+	
 
 void AEnemyAIController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	//SetAvoidanceQuality(ECrowdAvoidanceQuality::High);
 	
 	Enemy = Cast<ABaseEnemy>(GetPawn());
 	if(AIBehavior != nullptr)
@@ -22,5 +39,16 @@ void AEnemyAIController::BeginPlay()
 void AEnemyAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	//SetFocus(Enemy->GetCurrentTarget());
+}
+
+void AEnemyAIController::SetAvoidanceQuality(const ECrowdAvoidanceQuality::Type Quality) const
+{
+	if (UCrowdFollowingComponent* Pathfol = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Kommer in"));
+		Pathfol->SetCrowdAvoidanceQuality(Quality);
+		Pathfol->SetCrowdObstacleAvoidance(true,true);
+		Pathfol->SetCrowdSeparationWeight(1, true);
+		Pathfol->SetCrowdSeparation(true, true);
+	}
 }

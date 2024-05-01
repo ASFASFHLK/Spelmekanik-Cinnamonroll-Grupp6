@@ -5,6 +5,7 @@
 
 #include "Enemy_Spawner.h"
 #include "HealthComp.h"
+#include "Squad.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -26,26 +27,59 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	
 }
 
-
-
 float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
-	AActor* DamageCauser)
+                             AActor* DamageCauser)
 {
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	
-	if(DamageTaken >= HealthComp->GetCurrentHealth()) // If we die 
+	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
-		UE_LOG(LogTemp, Display, TEXT("I am dead"));
+		
+		HasDied();
+		/*
 		// calls the event
 		if(!OnDeath.ExecuteIfBound())
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
 		}	
 		OnDeath.Clear();
-		Destroy();
+		*/
+		
 	}
 	
 	return DamageTaken;
+}
+
+/*
+bool ABaseEnemy::HasPartner() const
+{
+	if(Partner == nullptr)
+	{
+		return false;
+	}
+	return true;
+}
+
+
+
+void ABaseEnemy::MyPartnerHasDied()
+{
+	Partner = nullptr;
+	if(MySquad)
+	{
+		MySquad->FindNewPartner(this);
+	}
+}
+*/
+
+void ABaseEnemy::HasDied()
+{
+	
+	if(MySquad)
+	{
+		MySquad->RemoveFromSquad(this);
+	}
+	Destroy();
 }
 
 

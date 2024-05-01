@@ -15,10 +15,15 @@ class MYPROJECT_API ABaseCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
+	
 	UHealthComp* GetHealthComponent() const {return HealthComp;}
+	
 	UFUNCTION()
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintNativeEvent)
+    void OnTakeDamage();
+    
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -41,8 +46,12 @@ protected:
 	
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f;
-	
+	UPROPERTY()
+	bool bIsParried = false;
+	UPROPERTY()
+	FTimerHandle ParryTimerHandle = FTimerHandle();
 	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -52,6 +61,10 @@ public:
 
 	void ApplyStun(float TimeStunned);
 	void ResetStun() const;
+	UFUNCTION()
+	void Parry();
+	UFUNCTION()
+	void StopBeingParried();
 
 private:
 	float StunTimer;

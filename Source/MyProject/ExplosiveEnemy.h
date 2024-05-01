@@ -14,7 +14,21 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 {
 	GENERATED_BODY()
 
+public:
+	
+	bool BothInPosition();
+	
+	UPROPERTY()
+	bool PartnerInPosition;
+
+	UPROPERTY()
+	bool IAmInPosition;
+
+	UFUNCTION()
+	bool CanBeThrown();
+
 private:
+	
 	void Explode();
 	virtual void Attack() override;
 

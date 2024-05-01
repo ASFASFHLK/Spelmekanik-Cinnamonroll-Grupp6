@@ -23,52 +23,80 @@ void UModifierComponent::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
+	Modifiers.SetNum(MaxModifiersAllowed);// sets the default size 
 	
+	// sets up the default modifer array 
 }
 
+
+void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace, TArray<ABaseModifier*>& List)
+{
+	ABaseModifier* CreatedModifier = NewObject<ABaseModifier>(this, NewModifier);
+	CreatedModifier->OnAdded();
+	UE_LOG(LogTemp, Warning, TEXT("Added a Modifer with the name %ls"), *CreatedModifier->GetName());
+	List[ModifierPlace] = CreatedModifier;
+	ModifierUpdates.AddDynamic(CreatedModifier, &ABaseModifier::OnUpdate);
+}
+
+void UModifierComponent::RemoveModifer(const int ModifierPlace, TArray<ABaseModifier*>& List)
+{
+	// might be a bit redundant 
+	ABaseModifier* Target = Modifiers[ModifierPlace];
+	
+	if(Target == nullptr)
+	{
+		return;
+	}
+	
+	Target->OnRemoved();
+	Target->Destroy();
+	ModifierUpdates.RemoveDynamic(Target, &ABaseModifier::OnUpdate);
+}
 
 // Called every frame
 void UModifierComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if(ModifierOne)
-	{
-		ModifierOne->OnUpdate(DeltaTime);
-	}
-	if(ModifierTwo)
-	{
-		ModifierTwo->OnUpdate(DeltaTime);
-	}
-
-
+	ModifierUpdates.Broadcast(DeltaTime); 
 }
 
 void UModifierComponent::ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace)
 {
-	switch(ModifierPlace)
+	if(MaxModifiersAllowed < ModifierPlace)
 	{
-	case 1:
-		if(ModifierOne)
-		{
-			ModifierOne->OnRemoved();
-		}
-		ModifierOne = NewObject<ABaseModifier>(this, NewModifier);
-		ModifierOne->OnAdded();
-		break;
+		UE_LOG(LogTemp, Warning, TEXT("The maximum amount of modifers have been reached %i"), Modifiers.Num());
+		return;
+	}
+	if(Modifiers[ModifierPlace] != nullptr)
+	{
+		RemoveModifer(ModifierPlace, Modifiers);
+	}
+	AddNewModifier(NewModifier, ModifierPlace, Modifiers);
+}
 
-	case 2:
-		if(ModifierTwo)
+void UModifierComponent::SetMaxModifiersAllowed(int NewValue)
+{
+	if(NewValue < MaxModifiersAllowed)
+	{
+		UE_LOG(LogTemp, Display, TEXT("I will remove all modifers that excided the maximum amount allowed"));
+		for(int i = MaxModifiersAllowed -1; i > NewValue; i--)
 		{
-			ModifierTwo->OnRemoved();
+			RemoveModifer(i, Modifiers);
 		}
-		ModifierTwo = NewObject<ABaseModifier>(this, NewModifier);
-		ModifierTwo->OnAdded();
-		break;
-		
-	default:
-		UE_LOG(LogTemp, Warning, TEXT("Invalid modifier placement"));
-		break;
+	}
+	Modifiers.SetNum(MaxModifiersAllowed);
+	MaxModifiersAllowed = NewValue;
+}
+
+void UModifierComponent::SetUp()
+{
+	DefaultModifiers_Internal.SetNum(DefaultModifiers.Num());
+	int i = 0;
+	for (const TSubclassOf<ABaseModifier> DefaultMod : DefaultModifiers)
+	{
+		AddNewModifier(DefaultMod, i, DefaultModifiers_Internal);
+		i++;
 	}
 }
 

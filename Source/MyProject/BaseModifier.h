@@ -23,12 +23,22 @@ protected:
 
 	UPROPERTY()
 	APlayerCharacter* PlayerCharacter;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	FText ModifierName;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	FText ModifierDescription;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	FText ModifierFlavourText; 
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void OnAdded();
+	UFUNCTION()
 	virtual void OnUpdate(float DeltaTime);
 	virtual void OnRemoved();
 

@@ -5,15 +5,34 @@
 
 #include "PlayerCharacter.h"
 
+
+void ADoubleJumpModifier::AddDuplicate()
+{
+	Super::AddDuplicate();
+	AmountsEquipped+=1;
+	PlayerCharacter->JumpMaxCount += DuplicateExtraJumps; 
+}
+
+
+
 void ADoubleJumpModifier::OnAdded()
 {
 	Super::OnAdded();
-	OriginalNumberOfJumps = PlayerCharacter->JumpMaxCount;
-	PlayerCharacter->JumpMaxCount = NumberOfJumps;
+
+	PlayerCharacter->JumpMaxCount += ExtraJumps;
 }
 
 void ADoubleJumpModifier::OnRemoved()
 {
-	PlayerCharacter->JumpMaxCount = OriginalNumberOfJumps;
+	PlayerCharacter->JumpMaxCount -= ExtraJumps + (DuplicateExtraJumps * AmountsEquipped-1);
+
+	// prevents us from going below 1 jump
+	if(PlayerCharacter->JumpMaxCount  < 1)
+	{
+		PlayerCharacter->JumpMaxCount = 1; 
+	}
+	
 	Super::OnRemoved();
 }
+
+

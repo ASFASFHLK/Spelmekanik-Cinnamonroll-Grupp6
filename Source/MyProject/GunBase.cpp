@@ -3,10 +3,8 @@
 
 #include "GunBase.h"
 
-#include "K2Node_DoOnceMultiInput.h"
 #include "PlayerCharacter.h"
 #include "RangedEnemyProjectile.h"
-#include "SWarningOrErrorBox.h"
 #include "Engine/DamageEvents.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -42,7 +40,7 @@ void AGunBase::Tick(float DeltaTime)
 
 void AGunBase::Shoot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
 		return;
 	}

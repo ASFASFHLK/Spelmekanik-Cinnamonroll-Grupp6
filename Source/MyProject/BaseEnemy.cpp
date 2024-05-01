@@ -17,6 +17,16 @@ void ABaseEnemy::BeginPlay()
 	CurrentAttackCooldown = 0;
 }
 
+FVector ABaseEnemy::GetPlayerLocationFromSquad() const
+{
+	if(MySquad)
+	{
+		return MySquad->GetPlayerLocation();
+	}
+
+	return {};
+}
+
 void ABaseEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);

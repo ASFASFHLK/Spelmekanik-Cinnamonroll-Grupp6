@@ -18,6 +18,9 @@ class MYPROJECT_API ABaseEnemy : public ABaseCharacter
 
 public:
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	FVector GetPlayerLocationFromSquad() const;
 	
 	UFUNCTION(BlueprintCallable)
 	AActor* GetCurrentTarget() const {return CurrentTarget;}

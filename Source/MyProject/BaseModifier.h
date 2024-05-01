@@ -16,22 +16,17 @@ class MYPROJECT_API ABaseModifier : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABaseModifier();
-
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY()
 	APlayerCharacter* PlayerCharacter;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
-	FText ModifierName;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
-	FText ModifierDescription;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
-	FText ModifierFlavourText; 
+
+	int AmountsEquipped = 1;
+	UPROPERTY(BlueprintReadOnly)
+	bool CanHaveDuplicates = true; 
 
 public:	
 	// Called every frame
@@ -41,5 +36,10 @@ public:
 	UFUNCTION()
 	virtual void OnUpdate(float DeltaTime);
 	virtual void OnRemoved();
+	int GetAmountsEquipped() const;
+	virtual void AddDuplicate();
 
+	UFUNCTION(BlueprintCallable)
+	bool GetCanHaveDuplicates() const;
+	
 };

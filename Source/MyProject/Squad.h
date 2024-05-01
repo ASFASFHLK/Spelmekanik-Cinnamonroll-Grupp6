@@ -31,6 +31,9 @@ public:
 
 	UFUNCTION()
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
+
+	UFUNCTION()
+	void AddToSquad(ABaseEnemy* SpawnedEnemy);
 	
 	UFUNCTION()
 	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd);

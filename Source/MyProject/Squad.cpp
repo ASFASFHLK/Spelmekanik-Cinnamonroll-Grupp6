@@ -17,7 +17,7 @@
 void ASquad::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
 	
 	if(RandomlyGenerated)
@@ -29,14 +29,18 @@ void ASquad::BeginPlay()
 	}
 }
 
+ASquad::ASquad()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
 
 
 // Called every frame
 void ASquad::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
 	PlayerLocation = PlayerCharacter->GetActorLocation();
+	UE_LOG(LogTemp, Display, TEXT("%f"), PlayerLocation.X);
+	Super::Tick(DeltaTime);
 }
 
 void ASquad::CreateRandomSquadMembers()

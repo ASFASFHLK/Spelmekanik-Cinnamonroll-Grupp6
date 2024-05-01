@@ -19,7 +19,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
+	UFUNCTION(BlueprintNativeEvent)
+	void GunFired();
+	UFUNCTION(BlueprintNativeEvent)
+	void GunHit();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
@@ -101,4 +105,6 @@ private:
 	FCollisionQueryParams QueryParams = FCollisionQueryParams();
 	UPROPERTY()
 	UWorld* const World = GetWorld();
+
+
  };

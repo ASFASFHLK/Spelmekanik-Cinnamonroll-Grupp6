@@ -3,10 +3,8 @@
 
 #include "GunBase.h"
 
-#include "K2Node_DoOnceMultiInput.h"
 #include "PlayerCharacter.h"
 #include "RangedEnemyProjectile.h"
-#include "SWarningOrErrorBox.h"
 #include "Engine/DamageEvents.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -30,6 +28,10 @@ void AGunBase::BeginPlay()
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
 		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 	}
+}
+
+void AGunBase::GunHit_Implementation()
+{
 }
 
 // Called every frame
@@ -107,6 +109,7 @@ void AGunBase::RifleShot()
 		Spread.Yaw += XSpread;
 		Spread.Pitch += YSpread;
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.0f);
+		GunFired(); // juni :3 
 		if(HitResult.GetActor())
 		{
 			//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -114,6 +117,7 @@ void AGunBase::RifleShot()
 			if(ShotSound){
 				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 			}
+			GunHit(); // juni :3
 		}
 	}
 }
@@ -126,6 +130,7 @@ void AGunBase::ShotGunShot()
 		bCanShoot = false;
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+		GunFired(); // juni 
 		for (int i = 0; i < Pellets; ++i)
 		{
 			FHitResult HitResult;
@@ -142,6 +147,7 @@ void AGunBase::ShotGunShot()
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 				}
+				GunHit(); // juni 
 			}
 		}
 	}
@@ -156,6 +162,7 @@ void AGunBase::LaserShot()
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * ShotDistance), FColor::Red, false, 0.02f);
+		GunFired(); 
 		if(HitResult.GetActor())
 		{
 			//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -163,6 +170,7 @@ void AGunBase::LaserShot()
 			if(ShotSound){
 				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 			}
+			GunHit();
 		}
 	}
 }
@@ -256,4 +264,9 @@ void AGunBase::Reload()
 	bCanShoot = true;
 	BurstCheck = 0;
 	//UE_LOG(LogTemp, Warning, TEXT("Can shoot"));
+}
+
+void AGunBase::GunFired_Implementation()
+{
+	
 }

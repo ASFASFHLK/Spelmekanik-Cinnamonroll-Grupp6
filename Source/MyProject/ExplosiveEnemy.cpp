@@ -40,6 +40,7 @@ bool AExplosiveEnemy::CanBeThrown()
 	return false;
 }
 
+/*
 void AExplosiveEnemy::Explode()
 {
 	const TArray<AActor*> ActorsToIgnore;
@@ -52,3 +53,5 @@ void AExplosiveEnemy::Explode()
 	//const bool Discard = OnDeath.ExecuteIfBound();
 	HasDied();
 }
+*/
+

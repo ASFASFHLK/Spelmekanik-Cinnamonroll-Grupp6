@@ -25,22 +25,29 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ABaseEnemy* GetPartner() const {return Partner;}
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void HasDied();
 
+	UFUNCTION()
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
+	UFUNCTION()
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	//bool HasPartner() const;
 
+	UFUNCTION()
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
 	
 	//void MyPartnerHasDied();
 	
+	UFUNCTION()
 	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}
+
+	UFUNCTION(BlueprintCallable)
+	float GetDamage() const {return DamageDealt;}
 	
 	FOnDeath OnDeath;
 	
@@ -56,6 +63,7 @@ protected:
 
 	UPROPERTY()
 	AAIController* MyController = Cast<AAIController>(Controller);
+	
 	virtual void Tick(float DeltaSeconds) override;
 
 private:

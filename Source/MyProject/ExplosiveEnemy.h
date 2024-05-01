@@ -26,10 +26,16 @@ public:
 
 	UFUNCTION()
 	bool CanBeThrown();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void Explode();
+
+	UFUNCTION(BlueprintCallable)
+	float GetExplosionRadius() const {return ExplosionRadius;}
 
 private:
 	
-	void Explode();
+	UFUNCTION()
 	virtual void Attack() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
@@ -37,6 +43,4 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ExplosionRadius;
-
-	
 };

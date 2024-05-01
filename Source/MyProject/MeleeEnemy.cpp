@@ -3,9 +3,10 @@
 
 #include "MeleeEnemy.h"
 
-#include "AIController.h"
-#include "HealthComp.h"
+#include "EnemyAIController.h"
+#include "ExplosiveEnemy.h"
 #include "KismetTraceUtils.h"
+#include "Squad.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/DamageEvents.h"
 
@@ -16,27 +17,56 @@ void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
 	
 }
 
-void AMeleeEnemy::CallPartnerToMove_Implementation()
-{
-}
-
-
-
 void AMeleeEnemy::SetCanThrow_Implementation(bool Value)
 {
 }
 
+void AMeleeEnemy::CallExplosiveToMove()
+{
+	
+	EnemyToThrow = MySquad->LookForExplosiveToThrow();
+	
+	if(EnemyToThrow)
+	{
+		AAIController* EnemyToThrowController = Cast<AEnemyAIController>(EnemyToThrow->GetController());
+		EnemyToThrowController->GetBlackboardComponent()->SetValueAsBool("MoveToPartner", true);
+		EnemyToThrowController->GetBlackboardComponent()->SetValueAsVector("PartnerLocation", GetActorLocation());
+		EnemyToThrow->SetPartner(this);
+		SetPartner(EnemyToThrow);
+	}else
+	{
+		SpawnExplosiveEnemy();
+	}
+}
+
 void AMeleeEnemy::ResetThrowTimer()
 {
-	CurrentThrowTimer = ThrowTimer;
+	CurrentThrowOrSpawnTimer = ThrowOrSpawnTimer;
 	SetCanThrow(false);
+}
+
+void AMeleeEnemy::SpawnExplosiveEnemy()
+{
+	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
+		FRotator(),FActorSpawnParameters());
+		
+	if(SpawnedEnemy == nullptr)
+	{
+		return;
+	}
+	SpawnedEnemy->SpawnDefaultController();
+	if(MySquad)
+	{
+		MySquad->AddExplosiveToSquad(SpawnedEnemy);
+	}
+	ResetThrowTimer();
 }
 
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	CurrentThrowTimer -= DeltaSeconds;
-	if(CurrentThrowTimer <= 0)
+	CurrentThrowOrSpawnTimer -= DeltaSeconds;
+	if(CurrentThrowOrSpawnTimer <= 0)
 	{
 		SetCanThrow(true);
 	}
@@ -45,7 +75,10 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 void AMeleeEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentThrowTimer = 0;
+	SpawnerValue = FMath::RandRange(0, 10);
+	ThrowerValue = FMath::RandRange(0, 10);
+	DecideWhichType();
+	CurrentThrowOrSpawnTimer = 0;
 }
 
 
@@ -70,4 +103,33 @@ void AMeleeEnemy::Attack()
 		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
 
 	}
+}
+
+//
+//	Gives the actor a certain type of enemy they are based on the values given
+//
+void AMeleeEnemy::DecideWhichType()
+{
+	if(SpawnerValue + ThrowerValue < 8)
+	{
+		GorillaType = "Charger";
+		Tags.Add(FName("Charger"));
+		GorillaTypeInt = 0;
+		
+	}else if(ThrowerValue - SpawnerValue > 2)
+	{
+		GorillaType = "Thrower";
+		GorillaTypeInt = 1;
+		
+	}else if(SpawnerValue - ThrowerValue > 2)
+	{
+		GorillaType = "Spawner";
+		GorillaTypeInt = 2;
+		
+	}/*else
+	{
+		GorillaType = "Balanced";
+		GorillaTypeInt = 3;
+	}
+	*/
 }

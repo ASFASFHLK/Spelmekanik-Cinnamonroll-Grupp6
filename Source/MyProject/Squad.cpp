@@ -4,7 +4,10 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "ExplosiveEnemy.h"
+#include "NetworkMessage.h"
 #include "SquadManager.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Tasks/GameplayTask_SpawnActor.h"
 
@@ -14,6 +17,9 @@
 void ASquad::BeginPlay()
 {
 	Super::BeginPlay();
+
+	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
+	
 	if(RandomlyGenerated)
 	{
 		CreateRandomSquadMembers();
@@ -21,11 +27,6 @@ void ASquad::BeginPlay()
 	{
 		CreateSpecifiedSquadMembers();
 	}
-	if(PartnerEnabled)
-	{
-		BindAllSquadMembers();
-	}
-	
 }
 
 
@@ -35,6 +36,7 @@ void ASquad::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	PlayerLocation = PlayerCharacter->GetActorLocation();
 }
 
 void ASquad::CreateRandomSquadMembers()
@@ -89,6 +91,7 @@ void ASquad::CreateSpecifiedSquadMembers()
 	}
 }
 
+/*
 void ASquad::BindAllSquadMembers()
 {
 	for(ABaseEnemy* Enemy : SquadMembers)
@@ -107,11 +110,13 @@ void ASquad::BindAllSquadMembers()
 	}
 }
 
+
 void ASquad::BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo)
 {
 	EnemyOne->SetPartner(EnemyTwo);
 	EnemyTwo->SetPartner(EnemyOne);
 }
+
 
 bool ASquad::FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor)
 {
@@ -138,10 +143,15 @@ void ASquad::FindNewPartner(ABaseEnemy* Enemy)
 		}
 	}
 }
+*/
 
 void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 {
 	SquadMembers.Remove(EnemyToRemove);
+	if(EnemyToRemove->IsA(AExplosiveEnemy::StaticClass()))
+	{
+		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
+	}
 	if(SquadMembers.Num() == 0)
 	{
 		if(MySquadManager)
@@ -150,6 +160,30 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 		}
 		Destroy();
 	}
+}
+
+void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)
+{
+	ExplosiveEnemies.Add(EnemyToAdd);
+	EnemyToAdd->SetSquad(this);
+}
+
+AExplosiveEnemy* ASquad::LookForExplosiveToThrow()
+{
+	AExplosiveEnemy* ClosestEnemy = nullptr;
+	float ClosestRange = 1000000;
+	for(int i = 0; i < ExplosiveEnemies.Num(); i++)
+	{
+		AExplosiveEnemy* NextEnemy = ExplosiveEnemies[i];
+		const float Next = FVector::Distance(NextEnemy->GetActorLocation(), PlayerLocation);
+		
+		if(Next < ClosestRange && NextEnemy->CanBeThrown())
+		{
+			ClosestRange = Next;
+			ClosestEnemy = ExplosiveEnemies[i];
+		}
+	}
+	return ClosestEnemy; 
 }
 
 

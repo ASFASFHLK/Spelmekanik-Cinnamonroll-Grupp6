@@ -29,6 +29,7 @@ void ASquadManager::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+/*
 bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* OriginalSquad)
 {
 	if(OriginalSquad->FindSquadMemberToBind(EnemyToAssign))
@@ -46,6 +47,7 @@ bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* Original
 	}
 	return false;
 }
+*/
 
 void ASquadManager::SquadDied(ASquad* SquadThatDied)
 {

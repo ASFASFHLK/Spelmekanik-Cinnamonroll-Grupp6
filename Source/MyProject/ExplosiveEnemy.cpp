@@ -28,6 +28,18 @@ bool AExplosiveEnemy::BothInPosition()
 }
 
 
+bool AExplosiveEnemy::CanBeThrown()
+{
+	if(MySquad)
+	{
+		if(const float DistanceToPlayer = FVector::Distance(GetActorLocation(), MySquad->GetPlayerLocation()); DistanceToPlayer > 200)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void AExplosiveEnemy::Explode()
 {
 	const TArray<AActor*> ActorsToIgnore;

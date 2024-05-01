@@ -24,6 +24,9 @@ public:
 	UPROPERTY()
 	bool IAmInPosition;
 
+	UFUNCTION()
+	bool CanBeThrown();
+
 private:
 	
 	void Explode();
@@ -34,4 +37,6 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ExplosionRadius;
+
+	
 };

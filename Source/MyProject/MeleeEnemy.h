@@ -6,6 +6,8 @@
 #include "BaseEnemy.h"
 #include "MeleeEnemy.generated.h"
 
+class UBlackboardComponent;
+class AExplosiveEnemy;
 /**
  * 
  */
@@ -16,12 +18,16 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 	
 public:
 
-	
+	/*
 	UFUNCTION(BlueprintNativeEvent)
 	void CallPartnerToMove();
+	*/
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void ThrowExplosiveEnemy();
+
+	UFUNCTION()
+	void CallExplosiveToMove();
 
 	UFUNCTION(BlueprintNativeEvent)
 	void SetCanThrow(bool Value);
@@ -41,6 +47,9 @@ public:
 	UFUNCTION()
 	int32 GetThrowDesire() const {return ThrowerValue;}
 
+	UFUNCTION()
+	AExplosiveEnemy* GetEnemyToThrow() const {return EnemyToThrow;}
+	
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
@@ -51,13 +60,13 @@ private:
 	virtual void Attack() override;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
-	float ThrowTimer;
+	float ThrowOrSpawnTimer;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABaseEnemy> ExplosiveEnemy;
 
 	UPROPERTY()
-	float CurrentThrowTimer;
+	float CurrentThrowOrSpawnTimer;
 
 	UPROPERTY(VisibleAnywhere, Category = "Type")
 	int ThrowerValue;
@@ -71,6 +80,11 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Type")
 	int32 GorillaTypeInt;
 
+	UPROPERTY()
+	AExplosiveEnemy* EnemyToThrow;
+
+
+	
 	UFUNCTION()
 	void DecideWhichType();
 };

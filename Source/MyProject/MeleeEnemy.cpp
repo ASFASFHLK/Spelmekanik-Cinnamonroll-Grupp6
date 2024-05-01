@@ -3,9 +3,8 @@
 
 #include "MeleeEnemy.h"
 
-#include "AIController.h"
+#include "EnemyAIController.h"
 #include "ExplosiveEnemy.h"
-#include "HealthComp.h"
 #include "KismetTraceUtils.h"
 #include "Squad.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -18,19 +17,31 @@ void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
 	
 }
 
-void AMeleeEnemy::CallPartnerToMove_Implementation()
-{
-}
-
-
-
 void AMeleeEnemy::SetCanThrow_Implementation(bool Value)
 {
 }
 
+void AMeleeEnemy::CallExplosiveToMove()
+{
+	
+	EnemyToThrow = MySquad->LookForExplosiveToThrow();
+	
+	if(EnemyToThrow)
+	{
+		AAIController* EnemyToThrowController = Cast<AEnemyAIController>(EnemyToThrow->GetController());
+		EnemyToThrowController->GetBlackboardComponent()->SetValueAsBool("MoveToPartner", true);
+		EnemyToThrowController->GetBlackboardComponent()->SetValueAsVector("PartnerLocation", GetActorLocation());
+		EnemyToThrow->SetPartner(this);
+		SetPartner(EnemyToThrow);
+	}else
+	{
+		SpawnExplosiveEnemy();
+	}
+}
+
 void AMeleeEnemy::ResetThrowTimer()
 {
-	CurrentThrowTimer = ThrowTimer;
+	CurrentThrowOrSpawnTimer = ThrowOrSpawnTimer;
 	SetCanThrow(false);
 }
 
@@ -48,13 +59,14 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 	{
 		MySquad->AddExplosiveToSquad(SpawnedEnemy);
 	}
+	ResetThrowTimer();
 }
 
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	CurrentThrowTimer -= DeltaSeconds;
-	if(CurrentThrowTimer <= 0)
+	CurrentThrowOrSpawnTimer -= DeltaSeconds;
+	if(CurrentThrowOrSpawnTimer <= 0)
 	{
 		SetCanThrow(true);
 	}
@@ -66,7 +78,7 @@ void AMeleeEnemy::BeginPlay()
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
 	DecideWhichType();
-	CurrentThrowTimer = 0;
+	CurrentThrowOrSpawnTimer = 0;
 }
 
 
@@ -114,9 +126,10 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaType = "Spawner";
 		GorillaTypeInt = 2;
 		
-	}else
+	}/*else
 	{
 		GorillaType = "Balanced";
 		GorillaTypeInt = 3;
 	}
+	*/
 }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AIController.h"
 #include "BaseCharacter.h"
 #include "BaseEnemy.generated.h"
 
@@ -24,6 +25,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ABaseEnemy* GetPartner() const {return Partner;}
 
+	UFUNCTION()
+	void HasDied();
+
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
@@ -35,8 +39,6 @@ public:
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
 	
 	//void MyPartnerHasDied();
-
-	void HasDied();
 	
 	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}
 	
@@ -51,7 +53,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ASquad* MySquad;
-	
+
+	UPROPERTY()
+	AAIController* MyController = Cast<AAIController>(Controller);
 	virtual void Tick(float DeltaSeconds) override;
 
 private:

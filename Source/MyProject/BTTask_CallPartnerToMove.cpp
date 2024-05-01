@@ -11,6 +11,6 @@ EBTNodeResult::Type UBTTask_CallPartnerToMove::ExecuteTask(UBehaviorTreeComponen
 
 	AAIController* AIController = OwnerComp.GetAIOwner();
 	Enemy = Cast<AMeleeEnemy>(AIController->GetPawn());
-	Enemy->CallPartnerToMove();
+	Enemy->CallExplosiveToMove();
 	return Super::ExecuteTask(OwnerComp, NodeMemory);
 }

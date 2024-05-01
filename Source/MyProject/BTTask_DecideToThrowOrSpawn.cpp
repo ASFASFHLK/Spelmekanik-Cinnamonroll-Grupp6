@@ -28,20 +28,20 @@ EBTNodeResult::Type UBTTask_DecideToThrowOrSpawn::ExecuteTask(UBehaviorTreeCompo
 	{
 		if(SpawnProbability >= RandomNumber)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SPAWNAR"));
+			//UE_LOG(LogTemp, Warning, TEXT("SPAWNAR"));
 		}else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("KASTAR"));
+			//UE_LOG(LogTemp, Warning, TEXT("KASTAR"));
 		}
 	}
 	else
 	{
 		if(ThrowProbability >= RandomNumber)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("KASTAR"));
+			//UE_LOG(LogTemp, Warning, TEXT("KASTAR"));
 		}else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SPAWNAR"));
+			//UE_LOG(LogTemp, Warning, TEXT("SPAWNAR"));
 		}
 	}
 	

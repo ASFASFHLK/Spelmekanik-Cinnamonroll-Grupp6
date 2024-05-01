@@ -21,6 +21,9 @@ public:
 	UFUNCTION()
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintNativeEvent)
+    void OnTakeDamage();
+    
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

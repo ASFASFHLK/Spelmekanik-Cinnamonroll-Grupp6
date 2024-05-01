@@ -98,7 +98,13 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 		SetActorEnableCollision(false);
 		SetActorHiddenInGame(true);
 	}
+
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
+}
+
+void ABaseCharacter::OnTakeDamage_Implementation()
+{
+	UE_LOG(LogTemp, Warning, TEXT("I have been called DAMAGE EVENT"));
 }
 
 void ABaseCharacter::Parry()

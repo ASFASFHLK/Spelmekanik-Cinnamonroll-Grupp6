@@ -80,7 +80,7 @@ public:
 
 	void SetGun(AGunBase* NewGun);
 
-
+	
 public:
 	APlayerCharacter();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

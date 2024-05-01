@@ -23,8 +23,10 @@ void AMeleeEnemy::SetCanThrow_Implementation(bool Value)
 
 void AMeleeEnemy::CallExplosiveToMove()
 {
-	
-	EnemyToThrow = MySquad->LookForExplosiveToThrow();
+	if(MySquad)
+	{
+		EnemyToThrow = MySquad->LookForExplosiveToThrow();
+	}
 	
 	if(EnemyToThrow)
 	{

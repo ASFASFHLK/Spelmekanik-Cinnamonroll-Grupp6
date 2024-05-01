@@ -44,7 +44,7 @@ void AGunBase::Tick(float DeltaTime)
 
 void AGunBase::Shoot()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
 		return;
 	}

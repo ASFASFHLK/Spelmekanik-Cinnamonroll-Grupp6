@@ -21,28 +21,31 @@ void AEnemy_Spawner::BeginPlay()
 	Super::BeginPlay();
 
 	GetSpawnGatesInScene();
-	SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
+	//SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
+	Squad = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
 	StartNextWave();
 }
 
 
-void AEnemy_Spawner::SpawnEnemy()
-{/*
+bool AEnemy_Spawner::SpawnEnemy()
+{
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
-		return;
+		return false;
 	}
-	*/
-
+	
+/*
 	if(AmountOfTotalSquadsToSpawn <= 0)
 	{
 		return;
 	}
+	
 
 	if(SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return;
 	}
+	*/
 	
 	const FVector SpawnPoint = SpawnerGates[LocationIndex]->GetSpawnPointVector();
 	LocationIndex++;
@@ -52,35 +55,35 @@ void AEnemy_Spawner::SpawnEnemy()
 	{
 		LocationIndex = 0;
 	}
-
+/*
 	if(ASquad* Squad = GetWorld()->SpawnActor<ASquad>(SquadType, SpawnPoint, FRotator(),FActorSpawnParameters()))
 	{
 		Squad->SetSquadManager(SquadManager);
 		SquadManager->AddSquad(Squad);
 	}
+	*/
 
-	AmountOfTotalSquadsToSpawn--;
-	/*
+	
+	
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	
 	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(Enemies[EnemyIndex], SpawnPoint, FRotator(), FActorSpawnParameters());
 
 	if(Enemy)
 	{
-		UE_LOG(LogTemp, Display, TEXT("I have been Spawned %ls"), *GetName());
 		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
 		Enemy->SpawnDefaultController();
+		Squad->AddToSquad(Enemy);
+		return true;
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("I have not been Spawned %ls"), *GetName());
-	}
-	*/
+	return false;
 }
 
 void AEnemy_Spawner::StartNextWave()
 {
-	AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
+	AmountOfEnemiesKilled = 0;
+	AmountOfEnemiesSpawned = 0;
+	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < AmountToSpawnAtStart; i++)
 	{
 		SpawnEnemy();
@@ -89,14 +92,15 @@ void AEnemy_Spawner::StartNextWave()
 }
 
 
-/*
+
 void AEnemy_Spawner::OnDeathEvent()
 {
-	UE_LOG(LogTemp, Display, TEXT("I have been called"));
 	if(EnemiesToKill > AmountOfEnemiesSpawned)
 	{
-		SpawnEnemy();
-		AmountOfEnemiesSpawned++;
+		if(SpawnEnemy())
+		{
+			AmountOfEnemiesSpawned++;
+		}
 	}
 	
 	AmountOfEnemiesKilled++;
@@ -108,7 +112,6 @@ void AEnemy_Spawner::OnDeathEvent()
 		
 	}
 }
-*/
 
 void AEnemy_Spawner::GetSpawnGatesInScene()
 {

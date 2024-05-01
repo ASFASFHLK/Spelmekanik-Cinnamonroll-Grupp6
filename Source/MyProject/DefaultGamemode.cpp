@@ -4,6 +4,7 @@
 #include "DefaultGamemode.h"
 
 #include "Enemy_Spawner.h"
+#include "PlayerCharacter.h"
 #include "SquadManager.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
@@ -32,6 +33,7 @@ void ADefaultGamemode::StartNextWave()
 		}
 	}
 
+	/*
 	if(SquadRef == nullptr)
 	{
 		SquadRef = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
@@ -41,8 +43,11 @@ void ADefaultGamemode::StartNextWave()
 			return;
 		}
 	}
+	*/
 	SpawnerRef->StartNextWave();
-	SquadRef->StartNextWave();
+	//SquadRef->StartNextWave();
+	APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
+	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
 }
 
 void ADefaultGamemode::StartShopPhase_Implementation()

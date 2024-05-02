@@ -32,7 +32,7 @@ bool AExplosiveEnemy::CanBeThrown()
 {
 	if(MySquad)
 	{
-		if(const float DistanceToPlayer = FVector::Distance(GetActorLocation(), MySquad->GetPlayerLocation()); DistanceToPlayer > 200)
+		if(const float DistanceToPlayer = FVector::Distance(GetActorLocation(), MySquad->GetPlayerLocation()); DistanceToPlayer > 750)
 		{
 			return true;
 		}

@@ -68,7 +68,8 @@ void AGunBase::ShotGunShot()
 			double YSpread = FMath::RandRange(-15.0f, 15.f);
 			Spread.Yaw += XSpread;
 			Spread.Pitch += YSpread;
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams);
+			// DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
 				//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -120,13 +121,13 @@ void AGunBase::Punch()
 	{
 		return;
 	}
+	GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &AGunBase::ReloadShotGunShot, ShotGunReloadTime, false);
 	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-	const TArray<AActor*> ActorsToIgnore = {GetOwner()};// might not work
-	// FHitResult HitResult;
+	const TArray<AActor*> ActorsToIgnore = {GetOwner()};
 
 	TArray<FHitResult> HitResults;
-	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
+	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true);
 	for (FHitResult Result : HitResults)
 	{
 		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
@@ -160,7 +161,9 @@ void AGunBase::UseShotGun()
 	if(bCanShoot)
 	{
 		ShotGunShot();
+		bCanHit = false;
 		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &AGunBase::ReloadShotGunShot, ShotGunReloadTime, false);
+		GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, HitCooldown, false);
 	}
 	
 	// if(BurstCheck == 0 && !bCanceledShot) //crashed after this was added

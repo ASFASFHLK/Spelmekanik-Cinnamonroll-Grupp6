@@ -32,4 +32,10 @@ private:
 	float Timer;
 
 	void Dash();
+
+public:
+	UFUNCTION(BlueprintNativeEvent)
+	void Ondash();
+
+	virtual void AddDuplicate() override;
 };

@@ -157,7 +157,7 @@ void AGunBase::Punch()
 
 void AGunBase::UseShotGun()
 {
-	UE_LOG(LogTemp, Warning, TEXT("trying to shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("trying to shoot"));
 	if(bCanShoot)
 	{
 		ShotGunShot();

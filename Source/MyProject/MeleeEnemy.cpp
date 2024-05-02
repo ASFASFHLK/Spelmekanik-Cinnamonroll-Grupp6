@@ -51,11 +51,12 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
 		FRotator(),FActorSpawnParameters());
 
-	UE_LOG(LogTemp, Display, TEXT("%s"), *SpawnedEnemy->GetName());
+	
 	if(SpawnedEnemy == nullptr)
 	{
 		return;
 	}
+	//UE_LOG(LogTemp, Display, TEXT("%s"), *SpawnedEnemy->GetName());
 	SpawnedEnemy->SpawnDefaultController();
 	if(MySquad)
 	{

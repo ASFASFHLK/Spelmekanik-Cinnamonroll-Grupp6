@@ -39,7 +39,6 @@ ASquad::ASquad()
 void ASquad::Tick(float DeltaTime)
 {
 	PlayerLocation = PlayerCharacter->GetActorLocation();
-	UE_LOG(LogTemp, Display, TEXT("%f"), PlayerLocation.X);
 	Super::Tick(DeltaTime);
 }
 
@@ -89,8 +88,7 @@ void ASquad::CreateSpecifiedSquadMembers()
 			return;
 		}
 		SpawnedEnemy->SpawnDefaultController();
-		SpawnedEnemy->SetSquad(this);
-		SquadMembers.Add(SpawnedEnemy);
+		AddToSquad(SpawnedEnemy);
 		SquadValue--;
 	}
 }
@@ -162,8 +160,14 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 		{
 			MySquadManager->SquadDied(this);
 		}
-		Destroy();
+		//Destroy();
 	}
+}
+
+void ASquad::AddToSquad(ABaseEnemy* SpawnedEnemy)
+{
+	SpawnedEnemy->SetSquad(this);
+	SquadMembers.Add(SpawnedEnemy);
 }
 
 void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)

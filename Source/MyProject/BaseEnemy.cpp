@@ -52,15 +52,6 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	{
 		
 		HasDied();
-		/*
-		// calls the event
-		if(!OnDeath.ExecuteIfBound())
-		{
-			//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
-		}	
-		OnDeath.Clear();
-		*/
-		
 	}
 	
 	return DamageTaken;
@@ -95,6 +86,13 @@ void ABaseEnemy::HasDied()
 	{
 		MySquad->RemoveFromSquad(this);
 	}
+	
+	// calls the event
+	if(!OnDeath.ExecuteIfBound())
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
+	}	
+	OnDeath.Clear();
 	Destroy();
 }
 

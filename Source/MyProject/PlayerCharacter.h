@@ -56,9 +56,6 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void Shoot() const;
 	
-	UFUNCTION(BlueprintCallable)
-	void CancelShot() const;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* FireSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")

@@ -77,7 +77,9 @@ void AGunBase::Shoot()
 			GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, ShotGunReloadTime * 0.8f, false);
 		}
 		break;
-	default: UE_LOG(LogTemp, Warning, TEXT("Not correct GunType"));
+	default:
+		UE_LOG(LogTemp, Warning, TEXT("Not correct GunType"));
+		GunType = 0;
 	}
 }
 
@@ -214,7 +216,7 @@ void AGunBase::Punch()
 			ActorHit->Parry();
 			ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
 		}
-		if(ARangedEnemyProjectile* ActorHit = Cast<ARangedEnemyProjectile>(Result.GetActor()))
+		if(const ARangedEnemyProjectile* ActorHit = Cast<ARangedEnemyProjectile>(Result.GetActor()))
 		{
 			FVector OutVelocity;
 			UGameplayStatics::SuggestProjectileVelocity_CustomArc(this,OutVelocity, ActorHit->GetActorLocation(), ActorHit->GetActorLocation() + (GetOwner()->GetActorRotation().Vector() * LaunchDistance));

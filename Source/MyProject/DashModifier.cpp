@@ -37,9 +37,20 @@ void ADashModifier::Dash()
 {
 	if(!IsDashing)
 	{
+		Ondash();
 		const FVector ForwardDirection = PlayerCharacter->GetActorRotation().Vector();
 		PlayerCharacter->LaunchCharacter(ForwardDirection * DashDistance, true, true);
 		Timer = DashCoolDown;
 		IsDashing = true;
 	}
+}
+
+void ADashModifier::AddDuplicate()
+{
+	Super::AddDuplicate();
+	
+}
+
+void ADashModifier::Ondash_Implementation()
+{
 }

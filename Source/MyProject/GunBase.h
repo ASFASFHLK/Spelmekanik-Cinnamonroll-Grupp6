@@ -76,8 +76,8 @@ private:
 	int Pellets = 20;
 	UPROPERTY(EditAnywhere)
 	int PunchRadius = 100;
-	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
-	int GunType = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess))
+	int GunType = 1;
 	UPROPERTY(EditAnywhere)
 	float Damage = 5;
 	UPROPERTY()

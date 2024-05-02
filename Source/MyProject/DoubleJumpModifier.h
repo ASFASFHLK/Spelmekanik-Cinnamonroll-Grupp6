@@ -22,7 +22,7 @@ private:
 	virtual void OnRemoved() override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Ability")
-	int32 ExtraJumps;
+	int32 ExtraJumps = 1;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Ability")
 	int32 DuplicateExtraJumps;

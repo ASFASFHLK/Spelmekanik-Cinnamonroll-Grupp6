@@ -11,7 +11,6 @@
 #include "Engine/DamageEvents.h"
 
 
-
 void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
 {
 	
@@ -51,7 +50,8 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 {
 	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
 		FRotator(),FActorSpawnParameters());
-		
+
+	UE_LOG(LogTemp, Display, TEXT("%s"), *SpawnedEnemy->GetName());
 	if(SpawnedEnemy == nullptr)
 	{
 		return;
@@ -67,7 +67,7 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	UE_LOG(LogTemp, Warning, TEXT("%f"), CurrentThrowOrSpawnTimer);
+	
 	CurrentThrowOrSpawnTimer -= DeltaSeconds;
 	if(CurrentThrowOrSpawnTimer <= 0)
 	{
@@ -92,7 +92,7 @@ void AMeleeEnemy::Attack()
 	{
 		return;
 	}
-	const FVector End = (GetActorForwardVector() * 150) + GetActorLocation();
+	const FVector End = (GetActorForwardVector() * 100) + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
 	

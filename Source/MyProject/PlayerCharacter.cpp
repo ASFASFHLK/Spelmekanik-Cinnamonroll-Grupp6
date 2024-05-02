@@ -49,14 +49,6 @@ void APlayerCharacter::Shoot() const
 	}
 }
 
-void APlayerCharacter::CancelShot() const
-{
-	if(Gun)
-	{
-		Gun->CancelShot();
-	}
-}
-
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();

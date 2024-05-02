@@ -67,6 +67,7 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	UE_LOG(LogTemp, Warning, TEXT("%f"), CurrentThrowOrSpawnTimer);
 	CurrentThrowOrSpawnTimer -= DeltaSeconds;
 	if(CurrentThrowOrSpawnTimer <= 0)
 	{

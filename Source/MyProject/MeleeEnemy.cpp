@@ -67,6 +67,7 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	UE_LOG(LogTemp, Warning, TEXT("%f"), CurrentThrowOrSpawnTimer);
 	CurrentThrowOrSpawnTimer -= DeltaSeconds;
 	if(CurrentThrowOrSpawnTimer <= 0)
 	{
@@ -91,7 +92,7 @@ void AMeleeEnemy::Attack()
 	{
 		return;
 	}
-	const FVector End = (GetActorForwardVector() * 100) + GetActorLocation();
+	const FVector End = (GetActorForwardVector() * 150) + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
 	
@@ -128,7 +129,12 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaType = "Spawner";
 		GorillaTypeInt = 2;
 		
-	}/*else
+	}else
+	{
+		GorillaTypeInt = FMath::RandRange(1,2);
+	}
+
+	/*else
 	{
 		GorillaType = "Balanced";
 		GorillaTypeInt = 3;

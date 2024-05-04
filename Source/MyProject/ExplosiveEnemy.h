@@ -33,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetExplosionRadius() const {return ExplosionRadius;}
 
+	UFUNCTION(BlueprintCallable)
+	void SetIsBeingThrown(bool Value);
+
 private:
 	
 	UFUNCTION()

@@ -95,8 +95,8 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	
 	if(HealthComp->TakeDamage(Damage)) // Checks if we are dead
 	{
-		SetActorEnableCollision(false);
-		SetActorHiddenInGame(true);
+		//SetActorEnableCollision(false);
+		//SetActorHiddenInGame(true);
 	}
 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;

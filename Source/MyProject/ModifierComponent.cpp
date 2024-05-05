@@ -65,7 +65,7 @@ void UModifierComponent::ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier,
 {
 	if(MaxModifiersAllowed < ModifierPlace)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("The maximum amount of modifers have been reached %i"), Modifiers.Num());
+		//UE_LOG(LogTemp, Warning, TEXT("The maximum amount of modifers have been reached %i"), Modifiers.Num());
 		return;
 	}
 	if(Modifiers[ModifierPlace] != nullptr)

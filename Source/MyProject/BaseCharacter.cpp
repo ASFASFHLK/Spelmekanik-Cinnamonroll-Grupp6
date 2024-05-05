@@ -82,12 +82,12 @@ void ABaseCharacter::MoveSidesAxis(float Value)
 float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
-	UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
+	//UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
 	
 	if(EventInstigator && EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		//UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
 		
 		return 0;
 		
@@ -129,13 +129,6 @@ float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent 
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	StunTimer -= DeltaTime;
-
-	if(IsStunned && StunTimer <= 0)
-	{
-		ResetStun();
-		IsStunned = false;
-	}
 }
 
 // Called to bind functionality to input

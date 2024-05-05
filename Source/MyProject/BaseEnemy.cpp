@@ -61,8 +61,10 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
-		
-		HasDied();
+		if(IsAlive)
+		{
+			HasDied();
+		}
 	}
 	
 	return DamageTaken;
@@ -95,13 +97,17 @@ void ABaseEnemy::HasDied()
 	
 	if(MySquad)
 	{
+		if(!this->IsA(AExplosiveEnemy::StaticClass()))
+		{
+			MySquad->MemberHasDied();
+		}
 		MySquad->RemoveFromSquad(this);
 	}
 	
 	// calls the event
-	if(!OnDeath.ExecuteIfBound())
+	if(OnDeath.IsBound())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
+		OnDeath.Broadcast();
 	}	
 	OnDeath.Clear();
 	IsAlive = false;

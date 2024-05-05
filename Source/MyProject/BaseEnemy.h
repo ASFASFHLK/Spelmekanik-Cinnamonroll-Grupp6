@@ -11,7 +11,8 @@
 class AEnemyAIController;
 class ASquad;
 class AAIController;
-DECLARE_DYNAMIC_DELEGATE(FOnDeath);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()
 class MYPROJECT_API ABaseEnemy : public ABaseCharacter, public IPoolable
@@ -37,7 +38,7 @@ public:
 	void Ragdoll();
 
 	UFUNCTION(BlueprintCallable)
-	void ResetEnemy();
+	virtual void ResetEnemy();
 
 	UFUNCTION()
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
@@ -65,7 +66,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool GetIsAlive() const {return IsAlive;}
-	
+
+	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeath;
 	
 	virtual void Attack();

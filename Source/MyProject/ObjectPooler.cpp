@@ -5,26 +5,12 @@
 
 #include "Poolable.h"
 
-AActor* UObjectPooler::SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation)
+
+
+void UObjectPooler::SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation,
+	AActor*& SpawnedActor)
 {
-	AActor* ActorToBeSpawned = nullptr;
-	if(PoolClass.Get()->ImplementsInterface(UPoolable::StaticClass()))
-	{
-		if(ObjectPool.IsEmpty())
-		{
-			FActorSpawnParameters SpawnParameters;
-			SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-			ActorToBeSpawned = GetWorld()->SpawnActor<AActor>(PoolClass, Location, Rotation, SpawnParameters);
-			
-		}else
-		{
-			ActorToBeSpawned = ObjectPool.Pop();
-			ActorToBeSpawned->SetActorLocationAndRotation(Location, Rotation);
-			IPoolable::Execute_SpawnFromPool(ActorToBeSpawned);
-		}
-		
-	}
-	return ActorToBeSpawned;
+	SpawnedActor = SpawnFromPool<AActor>(PoolClass, Location, Rotation);
 }
 
 void UObjectPooler::ReturnToPool(AActor* ReturnedActor)
@@ -33,10 +19,14 @@ void UObjectPooler::ReturnToPool(AActor* ReturnedActor)
 	{
 		return;
 	}
-	if(ReturnedActor->GetClass()->ImplementsInterface(UPoolable::StaticClass()))
+	
+	const UClass* PoolableClass = ReturnedActor->GetClass();
+	
+	if(PoolableClass->ImplementsInterface(UPoolable::StaticClass()))
 	{
 		IPoolable::Execute_ReturnToPool(ReturnedActor);
-		ObjectPool.Add(ReturnedActor);
+		FPoolArray* ObjectPool = ObjectPools.Find(PoolableClass);
+		ObjectPool->Add(ReturnedActor);
 	}else
 	{
 		ReturnedActor->Destroy();

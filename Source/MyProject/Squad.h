@@ -7,6 +7,7 @@
 #include "Containers/Map.h"
 #include "Squad.generated.h"
 
+class AEnemy_Spawner;
 class AExplosiveEnemy;
 class ASquadManager;
 class ABaseEnemy;
@@ -35,11 +36,14 @@ public:
 	UFUNCTION()
 	void AddToSquad(ABaseEnemy* SpawnedEnemy);
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd);
 
 	UFUNCTION()
 	AExplosiveEnemy* LookForExplosiveToThrow();
+
+	UFUNCTION()
+	void MemberHasDied();
 
 	UFUNCTION()
 	FVector GetPlayerLocation() const {return PlayerLocation;}
@@ -83,6 +87,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	FVector PlayerLocation;
+
+	UPROPERTY(VisibleAnywhere)
+	AEnemy_Spawner* EnemySpawner;
 
 	UFUNCTION()
 	void CreateRandomSquadMembers();

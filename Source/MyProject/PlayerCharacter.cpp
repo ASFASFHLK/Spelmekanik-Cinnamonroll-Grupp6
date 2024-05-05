@@ -42,7 +42,7 @@ void APlayerCharacter::LookSides(float Value)
 
 void APlayerCharacter::Shoot() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(Gun)
 	{
 		Gun->Shoot();

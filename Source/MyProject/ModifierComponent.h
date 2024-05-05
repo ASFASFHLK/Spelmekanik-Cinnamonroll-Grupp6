@@ -27,7 +27,7 @@ private:
 	
 	FOnUpdate ModifierUpdates;
 
-	void AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,  const int ModifierPlace, TArray<ABaseModifier*>& List);
+	void AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,const FString& Identifier,  const int ModifierPlace, TArray<ABaseModifier*>& List);
 	void RemoveModifer(const int ModifierPlace, TArray<ABaseModifier*>& List);
 
 	// Modifier containers 
@@ -52,10 +52,18 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace);
-
-	void SetMaxModifiersAllowed(int NewValue);
+	
+	UFUNCTION(BlueprintCallable)
+	void SetMaxModifiersAllowed(const int NewValue);
+	
 	UFUNCTION()
-	void SetUp(); 
+	void SetUp();
+	
+	UFUNCTION(BlueprintPure)
+	bool HasItemInSlot(const int SlotIndex) const;
 
+	UFUNCTION(BlueprintPure)
+	bool HasModifierEquipped() const;
+	
 	
 };

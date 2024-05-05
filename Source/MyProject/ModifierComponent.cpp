@@ -29,13 +29,17 @@ void UModifierComponent::BeginPlay()
 }
 
 
-void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier, const int ModifierPlace, TArray<ABaseModifier*>& List)
+void UModifierComponent::AddNewModifier(const TSubclassOf<ABaseModifier> NewModifier,const FString& Identifier, const int ModifierPlace, TArray<ABaseModifier*>& List)
 {
 	ABaseModifier* CreatedModifier = NewObject<ABaseModifier>(this, NewModifier);
 	CreatedModifier->OnAdded();
 	UE_LOG(LogTemp, Warning, TEXT("Added a Modifer with the name %ls"), *CreatedModifier->GetName());
 	List[ModifierPlace] = CreatedModifier;
-	ModifierUpdates.AddDynamic(CreatedModifier, &ABaseModifier::OnUpdate);
+	
+	if(CreatedModifier->GetWantsUpdate())
+	{
+		ModifierUpdates.AddDynamic(CreatedModifier, &ABaseModifier::OnUpdate);
+	}
 }
 
 void UModifierComponent::RemoveModifer(const int ModifierPlace, TArray<ABaseModifier*>& List)
@@ -50,7 +54,10 @@ void UModifierComponent::RemoveModifer(const int ModifierPlace, TArray<ABaseModi
 	
 	Target->OnRemoved();
 	Target->Destroy();
-	ModifierUpdates.RemoveDynamic(Target, &ABaseModifier::OnUpdate);
+	if(Target->GetWantsUpdate())
+	{
+		ModifierUpdates.RemoveDynamic(Target, &ABaseModifier::OnUpdate);
+	}
 }
 
 // Called every frame
@@ -72,10 +79,10 @@ void UModifierComponent::ChangeModifiers(TSubclassOf<ABaseModifier> NewModifier,
 	{
 		RemoveModifer(ModifierPlace, Modifiers);
 	}
-	AddNewModifier(NewModifier, ModifierPlace, Modifiers);
+	AddNewModifier(NewModifier,"", ModifierPlace, Modifiers);
 }
 
-void UModifierComponent::SetMaxModifiersAllowed(int NewValue)
+void UModifierComponent::SetMaxModifiersAllowed(const int NewValue)
 {
 	if(NewValue < MaxModifiersAllowed)
 	{
@@ -95,9 +102,24 @@ void UModifierComponent::SetUp()
 	int i = 0;
 	for (const TSubclassOf<ABaseModifier> DefaultMod : DefaultModifiers)
 	{
-		AddNewModifier(DefaultMod, i, DefaultModifiers_Internal);
+		AddNewModifier(DefaultMod,"", i, DefaultModifiers_Internal);
 		i++;
 	}
+}
+
+bool UModifierComponent::HasItemInSlot(const int SlotIndex) const
+{
+	if(SlotIndex >= Modifiers.Num() or SlotIndex < 0)
+	{
+		return  false;
+	}
+	return Modifiers[SlotIndex] != nullptr;
+}
+
+bool UModifierComponent::HasModifierEquipped() const
+{
+	
+	return false;
 }
 
 

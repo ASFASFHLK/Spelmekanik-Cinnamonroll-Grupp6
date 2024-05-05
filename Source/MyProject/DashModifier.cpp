@@ -37,7 +37,7 @@ void ADashModifier::Dash()
 {
 	if(!IsDashing)
 	{
-		Ondash();
+		OnDash();
 		const FVector ForwardDirection = PlayerCharacter->GetActorRotation().Vector();
 		PlayerCharacter->LaunchCharacter(ForwardDirection * DashDistance, true, true);
 		Timer = DashCoolDown;
@@ -48,9 +48,11 @@ void ADashModifier::Dash()
 void ADashModifier::AddDuplicate()
 {
 	Super::AddDuplicate();
+	AmountsEquipped+=1;
+	DashCharges +=1;
 	
 }
 
-void ADashModifier::Ondash_Implementation()
+void ADashModifier::OnDash_Implementation()
 {
 }

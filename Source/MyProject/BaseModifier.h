@@ -26,20 +26,34 @@ protected:
 
 	int AmountsEquipped = 1;
 	UPROPERTY(BlueprintReadOnly)
-	bool CanHaveDuplicates = true; 
+	bool CanHaveDuplicates = true;
+	bool WantsUpdate = true;
+	FString Identifier = ""; 
 
-public:	
+public:
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
+	void SetIdentifier(const FString& Identity); 
+	FString GetIdentifier() const;
+	
 	virtual void OnAdded();
 	UFUNCTION()
 	virtual void OnUpdate(float DeltaTime);
+	
 	virtual void OnRemoved();
+	
+	UFUNCTION(BlueprintPure)
 	int GetAmountsEquipped() const;
+
+	UFUNCTION(BlueprintCallable)
 	virtual void AddDuplicate();
 
 	UFUNCTION(BlueprintCallable)
 	bool GetCanHaveDuplicates() const;
+
+	UFUNCTION(BlueprintPure)
+	bool GetWantsUpdate() const;
 	
 };

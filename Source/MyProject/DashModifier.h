@@ -33,9 +33,11 @@ private:
 
 	void Dash();
 
+	int DashCharges = 1;
+
 public:
 	UFUNCTION(BlueprintNativeEvent)
-	void Ondash();
+	void OnDash();
 
 	virtual void AddDuplicate() override;
 };

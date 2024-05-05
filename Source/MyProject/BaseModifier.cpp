@@ -25,6 +25,20 @@ void ABaseModifier::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void ABaseModifier::SetIdentifier(const FString& Identity)
+{
+	if(Identifier == "") // Prevents us from setting it again by mistake
+	{
+		Identifier = Identity;
+	}
+	
+}
+
+FString ABaseModifier::GetIdentifier() const 
+{
+	return Identifier;
+}
+
 void ABaseModifier::OnAdded()
 {
 	PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
@@ -52,6 +66,11 @@ void ABaseModifier::AddDuplicate()
 bool ABaseModifier::GetCanHaveDuplicates() const
 {
 	return CanHaveDuplicates;
+}
+
+bool ABaseModifier::GetWantsUpdate() const
+{
+	return WantsUpdate;
 }
 
 

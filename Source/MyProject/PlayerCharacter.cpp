@@ -5,12 +5,51 @@
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "ModifierComponent.h"
-#include "Blueprint/UserWidget.h"
+#include "RivetAbilitySystemComponent.h"
+#include "RivetAttributeSet.h"
+#include "RivetData.h"
+#include "RivetGameplayAbility.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Engine/DamageEvents.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+
+APlayerCharacter::APlayerCharacter()
+{
+	bAbilitiesInitialized = false;
+	// Sets the default player size 
+	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
+
+	// Sets up the camera 
+	CharacterCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Character Camera"));
+	CharacterCamera->SetupAttachment(GetCapsuleComponent());
+	// Makes the camera rotate with the character
+	CharacterCamera->bUsePawnControlRotation = true;
+	// Sets the default position of the camera
+	CharacterCamera->SetRelativeLocation(FVector(-10.f, 0.f, 60.f));
+
+	// Creates the default mesh 
+	PlayerFirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
+	PlayerFirstPersonMesh->SetupAttachment(CharacterCamera);
+	PlayerFirstPersonMesh->SetOnlyOwnerSee(true);
+	
+	// Turns of shadows 
+	PlayerFirstPersonMesh->bCastDynamicShadow = false;
+	PlayerFirstPersonMesh->CastShadow = false;
+
+	// sets default position
+	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
+
+	ModifierComponent = CreateDefaultSubobject<UModifierComponent>(TEXT("Modifier Component"));
+	//Gun = CreateDefaultSubobject<AGunBase>(TEXT("Gun"));
+	AbilitySystemComponent = CreateDefaultSubobject<URivetAbilitySystemComponent>(TEXT("Ability System"));
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	Attributes = CreateDefaultSubobject<URivetAttributeSet>(TEXT("Attributes"));
+}
+
+
 
 void APlayerCharacter::SetGun(AGunBase* NewGun)
 {
@@ -76,33 +115,31 @@ void APlayerCharacter::ShowHud(const bool Show)
 
 }
 
-APlayerCharacter::APlayerCharacter()
+
+
+void APlayerCharacter::PossessedBy(AController* NewController)
 {
-	// Sets the default player size 
-	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
+	Super::PossessedBy(NewController);
+	if(AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	}
+}
 
-	// Sets up the camera 
-	CharacterCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Character Camera"));
-	CharacterCamera->SetupAttachment(GetCapsuleComponent());
-	// Makes the camera rotate with the character
-	CharacterCamera->bUsePawnControlRotation = true;
-	// Sets the default position of the camera
-	CharacterCamera->SetRelativeLocation(FVector(-10.f, 0.f, 60.f));
-
-	// Creates the default mesh 
-	PlayerFirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
-	PlayerFirstPersonMesh->SetupAttachment(CharacterCamera);
-	PlayerFirstPersonMesh->SetOnlyOwnerSee(true);
-	
-	// Turns of shadows 
-	PlayerFirstPersonMesh->bCastDynamicShadow = false;
-	PlayerFirstPersonMesh->CastShadow = false;
-
-	// sets default position
-	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
-
-	ModifierComponent = CreateDefaultSubobject<UModifierComponent>(TEXT("Modifier Component"));
-	Gun = CreateDefaultSubobject<AGunBase>(TEXT("Gun"));
+void APlayerCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds("Confirm",
+			"Cancel",
+			"ERivetAbilityInputID",
+			static_cast<int32>(ERivetAbilityInputID::Confirm),
+			static_cast<int32>(ERivetAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
 }
 
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -111,10 +148,57 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &APlayerCharacter::LookUp);
 	PlayerInputComponent->BindAxis(TEXT("LookRight"), this, &APlayerCharacter::LookSides);
 	//PlayerInputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &APlayerCharacter::Shoot);
+	
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds("Confirm",
+			"Cancel",
+			"ERivetAbilityInputID",
+			static_cast<int32>(ERivetAbilityInputID::Confirm),
+			static_cast<int32>(ERivetAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
+	
+}
+
+UAbilitySystemComponent* APlayerCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+void APlayerCharacter::AddStartupGameplayAbilities()
+{
+	check(AbilitySystemComponent);
+	if( GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
+	{
+		for( TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
+		{
+			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+				Ability, 1,static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+		}
+		
+		for( const TSubclassOf<UGameplayEffect>& Effect : PassiveGameplayEffects )
+		{
+			FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+			EffectContextHandle.AddSourceObject(this);
+
+			FGameplayEffectSpecHandle GameplayEffectSpecHandle =
+				AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContextHandle);
+
+			if(GameplayEffectSpecHandle.IsValid())
+			{
+				FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), AbilitySystemComponent );
+			}
+			
+		}
+		bAbilitiesInitialized = true;	
+	}
 }
 
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
-	AActor* DamageCauser)
+                                   AActor* DamageCauser)
 {
 
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);

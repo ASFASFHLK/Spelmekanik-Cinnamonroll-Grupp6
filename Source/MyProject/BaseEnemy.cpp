@@ -112,7 +112,7 @@ void ABaseEnemy::ResetEnemy()
 {
 	IsAlive = true;
 	Partner = nullptr;
-	
+	HealthComp->ResetHealth();
 }
 
 void ABaseEnemy::Ragdoll_Implementation()

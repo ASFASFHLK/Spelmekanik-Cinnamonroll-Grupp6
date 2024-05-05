@@ -23,6 +23,7 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 
 void ADefaultGamemode::StartNextWave()
 {
+	UE_LOG(LogTemp, Warning, TEXT("I'm starting a new wave"));
 	if(SpawnerRef == nullptr)
 	{
 		SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
@@ -46,8 +47,11 @@ void ADefaultGamemode::StartNextWave()
 	*/
 	SpawnerRef->StartNextWave();
 	//SquadRef->StartNextWave();
-	APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
-	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
+	if(!bFirstWave)
+	{
+		APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
+		Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
+	}
 }
 
 void ADefaultGamemode::StartShopPhase_Implementation()

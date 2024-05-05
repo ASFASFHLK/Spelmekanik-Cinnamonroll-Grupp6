@@ -65,7 +65,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	ASquad* Squad;
-	
+	UPROPERTY(VisibleAnywhere)
+	bool bFirstWave = true;
 	int LocationIndex = 0;
 	UPROPERTY()
 	TArray<ASpawnerGate*> SpawnerGates;

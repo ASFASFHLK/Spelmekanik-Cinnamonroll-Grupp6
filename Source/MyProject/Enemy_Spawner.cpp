@@ -33,20 +33,16 @@ bool AEnemy_Spawner::SpawnEnemy()
 	{
 		return false;
 	}
-	
 /*
 	if(AmountOfTotalSquadsToSpawn <= 0)
 	{
 		return;
 	}
-	
-
 	if(SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return;
 	}
 	*/
-	
 	const FVector SpawnPoint = SpawnerGates[LocationIndex]->GetSpawnPointVector();
 	LocationIndex++;
 	
@@ -62,11 +58,8 @@ bool AEnemy_Spawner::SpawnEnemy()
 		SquadManager->AddSquad(Squad);
 	}
 	*/
-
-	
-	
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
-	
+	// UE_LOG(LogTemp, Warning, TEXT("EnemyIndex = %i"), EnemyIndex);
 	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(Enemies[EnemyIndex], SpawnPoint, FRotator(), FActorSpawnParameters());
 
 	if(Enemy)

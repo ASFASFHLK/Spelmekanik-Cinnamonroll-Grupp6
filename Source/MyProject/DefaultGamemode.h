@@ -29,6 +29,8 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WinScreen;
 
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
+	bool bFirstWave = true;
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> LoseScreen;
 	UPROPERTY(VisibleInstanceOnly)

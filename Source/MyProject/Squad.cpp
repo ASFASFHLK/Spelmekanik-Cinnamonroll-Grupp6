@@ -54,7 +54,6 @@ void ASquad::CreateRandomSquadMembers()
 		{
 			return;
 		}
-		SpawnedEnemy->SpawnDefaultController();
 		SpawnedEnemy->SetSquad(this);
 		SquadMembers.Add(SpawnedEnemy);
 		SquadValue--;

@@ -6,6 +6,7 @@
 #include "BaseEnemy.h"
 #include "MeleeEnemy.generated.h"
 
+class AEnemyAIController;
 class UBlackboardComponent;
 class AExplosiveEnemy;
 /**
@@ -82,6 +83,7 @@ private:
 
 	UPROPERTY()
 	AExplosiveEnemy* EnemyToThrow;
+
 
 
 	

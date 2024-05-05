@@ -16,8 +16,12 @@ void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
 	
 }
 
-void AMeleeEnemy::SetCanThrow_Implementation(bool Value)
+void AMeleeEnemy::SetCanThrow_Implementation(const bool Value)
 {
+	if(MyBlackBoard)
+	{
+		MyBlackBoard->SetValueAsBool("CanThrowOrSpawn", Value);
+	}
 }
 
 void AMeleeEnemy::CallExplosiveToMove()
@@ -57,7 +61,7 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 		return;
 	}
 	//UE_LOG(LogTemp, Display, TEXT("%s"), *SpawnedEnemy->GetName());
-	SpawnedEnemy->SpawnDefaultController();
+	
 	if(MySquad)
 	{
 		MySquad->AddExplosiveToSquad(SpawnedEnemy);

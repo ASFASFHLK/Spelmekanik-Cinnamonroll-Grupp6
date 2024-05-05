@@ -19,10 +19,6 @@ AEnemyAIController::AEnemyAIController(const FObjectInitializer& ObjectInitializ
 	
 }
 
-	
-
-	
-	
 
 void AEnemyAIController::BeginPlay()
 {
@@ -45,7 +41,6 @@ void AEnemyAIController::SetAvoidanceQuality(const ECrowdAvoidanceQuality::Type 
 {
 	if (UCrowdFollowingComponent* Pathfol = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent()))
 	{
-		UE_LOG(LogTemp,Warning,TEXT("Kommer in"));
 		Pathfol->SetCrowdAvoidanceQuality(Quality);
 		Pathfol->SetCrowdObstacleAvoidance(true,true);
 		Pathfol->SetCrowdSeparationWeight(1, true);

@@ -5,9 +5,18 @@
 
 #include "HealthComp.h"
 #include "Squad.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
+
+void AExplosiveEnemy::SetIsBeingThrown(bool Value)
+{
+	if(MyBlackBoard)
+	{
+		MyBlackBoard->SetValueAsBool("BeingThrown", Value);
+	}
+}
 
 void AExplosiveEnemy::Attack()
 {

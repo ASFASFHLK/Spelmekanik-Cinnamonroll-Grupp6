@@ -7,6 +7,7 @@
 #include "BaseCharacter.h"
 #include "BaseEnemy.generated.h"
 
+class AEnemyAIController;
 class ASquad;
 class AAIController;
 DECLARE_DYNAMIC_DELEGATE(FOnDeath);
@@ -31,6 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HasDied();
 
+	UFUNCTION(BlueprintNativeEvent)
+	void Ragdoll();
+
 	UFUNCTION()
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
@@ -51,10 +55,16 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetDamage() const {return DamageDealt;}
+
+	UFUNCTION(BlueprintCallable)
+	bool GetIsAlive() const {return IsAlive;}
 	
 	FOnDeath OnDeath;
 	
 	virtual void Attack();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void TakeDamageVisual();
 
 
 protected:
@@ -65,9 +75,17 @@ protected:
 	ASquad* MySquad;
 
 	UPROPERTY()
-	AAIController* MyController = Cast<AAIController>(Controller);
+	AEnemyAIController* MyController;
+
+	UPROPERTY()
+	UBlackboardComponent* MyBlackBoard;
+
+	UPROPERTY()
+	bool IsAlive = true;
 	
 	virtual void Tick(float DeltaSeconds) override;
+
+	
 
 private:
 	
@@ -88,5 +106,7 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ABaseEnemy* Partner;
+	
+	
 };
 

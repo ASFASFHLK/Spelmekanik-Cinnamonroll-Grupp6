@@ -36,7 +36,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResetThrowTimer();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintNativeEvent)
 	void SpawnExplosiveEnemy();
 
 	UFUNCTION()

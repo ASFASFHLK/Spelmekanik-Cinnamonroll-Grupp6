@@ -106,7 +106,13 @@ void ABaseEnemy::HasDied()
 	OnDeath.Clear();
 	IsAlive = false;
 	Ragdoll();
-	//Destroy();
+}
+
+void ABaseEnemy::ResetEnemy()
+{
+	IsAlive = true;
+	Partner = nullptr;
+	
 }
 
 void ABaseEnemy::Ragdoll_Implementation()

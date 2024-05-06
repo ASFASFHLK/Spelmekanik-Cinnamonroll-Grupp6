@@ -25,7 +25,11 @@ void AExplosiveEnemy::Attack()
 }
 
 
-
+void AExplosiveEnemy::ResetEnemy()
+{
+	SetIsBeingThrown(false);
+	Super::ResetEnemy();
+}
 
 bool AExplosiveEnemy::BothInPosition()
 {

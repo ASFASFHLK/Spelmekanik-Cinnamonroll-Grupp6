@@ -15,7 +15,10 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 	GENERATED_BODY()
 
 public:
+
+	virtual void ResetEnemy() override;
 	
+	UFUNCTION()
 	bool BothInPosition();
 	
 	UPROPERTY()

@@ -7,6 +7,7 @@
 #include "Enemy_Spawner.generated.h"
 
 
+class ABaseEnemy;
 class ASquad;
 class ASquadManager;
 class ASpawnerGate;
@@ -25,7 +26,16 @@ public:
 	AEnemy_Spawner();
 	
 	UFUNCTION()
-	bool SpawnEnemy();
+	bool PlaceEnemiesAtSpawnGates();
+
+	UFUNCTION(BlueprintCallable)
+	ASquad* GetSquad(){return Squad;}
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation);
+
+	UFUNCTION(BlueprintCallable)
+	void OnDeathEvent();
 	
 	UFUNCTION()
 	void StartNextWave();
@@ -35,9 +45,6 @@ protected:
 
 private:
 	
-	UFUNCTION()
-	void OnDeathEvent();
-
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TSubclassOf<ASquad> SquadType;
 	

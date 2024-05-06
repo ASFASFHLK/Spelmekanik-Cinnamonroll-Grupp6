@@ -5,15 +5,17 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "BaseCharacter.h"
+#include "Poolable.h"
 #include "BaseEnemy.generated.h"
 
 class AEnemyAIController;
 class ASquad;
 class AAIController;
-DECLARE_DYNAMIC_DELEGATE(FOnDeath);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()
-class MYPROJECT_API ABaseEnemy : public ABaseCharacter
+class MYPROJECT_API ABaseEnemy : public ABaseCharacter, public IPoolable
 {
 	GENERATED_BODY()
 
@@ -35,6 +37,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void Ragdoll();
 
+	UFUNCTION(BlueprintCallable)
+	virtual void ResetEnemy();
+
 	UFUNCTION()
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
@@ -45,8 +50,11 @@ public:
 
 	//bool HasPartner() const;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
+
+	UFUNCTION(BlueprintCallable)
+	ASquad* GetMySquad() const {return MySquad;}
 	
 	//void MyPartnerHasDied();
 	
@@ -58,7 +66,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool GetIsAlive() const {return IsAlive;}
-	
+
+	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeath;
 	
 	virtual void Attack();

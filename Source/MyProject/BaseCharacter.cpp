@@ -17,9 +17,6 @@ ABaseCharacter::ABaseCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	HealthComp = CreateDefaultSubobject<UHealthComp>(TEXT("Character Comp"));
-
-
-
 	AbilitySystemComponent = CreateDefaultSubobject<URivetAbilitySystemComponent>(TEXT("Ability System"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
@@ -100,6 +97,37 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
 }
 
+void ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect) const
+{
+	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle GameplayEffectSpecHandle =
+		AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContextHandle);
+
+	if(GameplayEffectSpecHandle.IsValid())
+	{
+		FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+			AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), AbilitySystemComponent );
+	}
+}
+
+void ABaseCharacter::AddActiveAbility(const TSubclassOf<URivetGameplayAbility>& Ability) 
+{
+	AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+	Ability, 1,static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+}
+
+void ABaseCharacter::RemoveActiveAbility()
+{
+	//AbilitySystemComponent->RemoveActiveEffects()
+}
+
+void ABaseCharacter::RemovePassiveAbility()
+{
+	//AbilitySystemComponent->RemoveActiveGameplayEffect();
+}
+
 void ABaseCharacter::OnTakeDamage_Implementation()
 {
 	UE_LOG(LogTemp, Warning, TEXT("I have been called DAMAGE EVENT"));
@@ -132,13 +160,6 @@ void ABaseCharacter::HandleHealthChanged(float DeltaValue, const FGameplayTagCon
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	StunTimer -= DeltaTime;
-
-	if(IsStunned && StunTimer <= 0)
-	{
-		ResetStun();
-		IsStunned = false;
-	}
 }
 
 // Called to bind functionality to input
@@ -168,19 +189,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 }
 
 
-//Maybe should be moved to a component of its own
-void ABaseCharacter::ApplyStun(float const TimeStunned)
-{
-	UE_LOG(LogTemp, Warning, TEXT("I got stunned"));
-	GetCharacterMovement()->SetMovementMode(MOVE_None);
-	StunTimer = TimeStunned;
-	IsStunned = true;
-}
 
-void ABaseCharacter::ResetStun()
-{
-	GetCharacterMovement()->SetMovementMode(MOVE_Walking);
-}
 
 
 void ABaseCharacter::PossessedBy(AController* NewController)
@@ -220,26 +229,14 @@ void ABaseCharacter::AddStartupGameplayAbilities()
 	check(AbilitySystemComponent);
 	if( GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
 	{
-		for( TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
+		for( const TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
 		{
-			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
-				Ability, 1,static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+			AddActiveAbility(Ability);
 		}
 		
 		for( const TSubclassOf<UGameplayEffect>& Effect : PassiveGameplayEffects )
 		{
-			FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
-			EffectContextHandle.AddSourceObject(this);
-
-			FGameplayEffectSpecHandle GameplayEffectSpecHandle =
-				AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContextHandle);
-
-			if(GameplayEffectSpecHandle.IsValid())
-			{
-				FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
-					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), AbilitySystemComponent );
-			}
-			
+			AddPassiveEffect(Effect);
 		}
 		bAbilitiesInitialized = true;	
 	}

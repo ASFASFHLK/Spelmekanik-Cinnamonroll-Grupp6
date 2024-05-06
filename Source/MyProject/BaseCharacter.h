@@ -11,6 +11,7 @@ class UHealthComp;
 class URivetAttributeSet;
 class URivetGameplayAbility;
 class URivetAbilitySystemComponent;
+class UGameplayEffect;
 
 UCLASS()
 class MYPROJECT_API ABaseCharacter : public ACharacter,  public IAbilitySystemInterface
@@ -28,6 +29,18 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent)
     void OnTakeDamage();
+
+	UFUNCTION(BlueprintCallable)
+	void AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect) const;
+	
+	UFUNCTION(BlueprintCallable)
+	void AddActiveAbility(const TSubclassOf<URivetGameplayAbility>& Ability);
+
+	UFUNCTION(BlueprintCallable)
+	void RemoveActiveAbility();
+
+	UFUNCTION(BlueprintCallable)
+	void RemovePassiveAbility();
     
 protected:
 	// Called when the game starts or when spawned
@@ -96,18 +109,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-
-
-	void ApplyStun(float TimeStunned);
-	void ResetStun() const;
 	UFUNCTION()
 	void Parry();
 	UFUNCTION()
 	void StopBeingParried();
-
-private:
-	float StunTimer;
-	bool IsStunned;
-	void ResetStun();
-
+	
 };

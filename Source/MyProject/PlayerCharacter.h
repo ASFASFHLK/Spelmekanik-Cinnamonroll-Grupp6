@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
-#include "AbilitySystemInterface.h"
-#include "GameplayEffect.h"
 #include "PlayerCharacter.generated.h"
 
 

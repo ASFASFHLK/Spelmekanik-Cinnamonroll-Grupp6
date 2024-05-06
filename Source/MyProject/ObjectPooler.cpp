@@ -26,7 +26,10 @@ void UObjectPooler::ReturnToPool(AActor* ReturnedActor)
 	{
 		IPoolable::Execute_ReturnToPool(ReturnedActor);
 		FPoolArray* ObjectPool = ObjectPools.Find(PoolableClass);
-		ObjectPool->Add(ReturnedActor);
+		if(ObjectPool)
+		{
+			ObjectPool->Add(ReturnedActor);
+		}
 	}else
 	{
 		ReturnedActor->Destroy();

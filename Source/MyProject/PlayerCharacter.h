@@ -22,7 +22,7 @@ class URivetAttributeSet;
  * 
  */
 UCLASS()
-class MYPROJECT_API APlayerCharacter : public ABaseCharacter, public IAbilitySystemInterface
+class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -31,29 +31,7 @@ protected:
 	// Legacy 
 	UModifierComponent* ModifierComponent;
 
-	/***********
-	 *Overrides 
-	 ************/
-	virtual void PossessedBy(AController* NewController) override;
-	virtual void OnRep_PlayerState() override;
-	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
-	/**********************
-	 Ability System stuff
-	 ****************/
-	
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	void AddStartupGameplayAbilities();
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilites")
-	TArray<TSubclassOf<UGameplayEffect>> PassiveGameplayEffects;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilites")
-	TArray<TSubclassOf<URivetGameplayAbility>> GameplayAbilities;
-
-
-	
-	UPROPERTY()
-	uint8 bAbilitiesInitialized:1;
 
 	
 private:
@@ -96,11 +74,7 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void CancelShot() const;
 
-	/**********************
-	Ability System Components 
-	****************/
-	TObjectPtr<URivetAbilitySystemComponent> AbilitySystemComponent;
-	TObjectPtr<URivetAttributeSet> Attributes;
+
 
 	
 	virtual void BeginPlay() override;
@@ -121,6 +95,7 @@ public:
 	
 public:
 	APlayerCharacter();
+	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void Tick(float DeltaSeconds) override;

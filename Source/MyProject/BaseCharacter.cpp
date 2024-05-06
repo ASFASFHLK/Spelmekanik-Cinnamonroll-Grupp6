@@ -4,12 +4,12 @@
 #include "BaseCharacter.h"
 
 #include "BaseBarrel.h"
-#include "BaseEnemy.h"
-#include "DefaultGamemode.h"
 #include "HealthComp.h"
-#include "Engine/DamageEvents.h"
+#include "RivetAbilitySystemComponent.h"
+#include "RivetAttributeSet.h"
+#include "RivetData.h"
+#include "RivetGameplayAbility.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -17,6 +17,14 @@ ABaseCharacter::ABaseCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	HealthComp = CreateDefaultSubobject<UHealthComp>(TEXT("Character Comp"));
+
+
+
+	AbilitySystemComponent = CreateDefaultSubobject<URivetAbilitySystemComponent>(TEXT("Ability System"));
+	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	Attributes = CreateDefaultSubobject<URivetAttributeSet>(TEXT("Attributes"));
 	
 }
 
@@ -66,17 +74,7 @@ void ABaseCharacter::MoveSides(float Value)
 	
 }
 
-void ABaseCharacter::MoveForwardAxis(float Value)
-{
 
-	
-}
-
-void ABaseCharacter::MoveSidesAxis(float Value)
-{
-
-	
-}
 
 
 float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
@@ -125,6 +123,11 @@ float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent 
 }
 
 
+void ABaseCharacter::HandleHealthChanged(float DeltaValue, const FGameplayTagContainer& EventTags)
+{
+	
+}
+
 // Called every frame
 void ABaseCharacter::Tick(float DeltaTime)
 {
@@ -151,6 +154,17 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Pressed, this, &ABaseCharacter::Jump);
 	PlayerInputComponent->BindAction(TEXT("Jump"), IE_Released, this , &ACharacter::StopJumping);
 	
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds(
+			"Confirm",
+			"Cancel",
+			"ERivetAbilityInputID",
+			static_cast<int32>(ERivetAbilityInputID::Confirm),
+			static_cast<int32>(ERivetAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
 }
 
 
@@ -169,4 +183,64 @@ void ABaseCharacter::ResetStun()
 }
 
 
+void ABaseCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	if(AbilitySystemComponent)
+	{
+		AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	}
+}
 
+void ABaseCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	if(AbilitySystemComponent && InputComponent)
+	{
+		const FGameplayAbilityInputBinds Binds("Confirm",
+			"Cancel",
+			"ERivetAbilityInputID",
+			static_cast<int32>(ERivetAbilityInputID::Confirm),
+			static_cast<int32>(ERivetAbilityInputID::Cancel)
+			);
+		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+	}
+}
+
+
+
+UAbilitySystemComponent* ABaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
+void ABaseCharacter::AddStartupGameplayAbilities()
+{
+	check(AbilitySystemComponent);
+	if( GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
+	{
+		for( TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
+		{
+			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(
+				Ability, 1,static_cast<int32>(Ability.GetDefaultObject()->AbilityInputID), this));
+		}
+		
+		for( const TSubclassOf<UGameplayEffect>& Effect : PassiveGameplayEffects )
+		{
+			FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+			EffectContextHandle.AddSourceObject(this);
+
+			FGameplayEffectSpecHandle GameplayEffectSpecHandle =
+				AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContextHandle);
+
+			if(GameplayEffectSpecHandle.IsValid())
+			{
+				FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+					AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), AbilitySystemComponent );
+			}
+			
+		}
+		bAbilitiesInitialized = true;	
+	}
+}

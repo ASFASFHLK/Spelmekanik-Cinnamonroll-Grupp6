@@ -24,12 +24,27 @@ public:
 	URivetAttributeSet();
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category= "Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Health)
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldValue);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armour, Category= "Attributes")
+	FGameplayAttributeData Armour ;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Armour)
+	UFUNCTION()
+	virtual void OnRep_Armour(const FGameplayAttributeData& OldValue);
+	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category= "Attributes")
+	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, MaxHealth)
+	UFUNCTION()
+	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
+	
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Damage, Category= "Attributes")
 	FGameplayAttributeData Damage; 
@@ -40,5 +55,9 @@ public:
 	FGameplayAttributeData Speed; 
 	UFUNCTION()
 	virtual void OnRep_Speed(const FGameplayAttributeData& OldValue);
+
+
+	void AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
+		const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty) const;
 	
 };

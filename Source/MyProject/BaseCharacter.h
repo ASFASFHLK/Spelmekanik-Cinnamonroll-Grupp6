@@ -3,12 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
+
 class UHealthComp;
+class URivetAttributeSet;
+class URivetGameplayAbility;
+class URivetAbilitySystemComponent;
+
 UCLASS()
-class MYPROJECT_API ABaseCharacter : public ACharacter
+class MYPROJECT_API ABaseCharacter : public ACharacter,  public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -38,12 +43,6 @@ protected:
 	virtual void MoveForward(float Value);
 	UFUNCTION()
 	virtual void MoveSides(float Value);
-
-	UFUNCTION()
-	virtual void MoveForwardAxis(float Value);
-	UFUNCTION()
-	virtual void MoveSidesAxis(float Value);
-	
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f;
 	UPROPERTY()
@@ -52,12 +51,52 @@ protected:
 	FTimerHandle ParryTimerHandle = FTimerHandle();
 	virtual float InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnHealthChanged(float DeltaValue, const FGameplayTagContainer& EventTags);
+	
+	virtual void HandleHealthChanged(float DeltaValue, const FGameplayTagContainer& EventTags);
+	friend URivetAttributeSet;
+
+	/**********************
+	Ability System Components 
+	****************/
+	TObjectPtr<URivetAbilitySystemComponent> AbilitySystemComponent;
+	TObjectPtr<URivetAttributeSet> Attributes;
+
+	/***********
+		*Overrides 
+	************/
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+
+	/**********************
+	 Ability System stuff
+	 ****************/
+	
+	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const;
+	void AddStartupGameplayAbilities();
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilites")
+	TArray<TSubclassOf<class UGameplayEffect>> PassiveGameplayEffects;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilites")
+	TArray<TSubclassOf<URivetGameplayAbility>> GameplayAbilities;
+	
+	friend URivetAttributeSet;
+	
+	UPROPERTY()
+	uint8 bAbilitiesInitialized:1;
+
+
+
+	
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 
 	void ApplyStun(float TimeStunned);
 	void ResetStun() const;

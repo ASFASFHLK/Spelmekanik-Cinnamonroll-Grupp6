@@ -28,7 +28,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void Shoot();
-
+	UPROPERTY(BlueprintReadOnly)
+	FVector ShotGunHitLocation;
+	// UFUNCTION(BlueprintCallable)
 	// UFUNCTION(BlueprintCallable)
 	// void CancelShot();
 	// UFUNCTION(BlueprintCallable)

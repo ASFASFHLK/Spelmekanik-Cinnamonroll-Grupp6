@@ -18,11 +18,9 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 	GENERATED_BODY()
 	
 public:
-
-	/*
-	UFUNCTION(BlueprintNativeEvent)
-	void CallPartnerToMove();
-	*/
+	
+	UFUNCTION(BlueprintCallable)
+	void DecideWhichType();
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void ThrowExplosiveEnemy();
@@ -83,10 +81,4 @@ private:
 
 	UPROPERTY()
 	AExplosiveEnemy* EnemyToThrow;
-
-
-
-	
-	UFUNCTION()
-	void DecideWhichType();
 };

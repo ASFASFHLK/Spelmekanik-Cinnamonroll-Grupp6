@@ -22,6 +22,9 @@ class MYPROJECT_API ABaseEnemy : public ABaseCharacter, public IPoolable
 public:
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintCallable)
+	void ScaleHealthAndDamage(float Health, float Damage);
+
 	UFUNCTION()
 	FVector GetPlayerLocationFromSquad() const;
 	

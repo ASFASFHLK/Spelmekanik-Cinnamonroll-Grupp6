@@ -27,6 +27,9 @@ public:
 	
 	UFUNCTION(BlueprintPure)
 	int GetCurrentHealth() const;
+
+	UFUNCTION()
+	void SetCurrentHealth(const int NewHealth){CurrentHealth = NewHealth;}
 	
 	UFUNCTION(BlueprintCallable)
 	bool TakeDamage(int DamageToTake);

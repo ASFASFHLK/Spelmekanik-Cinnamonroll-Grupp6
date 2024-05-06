@@ -35,13 +35,13 @@ void AMeleeEnemy::CallExplosiveToMove()
 	{
 		AAIController* EnemyToThrowController = Cast<AEnemyAIController>(EnemyToThrow->GetController());
 		EnemyToThrowController->GetBlackboardComponent()->SetValueAsBool("MoveToPartner", true);
-		EnemyToThrowController->GetBlackboardComponent()->SetValueAsVector("PartnerLocation", GetActorLocation());
 		EnemyToThrow->SetPartner(this);
 		SetPartner(EnemyToThrow);
 	}else
 	{
 		SpawnExplosiveEnemy();
 	}
+	ResetThrowTimer();
 }
 
 void AMeleeEnemy::ResetThrowTimer()
@@ -52,23 +52,6 @@ void AMeleeEnemy::ResetThrowTimer()
 
 void AMeleeEnemy::SpawnExplosiveEnemy_Implementation()
 {
-	/*
-	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
-		FRotator(),FActorSpawnParameters());
-
-	
-	if(SpawnedEnemy == nullptr)
-	{
-		return;
-	}
-	//UE_LOG(LogTemp, Display, TEXT("%s"), *SpawnedEnemy->GetName());
-	
-	if(MySquad)
-	{
-		MySquad->AddExplosiveToSquad(SpawnedEnemy);
-	}
-	ResetThrowTimer();
-	*/
 }
 
 
@@ -86,8 +69,6 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 void AMeleeEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnerValue = FMath::RandRange(0, 10);
-	ThrowerValue = FMath::RandRange(0, 10);
 	DecideWhichType();
 	CurrentThrowOrSpawnTimer = 0;
 }
@@ -121,10 +102,12 @@ void AMeleeEnemy::Attack()
 //
 void AMeleeEnemy::DecideWhichType()
 {
+	SpawnerValue = FMath::RandRange(0, 10);
+	ThrowerValue = FMath::RandRange(0, 10);
+	
 	if(SpawnerValue + ThrowerValue < 8)
 	{
 		GorillaType = "Charger";
-		Tags.Add(FName("Charger"));
 		GorillaTypeInt = 0;
 		
 	}else if(ThrowerValue - SpawnerValue > 2)
@@ -148,4 +131,6 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaTypeInt = 3;
 	}
 	*/
+
+	MyBlackBoard->SetValueAsInt("GorillaType", GorillaTypeInt);
 }

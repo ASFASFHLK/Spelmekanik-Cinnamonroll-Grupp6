@@ -51,6 +51,7 @@ void AGunBase::Shoot()
 	UseShotGun();
 }
 
+
 void AGunBase::ShotGunShot()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("I shot a shotgunshot"));
@@ -77,6 +78,7 @@ void AGunBase::ShotGunShot()
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 				}
+				ShotGunHitLocation = HitResult.Location;
 				GunHit(); // juni 
 			}
 		}

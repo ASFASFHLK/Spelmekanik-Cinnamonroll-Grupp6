@@ -50,6 +50,10 @@ void ADefaultGamemode::StartNextWave()
 	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
 }
 
+void ADefaultGamemode::StartOptionsMenu_Implementation()
+{
+}
+
 void ADefaultGamemode::StartShopPhase_Implementation()
 {
 	

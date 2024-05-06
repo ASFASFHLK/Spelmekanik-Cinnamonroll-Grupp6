@@ -52,7 +52,7 @@ bool ASquadManager::AssignNewPartner(ABaseEnemy* EnemyToAssign, ASquad* Original
 void ASquadManager::SquadDied(ASquad* SquadThatDied)
 {
 	MySquads.Remove(SquadThatDied);
-	EnemySpawner->SpawnEnemy();
+	//EnemySpawner->SpawnEnemy();
 	SquadsThatHaveDied++;
 	UE_LOG(LogTemp, Warning, TEXT("A squad has died, totals squads that have died %i"), SquadsThatHaveDied)
 	if(SquadsThatHaveDied >= NumbersOfSquadsThatNeedToDie)

@@ -4,6 +4,7 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "NetworkMessage.h"
 #include "SquadManager.h"
@@ -19,6 +20,7 @@ void ASquad::BeginPlay()
 	Super::BeginPlay();
 	
 	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
+	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 	
 	if(RandomlyGenerated)
 	{
@@ -171,8 +173,11 @@ void ASquad::AddToSquad(ABaseEnemy* SpawnedEnemy)
 
 void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)
 {
-	ExplosiveEnemies.Add(EnemyToAdd);
-	EnemyToAdd->SetSquad(this);
+	if(EnemyToAdd)
+	{
+		ExplosiveEnemies.Add(EnemyToAdd);
+		EnemyToAdd->SetSquad(this);
+	}
 }
 
 AExplosiveEnemy* ASquad::LookForExplosiveToThrow()
@@ -191,6 +196,11 @@ AExplosiveEnemy* ASquad::LookForExplosiveToThrow()
 		}
 	}
 	return ClosestEnemy; 
+}
+
+void ASquad::MemberHasDied()
+{
+	EnemySpawner->OnDeathEvent();
 }
 
 

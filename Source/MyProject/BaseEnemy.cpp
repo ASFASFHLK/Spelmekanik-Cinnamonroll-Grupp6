@@ -57,12 +57,17 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	}
 
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	TakeDamageVisual();
+	if(IsAlive)
+	{
+		TakeDamageVisual();
+	}
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
-		
-		HasDied();
+		if(IsAlive)
+		{
+			HasDied();
+		}
 	}
 	
 	return DamageTaken;
@@ -95,18 +100,28 @@ void ABaseEnemy::HasDied()
 	
 	if(MySquad)
 	{
+		if(!this->IsA(AExplosiveEnemy::StaticClass()))
+		{
+			MySquad->MemberHasDied();
+		}
 		MySquad->RemoveFromSquad(this);
 	}
 	
 	// calls the event
-	if(!OnDeath.ExecuteIfBound())
+	if(OnDeath.IsBound())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
+		OnDeath.Broadcast();
 	}	
 	OnDeath.Clear();
 	IsAlive = false;
 	Ragdoll();
-	//Destroy();
+}
+
+void ABaseEnemy::ResetEnemy()
+{
+	IsAlive = true;
+	Partner = nullptr;
+	HealthComp->ResetHealth();
 }
 
 void ABaseEnemy::Ragdoll_Implementation()

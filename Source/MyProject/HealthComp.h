@@ -19,6 +19,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetHealthModifier (int NewHealthModifier);
 
+	UFUNCTION(BlueprintCallable)
+	void ResetHealth();
+
 	UFUNCTION(BlueprintPure)
 	int32 GetMaxHealth() const;
 	

@@ -50,8 +50,9 @@ void AMeleeEnemy::ResetThrowTimer()
 	SetCanThrow(false);
 }
 
-void AMeleeEnemy::SpawnExplosiveEnemy()
+void AMeleeEnemy::SpawnExplosiveEnemy_Implementation()
 {
+	/*
 	AExplosiveEnemy* SpawnedEnemy = GetWorld()->SpawnActor<AExplosiveEnemy>(ExplosiveEnemy, GetActorLocation(),
 		FRotator(),FActorSpawnParameters());
 
@@ -67,7 +68,9 @@ void AMeleeEnemy::SpawnExplosiveEnemy()
 		MySquad->AddExplosiveToSquad(SpawnedEnemy);
 	}
 	ResetThrowTimer();
+	*/
 }
+
 
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {

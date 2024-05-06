@@ -23,11 +23,12 @@ void AEnemy_Spawner::BeginPlay()
 	GetSpawnGatesInScene();
 	//SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
 	Squad = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
+	
 	StartNextWave();
 }
 
 
-bool AEnemy_Spawner::SpawnEnemy()
+bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
 {
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
@@ -67,17 +68,20 @@ bool AEnemy_Spawner::SpawnEnemy()
 	
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	
-	ABaseEnemy* Enemy = GetWorld()->SpawnActor<ABaseEnemy>(Enemies[EnemyIndex], SpawnPoint, FRotator(), FActorSpawnParameters());
-
-	if(Enemy)
+	SpawnEnemy(Enemies[EnemyIndex], SpawnPoint, FRotator(0,0,0));
+	/*
+	if(ABaseEnemy* Enemy = Test(Enemies[EnemyIndex], SpawnPoint, FRotator()))
 	{
 		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
-		Enemy->SpawnDefaultController();
 		Squad->AddToSquad(Enemy);
 		return true;
 	}
-	return false;
+	*/
+	return true;
 }
+
+
+
 
 void AEnemy_Spawner::StartNextWave()
 {
@@ -86,7 +90,7 @@ void AEnemy_Spawner::StartNextWave()
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < AmountToSpawnAtStart; i++)
 	{
-		if(SpawnEnemy())
+		if(PlaceEnemiesAtSpawnGates())
 		{
 			AmountOfEnemiesSpawned++;
 		}
@@ -97,9 +101,10 @@ void AEnemy_Spawner::StartNextWave()
 
 void AEnemy_Spawner::OnDeathEvent()
 {
+	UE_LOG(LogTemp, Warning, TEXT("SPAWNING NEW ENEMY"));
 	if(EnemiesToKill > AmountOfEnemiesSpawned)
 	{
-		if(SpawnEnemy())
+		if(PlaceEnemiesAtSpawnGates())
 		{
 			AmountOfEnemiesSpawned++;
 		}

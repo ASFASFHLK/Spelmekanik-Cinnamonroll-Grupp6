@@ -14,8 +14,7 @@ void AKillBox::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 	if (Enemy)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("I have been killed by the big mean killbox"));
-		const bool Discard = Enemy->OnDeath.ExecuteIfBound();
-		Enemy->SetActorEnableCollision(false);
+		//Enemy->SetActorEnableCollision(false);
 		Enemy->HasDied();
 		return;
 	}

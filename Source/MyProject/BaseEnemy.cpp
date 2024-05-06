@@ -57,7 +57,10 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	}
 
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-	TakeDamageVisual();
+	if(IsAlive)
+	{
+		TakeDamageVisual();
+	}
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{

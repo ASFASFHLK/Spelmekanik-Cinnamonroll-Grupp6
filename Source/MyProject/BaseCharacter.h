@@ -74,7 +74,7 @@ protected:
 	 Ability System stuff
 	 ****************/
 	
-	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const;
+	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	void AddStartupGameplayAbilities();
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Abilites")
 	TArray<TSubclassOf<class UGameplayEffect>> PassiveGameplayEffects;

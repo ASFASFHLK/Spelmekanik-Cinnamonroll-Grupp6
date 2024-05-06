@@ -24,6 +24,9 @@ public:
 	void StartShopPhase();
 	UFUNCTION(BlueprintCallable)
 	void StartNextWave();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void StartOptionsMenu();
 	
 private:
 	UPROPERTY(EditDefaultsOnly)

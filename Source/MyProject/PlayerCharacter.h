@@ -77,6 +77,14 @@ public:
 
 	void SetGun(AGunBase* NewGun);
 
+	UFUNCTION(BlueprintCallable)
+	float GetLookSpeed() const {return LookSideSpeed;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetLookUpSpeed(const float Value){LookUpSpeed = Value;}
+	
+	UFUNCTION(BlueprintCallable)
+	void SetLookSidesSpeed(const float Value){LookSideSpeed = Value;}
 	
 public:
 	APlayerCharacter();

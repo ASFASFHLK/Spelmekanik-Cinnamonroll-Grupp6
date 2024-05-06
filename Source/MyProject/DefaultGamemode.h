@@ -24,6 +24,22 @@ public:
 	void StartShopPhase();
 	UFUNCTION(BlueprintCallable)
 	void StartNextWave();
+
+	// Credit Related
+	UFUNCTION(BlueprintPure)
+	int GetAmountOfCredits() const;
+	void SetAmountOfCredits(const int AmountToSet);
+	UFUNCTION(BlueprintPure)
+	bool CanAfford(const int PriceToCheck) const;
+	UFUNCTION(BlueprintCallable)
+	void AddCredits(const int AmountToAdd);
+	UFUNCTION(BlueprintCallable)
+	void ResetCredits();
+	UFUNCTION(BlueprintCallable)
+	void RemoveCredits(const int AmountToRemove);
+	UFUNCTION(BlueprintCallable)
+	bool RemoveIfWeCanAfford(const int PriceToCheck);
+	
 	
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -31,9 +47,13 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> LoseScreen;
+	
 	UPROPERTY(VisibleInstanceOnly)
 	AEnemy_Spawner* SpawnerRef;
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
+	
+	UPROPERTY(VisibleInstanceOnly)
+	int CurrentAmountOfCredits = 0;
 	
 };

@@ -50,6 +50,57 @@ void ADefaultGamemode::StartNextWave()
 	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
 }
 
+int ADefaultGamemode::GetAmountOfCredits() const
+{
+	return CurrentAmountOfCredits;
+}
+
+void ADefaultGamemode::SetAmountOfCredits(const int AmountToSet)
+{
+	CurrentAmountOfCredits = AmountToSet;
+}
+
+bool ADefaultGamemode::CanAfford(const int PriceToCheck) const
+{
+	return PriceToCheck <= CurrentAmountOfCredits;
+}
+
+void ADefaultGamemode::AddCredits(const int AmountToAdd)
+{
+	if(AmountToAdd < 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AmountToAdd can not be negative"));
+		return;
+	}
+	CurrentAmountOfCredits+= AmountToAdd;
+}
+
+void ADefaultGamemode::ResetCredits()
+{
+	CurrentAmountOfCredits = 0;
+}
+
+void ADefaultGamemode::RemoveCredits(const int AmountToRemove)
+{
+	if(AmountToRemove < 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AmountToRemove can not be negative"));
+		return;
+	}
+	CurrentAmountOfCredits -=AmountToRemove;
+}
+
+bool ADefaultGamemode::RemoveIfWeCanAfford(const int PriceToCheck)
+{
+	if(CanAfford(PriceToCheck))
+	{
+		RemoveCredits(PriceToCheck);
+		return true;
+	}
+	return false;
+}
+
+
 void ADefaultGamemode::StartShopPhase_Implementation()
 {
 	

@@ -16,6 +16,10 @@ class MYPROJECT_API UHealthComp : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UHealthComp();
+	UFUNCTION(BlueprintPure)
+	FString GetHealthAsText() const;
+	UFUNCTION(BlueprintCallable)
+	void SetHealthToMax(); 
 	
 	UFUNCTION(BlueprintCallable)
 	void SetHealthModifier (int NewHealthModifier);

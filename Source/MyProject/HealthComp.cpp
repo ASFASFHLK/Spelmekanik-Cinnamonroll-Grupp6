@@ -16,6 +16,16 @@ UHealthComp::UHealthComp()
 	// ...
 }
 
+FString UHealthComp::GetHealthAsText() const
+{
+	return GetCurrentHealth() + "/" + GetMaxHealth();
+}
+
+void UHealthComp::SetHealthToMax()
+{
+	AttributeSet->SetHealth(GetMaxHealth());
+}
+
 void UHealthComp::SetHealthModifier(int NewHealthModifier)
 {
 	HealthModifier = NewHealthModifier;

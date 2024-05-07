@@ -41,7 +41,7 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	float AirTime = 3;
-g
+
 	/**********************
 	 Camera settings
 	****************/

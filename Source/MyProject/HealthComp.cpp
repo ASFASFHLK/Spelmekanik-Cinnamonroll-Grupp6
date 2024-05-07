@@ -18,7 +18,11 @@ UHealthComp::UHealthComp()
 
 FString UHealthComp::GetHealthAsText() const
 {
-	return GetCurrentHealth() + "/" + GetMaxHealth();
+	const std::string StringRef = (std::to_string(GetCurrentHealth()) + "/" + std::to_string(GetMaxHealth()));
+	UE_LOG(LogTemp, Warning, TEXT("%hs"),StringRef.c_str());
+	const FString ReturnFString(StringRef.c_str());
+	UE_LOG(LogTemp, Warning, TEXT("%s"),*ReturnFString);
+	return ReturnFString;
 }
 
 void UHealthComp::SetHealthToMax()

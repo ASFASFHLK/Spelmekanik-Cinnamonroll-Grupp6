@@ -11,6 +11,12 @@
 #include "Engine/DamageEvents.h"
 
 
+AMeleeEnemy::AMeleeEnemy()
+{
+	AttackPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Attack Point"));
+	AttackPoint->SetupAttachment(RootComponent);
+}
+
 void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()
 {
 	
@@ -54,7 +60,6 @@ void AMeleeEnemy::SpawnExplosiveEnemy_Implementation()
 {
 }
 
-
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -77,6 +82,8 @@ void AMeleeEnemy::BeginPlay()
 void AMeleeEnemy::Attack()
 {
 	Super::Attack();
+	SlamIntoGround();
+	/*
 	if(bIsParried)
 	{
 		return;
@@ -84,6 +91,7 @@ void AMeleeEnemy::Attack()
 	const FVector End = (GetActorForwardVector() * 100) + GetActorLocation();
 	const TArray<AActor*> ActorsToIgnore;
 	FHitResult HitResult;
+
 	
 	
 	UKismetSystemLibrary::SphereTraceSingle(this,GetActorLocation(),End,50,
@@ -95,7 +103,9 @@ void AMeleeEnemy::Attack()
 		ActorHit->TakeDamage(DamageDealt, FDamageEvent(), GetController(), this);
 
 	}
+	*/
 }
+
 
 //
 //	Gives the actor a certain type of enemy they are based on the values given

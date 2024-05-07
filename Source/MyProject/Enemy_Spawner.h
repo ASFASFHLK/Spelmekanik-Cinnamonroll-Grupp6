@@ -24,12 +24,21 @@ public:
 	// Sets default values for this actor's properties
 	
 	AEnemy_Spawner();
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseScaling(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	float GetScalingDamage(){return ScalingDamage;}
+
+	UFUNCTION(BlueprintCallable)
+	float GetScalingHealth(){return ScalingHealth;}
 	
 	UFUNCTION()
 	bool PlaceEnemiesAtSpawnGates();
 
 	UFUNCTION(BlueprintCallable)
-	ASquad* GetSquad(){return Squad;}
+	ASquad* GetSquad() const {return Squad;}
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation);
@@ -72,11 +81,20 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	ASquad* Squad;
+
+	UPROPERTY(VisibleAnywhere)
+	float ScalingDamage = 1;
+
+	UPROPERTY(VisibleAnywhere)
+	float ScalingHealth = 1;
 	
+	UPROPERTY()
 	int LocationIndex = 0;
+	
 	UPROPERTY()
 	TArray<ASpawnerGate*> SpawnerGates;
-
+	
+	UFUNCTION()
 	void GetSpawnGatesInScene();
 	
 public:	

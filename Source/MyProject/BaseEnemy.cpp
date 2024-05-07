@@ -25,6 +25,12 @@ void ABaseEnemy::BeginPlay()
 	}
 }
 
+void ABaseEnemy::ScaleHealthAndDamage(float Health, float Damage)
+{
+	DamageDealt *= Damage;
+	HealthComp->SetCurrentHealth(HealthComp->GetCurrentHealth()*Health);
+}
+
 FVector ABaseEnemy::GetPlayerLocationFromSquad() const
 {
 	if(MySquad)
@@ -100,10 +106,6 @@ void ABaseEnemy::HasDied()
 	
 	if(MySquad)
 	{
-		if(!this->IsA(AExplosiveEnemy::StaticClass()))
-		{
-			MySquad->MemberHasDied();
-		}
 		MySquad->RemoveFromSquad(this);
 	}
 	

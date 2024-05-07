@@ -38,5 +38,8 @@ private:
 	AEnemy_Spawner* SpawnerRef;
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
+
+	UPROPERTY(EditDefaultsOnly)
+	float EnemyScaling;
 	
 };

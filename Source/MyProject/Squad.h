@@ -26,14 +26,11 @@ public:
 	ASquad();
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION()
-	void SetSquadManager(ASquadManager* SquadManager) {MySquadManager = SquadManager;}
-
+	
 	UFUNCTION()
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void AddToSquad(ABaseEnemy* SpawnedEnemy);
 	
 	UFUNCTION(BlueprintCallable)
@@ -41,44 +38,19 @@ public:
 
 	UFUNCTION()
 	AExplosiveEnemy* LookForExplosiveToThrow();
-
-	UFUNCTION()
-	void MemberHasDied();
-
+	
 	UFUNCTION()
 	FVector GetPlayerLocation() const {return PlayerLocation;}
 
-	//bool FindSquadMemberToBind(ABaseEnemy* EnemyToFindPartnerFor);
-	//void FindNewPartner(ABaseEnemy* Enemy);
 
 private:
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	int32 SquadValue = 5;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	int32 NumberOfExplosive;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	int32 NumberOfMelee;
-
+	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	TArray<ABaseEnemy*> SquadMembers;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Squad")
 	TArray<TSubclassOf<ABaseEnemy>> EnemyTypes;
-
-	UPROPERTY(VisibleAnywhere, Category = "Squad")
-	ASquadManager* MySquadManager;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	bool RandomlyGenerated;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Squad")
-	bool PartnerEnabled;
-
-	UPROPERTY(VisibleAnywhere)
-	ABaseEnemy* MemberWithoutPartner;
-
+	
 	UPROPERTY(VisibleAnywhere)
 	TArray<AExplosiveEnemy*> ExplosiveEnemies;
 
@@ -90,13 +62,5 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	AEnemy_Spawner* EnemySpawner;
-
-	UFUNCTION()
-	void CreateRandomSquadMembers();
-
-	UFUNCTION()
-	void CreateSpecifiedSquadMembers();
-	//void BindAllSquadMembers();
-	//void BindPartners(ABaseEnemy* EnemyOne, ABaseEnemy* EnemyTwo);
 
 };

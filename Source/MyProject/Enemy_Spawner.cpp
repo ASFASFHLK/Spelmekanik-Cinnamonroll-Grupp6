@@ -15,6 +15,12 @@ AEnemy_Spawner::AEnemy_Spawner()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void AEnemy_Spawner::IncreaseScaling(float Value)
+{
+	ScalingHealth += Value;
+	ScalingDamage += Value;
+}
+
 // Called when the game starts or when spawned
 void AEnemy_Spawner::BeginPlay()
 {
@@ -101,7 +107,6 @@ void AEnemy_Spawner::StartNextWave()
 
 void AEnemy_Spawner::OnDeathEvent()
 {
-	UE_LOG(LogTemp, Warning, TEXT("SPAWNING NEW ENEMY"));
 	if(EnemiesToKill > AmountOfEnemiesSpawned)
 	{
 		if(PlaceEnemiesAtSpawnGates())

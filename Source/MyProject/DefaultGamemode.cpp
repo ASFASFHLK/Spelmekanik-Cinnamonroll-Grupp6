@@ -32,20 +32,8 @@ void ADefaultGamemode::StartNextWave()
 			return;
 		}
 	}
-
-	/*
-	if(SquadRef == nullptr)
-	{
-		SquadRef = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
-		if(SquadRef == nullptr)
-		{
-			UE_LOG(LogTemp, Error, TEXT("There should be a SquadManager in the scene"))
-			return;
-		}
-	}
-	*/
+	SpawnerRef->IncreaseScaling(EnemyScaling);
 	SpawnerRef->StartNextWave();
-	//SquadRef->StartNextWave();
 	APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
 	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
 }

@@ -69,11 +69,11 @@ void UHealthComp::BeginPlay()
 		AttributeSet = Character->GetAttributeSet();
 		if(AttributeSet->GetHealth() > AttributeSet->GetMaxHealth())
 		{
-		AttributeSet->SetHealth(AttributeSet->GetMaxHealth());	
+		//AttributeSet->SetHealth(AttributeSet->GetMaxHealth());	
 		}
 		
-		//AttributeSet->SetHealth(0);
-		//AttributeSet->SetMaxHealth(0);
+		AttributeSet->SetHealth(MaxHealth);
+		AttributeSet->SetMaxHealth(MaxHealth);
 	}
 	
 	//CurrentHealth = GetMaxHealth();

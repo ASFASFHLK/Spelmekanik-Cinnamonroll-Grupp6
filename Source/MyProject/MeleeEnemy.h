@@ -18,6 +18,8 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 	GENERATED_BODY()
 	
 public:
+
+	AMeleeEnemy();
 	
 	UFUNCTION(BlueprintCallable)
 	void DecideWhichType();
@@ -48,6 +50,12 @@ public:
 
 	UFUNCTION()
 	AExplosiveEnemy* GetEnemyToThrow() const {return EnemyToThrow;}
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SlamIntoGround();
+
+	UFUNCTION(BlueprintCallable)
+	FVector GetAttackPointLocation() const {return AttackPoint->GetComponentLocation();}
 	
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -57,7 +65,7 @@ private:
 
 	UFUNCTION()
 	virtual void Attack() override;
-
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ThrowOrSpawnTimer;
 
@@ -81,4 +89,7 @@ private:
 
 	UPROPERTY()
 	AExplosiveEnemy* EnemyToThrow;
+
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* AttackPoint;
 };

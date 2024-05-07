@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "HealthComp.generated.h"
 
+class URivetAttributeSet;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MYPROJECT_API UHealthComp : public UActorComponent
@@ -26,13 +27,13 @@ public:
 	int GetCurrentHealth() const;
 	
 	UFUNCTION(BlueprintCallable)
-	bool TakeDamage(int DamageToTake);
+	bool TakeDamage(const  int DamageToTake);
 	
 	UFUNCTION(BlueprintPure)
 	float GetHealthPercentage() const;
 
 	UFUNCTION(BlueprintCallable)
-	void SetMaxHealth(int32 NewMaxHealthValue );
+	void SetMaxHealth(const int32 NewMaxHealthValue );
 	
 	
 	
@@ -42,6 +43,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UPROPERTY()
+	URivetAttributeSet* AttributeSet;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int32 MaxHealth = 100;
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))

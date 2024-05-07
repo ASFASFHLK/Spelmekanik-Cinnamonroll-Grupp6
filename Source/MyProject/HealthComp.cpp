@@ -3,12 +3,15 @@
 
 #include "HealthComp.h"
 
+#include "BaseCharacter.h"
+#include "RivetAttributeSet.h"
+
 // Sets default values for this component's properties
 UHealthComp::UHealthComp()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -26,26 +29,31 @@ void UHealthComp::SetHealthModifier(int NewHealthModifier)
 
 int32 UHealthComp::GetMaxHealth() const
 {
-	return MaxHealth + HealthModifier;
+	return AttributeSet->GetMaxHealth();
 }
 
 int UHealthComp::GetCurrentHealth() const
 {
-	return CurrentHealth;
+	return AttributeSet->GetHealth();
 }
 
-bool UHealthComp::TakeDamage(int DamageToTake)
+bool UHealthComp::TakeDamage(const int DamageToTake)
 {
-	CurrentHealth = CurrentHealth - DamageToTake;
-	return CurrentHealth <= 0;
+	const float Health = AttributeSet->GetHealth();
+	AttributeSet->SetHealth(FMath::Clamp(Health, 0.f, Health -DamageToTake));;
+	return AttributeSet->GetHealth() <= 0;
 }
 
 float UHealthComp::GetHealthPercentage() const
 {
-	return CurrentHealth/(float)GetMaxHealth();
+	if(AttributeSet->GetMaxHealth() == 0)
+	{
+		return  0.0;
+	}
+	return AttributeSet->GetHealth()/AttributeSet->GetMaxHealth();
 }
 
-void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)
+void UHealthComp::SetMaxHealth(const int32 NewMaxHealthValue)
 {
 	MaxHealth = NewMaxHealthValue;
 }
@@ -55,7 +63,20 @@ void UHealthComp::SetMaxHealth(int32 NewMaxHealthValue)
 void UHealthComp::BeginPlay()
 {
 	Super::BeginPlay();
-	CurrentHealth = GetMaxHealth();
+	const ABaseCharacter* Character = Cast<ABaseCharacter>(GetOwner());
+	if(Character != nullptr)
+	{
+		AttributeSet = Character->GetAttributeSet();
+		if(AttributeSet->GetHealth() > AttributeSet->GetMaxHealth())
+		{
+		AttributeSet->SetHealth(AttributeSet->GetMaxHealth());	
+		}
+		
+		//AttributeSet->SetHealth(0);
+		//AttributeSet->SetMaxHealth(0);
+	}
+	
+	//CurrentHealth = GetMaxHealth();
 	// ...
 }
 

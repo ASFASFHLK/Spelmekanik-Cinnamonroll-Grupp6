@@ -104,8 +104,7 @@ void APlayerCharacter::BeginPlay()
 	{
 		ModifierComponent->SetUp(); // prevents a de-sync 
 	}
-
-
+	OnTakeDamage();
 }
 
 void APlayerCharacter::ShowHud(const bool Show)

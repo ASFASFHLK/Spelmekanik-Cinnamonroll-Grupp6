@@ -24,6 +24,9 @@ public:
 	
 	UHealthComp* GetHealthComponent() const {return HealthComp;}
 	
+	UFUNCTION(BlueprintCallable)
+	URivetAttributeSet* GetAttributeSet() const; 
+	
 	UFUNCTION()
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 

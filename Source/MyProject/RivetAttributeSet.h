@@ -33,17 +33,19 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Health(const FGameplayAttributeData& OldValue);
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armour, Category= "Attributes")
-	FGameplayAttributeData Armour ;
-	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Armour)
-	UFUNCTION()
-	virtual void OnRep_Armour(const FGameplayAttributeData& OldValue);
-	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category= "Attributes")
 	FGameplayAttributeData MaxHealth;
 	ATTRIBUTE_ACCESSORS(URivetAttributeSet, MaxHealth)
 	UFUNCTION()
 	virtual void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armour, Category= "Attributes")
+	FGameplayAttributeData Armour = 0;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Armour)
+	UFUNCTION()
+	virtual void OnRep_Armour(const FGameplayAttributeData& OldValue);
+	
+
 	
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Damage, Category= "Attributes")

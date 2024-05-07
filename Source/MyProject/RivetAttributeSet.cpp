@@ -17,7 +17,7 @@ void URivetAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(URivetAttributeSet, Damage);
 	DOREPLIFETIME(URivetAttributeSet, Speed);
 	DOREPLIFETIME(URivetAttributeSet, Armour);
-	//DOREPLIFETIME(URivetAttributeSet, MaxHealth);
+	DOREPLIFETIME(URivetAttributeSet, MaxHealth);
 }
 
 void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -25,7 +25,7 @@ void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 	Super::PreAttributeChange(Attribute, NewValue);
 	if(Attribute == GetMaxHealthAttribute())
 	{
-		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
+		//AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
 	}
 	
 }

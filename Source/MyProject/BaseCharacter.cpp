@@ -30,6 +30,7 @@ void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();	
 	GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
+	AddStartupGameplayAbilities();
 	
 }
 
@@ -72,15 +73,18 @@ void ABaseCharacter::MoveSides(float Value)
 }
 
 
-
+URivetAttributeSet* ABaseCharacter::GetAttributeSet() const
+{
+	return Attributes;
+}
 
 float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
-	AActor* DamageCauser)
+                                 AActor* DamageCauser)
 {
 	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
 	UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
 	
-	if(EventInstigator && EventInstigator->GetCharacter() == this && !DamageCauser->IsA(ABaseBarrel::StaticClass()))
+	if(EventInstigator && EventInstigator->GetCharacter() == this )
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
 		
@@ -99,6 +103,7 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 
 void ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect) const
 {
+	UE_LOG(LogTemp, Warning, TEXT("I have been called"))
 	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(this);
 
@@ -214,6 +219,7 @@ void ABaseCharacter::OnRep_PlayerState()
 			static_cast<int32>(ERivetAbilityInputID::Cancel)
 			);
 		AbilitySystemComponent->BindAbilityActivationToInputComponent(InputComponent, Binds);
+		
 	}
 }
 
@@ -229,6 +235,7 @@ void ABaseCharacter::AddStartupGameplayAbilities()
 	check(AbilitySystemComponent);
 	if( GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("I have been called"))
 		for( const TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
 		{
 			AddActiveAbility(Ability);

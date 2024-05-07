@@ -31,6 +31,9 @@ public:
 	
 	UFUNCTION()
 	void StartNextWave();
+	UFUNCTION(BlueprintNativeEvent)
+	void UpdateEnemiesToKillWidget();
+
 
 protected:
 	virtual void BeginPlay() override;

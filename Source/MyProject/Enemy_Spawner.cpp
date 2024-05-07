@@ -88,8 +88,12 @@ void AEnemy_Spawner::StartNextWave()
 			AmountOfEnemiesSpawned++;
 		}
 	}
+	UpdateEnemiesToKillWidget();
 }
 
+void AEnemy_Spawner::UpdateEnemiesToKillWidget_Implementation()
+{
+}
 
 
 void AEnemy_Spawner::OnDeathEvent()
@@ -103,6 +107,7 @@ void AEnemy_Spawner::OnDeathEvent()
 	}
 	
 	AmountOfEnemiesKilled++;
+	UpdateEnemiesToKillWidget();      
 	
 	if(AmountOfEnemiesKilled >= EnemiesToKill)
 	{

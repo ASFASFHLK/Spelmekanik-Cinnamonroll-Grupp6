@@ -25,6 +25,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartNextWave();
 	
+	
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> WinScreen;

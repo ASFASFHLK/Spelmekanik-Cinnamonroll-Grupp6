@@ -36,7 +36,7 @@ public:
 	void SetMaxHealth(const int32 NewMaxHealthValue );
 	
 	UPROPERTY(EditDefaultsOnly)
-	bool ForceSetHealth = true;
+	bool AllowHealthCompToSetHealth = true;
 	
 protected:
 	

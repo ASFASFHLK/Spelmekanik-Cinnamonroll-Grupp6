@@ -71,7 +71,7 @@ void UHealthComp::BeginPlay()
 		{
 		//AttributeSet->SetHealth(AttributeSet->GetMaxHealth());	
 		}
-		if(ForceSetHealth)
+		if(AllowHealthCompToSetHealth)
 		{
 			AttributeSet->SetHealth(MaxHealth);
 			AttributeSet->SetMaxHealth(MaxHealth);

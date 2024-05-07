@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "RangedEnemyProjectile.generated.h"
 
+class USphereComponent;
 class UProjectileMovementComponent;
 
 UCLASS()
@@ -15,7 +16,9 @@ class MYPROJECT_API ARangedEnemyProjectile : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
+
 	ARangedEnemyProjectile();
+	
 	UFUNCTION()
 	void ParriedPorjectile();
 
@@ -31,18 +34,19 @@ public:
 	void OnOverlapBegin(UPrimitiveComponent* OverLappedComponent, AActor* OtherActor,
 		UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovement;
 
 	UPROPERTY(EditDefaultsOnly)
 	UStaticMeshComponent* ProjectileMesh;
+
 
 	virtual void SetOwner(AActor* NewOwner) override;
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float DamageDealt;
-
+	
 	UPROPERTY()
 	AActor* ProjectileOwner;
 	

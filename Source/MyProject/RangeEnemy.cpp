@@ -19,13 +19,12 @@ void ARangeEnemy::Attack()
 		return;
 	}
 
-	const FVector Location = GetActorLocation() + FVector(100,0, 0);
-	const FRotator Rotation = GetActorRotation();
+
 
 	const FActorSpawnParameters SpawnInfo;
 
-	if(ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, Location,
-		Rotation, SpawnInfo))
+	if(ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, ProjectileSpawnPoint->GetComponentLocation(),
+		GetActorRotation(), SpawnInfo))
 	{
 		SpawnedProjectile->SetOwner(this);
 	}

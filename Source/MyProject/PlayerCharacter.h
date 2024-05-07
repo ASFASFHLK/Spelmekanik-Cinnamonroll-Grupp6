@@ -29,9 +29,6 @@ protected:
 	// Legacy 
 	UModifierComponent* ModifierComponent;
 
-
-
-	
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
 	TSubclassOf<AGunBase> EquipedGun; // Please use me😭

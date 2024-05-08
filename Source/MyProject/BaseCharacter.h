@@ -18,7 +18,7 @@ public:
 	
 	UHealthComp* GetHealthComponent() const {return HealthComp;}
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintNativeEvent)

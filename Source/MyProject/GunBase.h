@@ -72,6 +72,10 @@ private:
 	float ReloadTime = 0.5f;
 	UPROPERTY(EditAnywhere)
 	int Pellets = 20;
+	UPROPERTY(EditDefaultsOnly)
+	float ShotgunSpreadMin = -10;
+	UPROPERTY(EditDefaultsOnly)
+	float ShotgunSpreadMax = 10;
 	UPROPERTY(EditAnywhere)
 	int PunchRadius = 100;
 	UPROPERTY(EditAnywhere)

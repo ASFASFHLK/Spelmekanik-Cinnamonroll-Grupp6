@@ -64,6 +64,13 @@ void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedCompo
 	Destroy();// fungerar inte
 }
 
+void ARangedEnemyProjectile::DealDamage(ABaseCharacter* Character)
+{
+	if(ProjectileOwner != nullptr){
+		Character->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
+	}
+}
+
 void ARangedEnemyProjectile::SetOwner(AActor* NewOwner)
 {
 	Super::SetOwner(NewOwner);

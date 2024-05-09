@@ -41,7 +41,7 @@ void UHealthComp::SetHealthModifier(int NewHealthModifier)
 
 void UHealthComp::ResetHealth()
 {
-	CurrentHealth = MaxHealth;
+	SetHealthToMax();
 }
 
 int32 UHealthComp::GetMaxHealth() const

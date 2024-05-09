@@ -60,7 +60,7 @@ private:
 	URivetAttributeSet* AttributeSet;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
-	int32 MaxHealth = 100;
+	int MaxHealth = 100;
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int CurrentHealth = 0;
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))

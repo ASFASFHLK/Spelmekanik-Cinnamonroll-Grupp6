@@ -100,6 +100,9 @@ protected:
 	
 
 private:
+
+	UPROPERTY()
+	int OriginalDamage;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	AActor* CurrentTarget;

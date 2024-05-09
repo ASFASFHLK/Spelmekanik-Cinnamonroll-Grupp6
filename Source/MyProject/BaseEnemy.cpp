@@ -18,6 +18,7 @@ void ABaseEnemy::BeginPlay()
 	CurrentTarget = UGameplayStatics::GetPlayerCharacter(this, 0);
 	CurrentAttackCooldown = 0;
 	MyController = Cast<AEnemyAIController>(GetController());
+	OriginalDamage = DamageDealt;
 	
 	if(MyController)
 	{
@@ -27,7 +28,7 @@ void ABaseEnemy::BeginPlay()
 
 void ABaseEnemy::ScaleHealthAndDamage(float Health, float Damage)
 {
-	DamageDealt *= Damage;
+	DamageDealt = OriginalDamage * Damage;
 	HealthComp->SetCurrentHealth(HealthComp->GetCurrentHealth()*Health);
 }
 
@@ -67,6 +68,7 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	{
 		TakeDamageVisual();
 	}
+	
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
@@ -124,6 +126,7 @@ void ABaseEnemy::ResetEnemy()
 	IsAlive = true;
 	Partner = nullptr;
 	HealthComp->ResetHealth();
+	UE_LOG(LogTemp, Warning, TEXT("%i"), HealthComp->GetCurrentHealth());
 }
 
 void ABaseEnemy::Ragdoll_Implementation()

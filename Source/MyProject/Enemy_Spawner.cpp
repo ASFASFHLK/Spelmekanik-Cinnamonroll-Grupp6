@@ -89,6 +89,7 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
 
 void AEnemy_Spawner::StartNextWave()
 {
+	IncreaseScaling(0.05);
 	AmountOfEnemiesKilled = 0;
 	AmountOfEnemiesSpawned = 0;
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;

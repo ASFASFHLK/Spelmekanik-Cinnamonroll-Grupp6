@@ -5,19 +5,25 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "BaseCharacter.h"
+#include "Poolable.h"
 #include "BaseEnemy.generated.h"
 
+class AEnemyAIController;
 class ASquad;
 class AAIController;
-DECLARE_DYNAMIC_DELEGATE(FOnDeath);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 
 UCLASS()
-class MYPROJECT_API ABaseEnemy : public ABaseCharacter
+class MYPROJECT_API ABaseEnemy : public ABaseCharacter, public IPoolable
 {
 	GENERATED_BODY()
 
 public:
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	void ScaleHealthAndDamage(float Health, float Damage);
 
 	UFUNCTION()
 	FVector GetPlayerLocationFromSquad() const;
@@ -31,6 +37,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void HasDied();
 
+	UFUNCTION(BlueprintNativeEvent)
+	void Ragdoll();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void ResetEnemy();
+
 	UFUNCTION()
 	float GetCurrentAttackCooldown() const{return CurrentAttackCooldown;}
 
@@ -41,8 +53,11 @@ public:
 
 	//bool HasPartner() const;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
+
+	UFUNCTION(BlueprintCallable)
+	ASquad* GetMySquad() const {return MySquad;}
 	
 	//void MyPartnerHasDied();
 	
@@ -51,10 +66,17 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetDamage() const {return DamageDealt;}
-	
+
+	UFUNCTION(BlueprintCallable)
+	bool GetIsAlive() const {return IsAlive;}
+
+	UPROPERTY(BlueprintAssignable)
 	FOnDeath OnDeath;
 	
 	virtual void Attack();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void TakeDamageVisual();
 
 
 protected:
@@ -65,9 +87,17 @@ protected:
 	ASquad* MySquad;
 
 	UPROPERTY()
-	AAIController* MyController = Cast<AAIController>(Controller);
+	AEnemyAIController* MyController;
+
+	UPROPERTY()
+	UBlackboardComponent* MyBlackBoard;
+
+	UPROPERTY()
+	bool IsAlive = true;
 	
 	virtual void Tick(float DeltaSeconds) override;
+
+	
 
 private:
 	
@@ -88,5 +118,7 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ABaseEnemy* Partner;
+	
+	
 };
 

@@ -48,81 +48,9 @@ void AGunBase::Shoot()
 	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
 		return;
 	}
-	switch (GunType)
-	{
-	case 0:
-		if(bRifleShouldShoot)
-		{
-			RifleShot();
-			bRifleShouldShoot = false;
-		}
-		if(!bRifleShouldShoot)
-		{
-			bRifleShouldShoot = true;
-		}
-		break;
-	case 1:
-		if(bCanShoot)
-		{
-			UseShotGun();
-		}
-		break;
-	case 2:
-		LaserShot();
-		break;
-	case 3:
-		if(bCanHit)
-		{
-			Punch();
-			GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, ShotGunReloadTime * 0.8f, false);
-		}
-		break;
-	default:
-		UE_LOG(LogTemp, Warning, TEXT("Not correct GunType"));
-		GunType = 0;
-	}
+	UseShotGun();
 }
 
-void AGunBase::CancelShot()
-{
-	if(GetWorld())
- 	{
- 		if(!bCanceledShot)
- 		{
- 			bCanceledShot = true;
- 			BurstCheck = 0;
- 			GetWorld()->GetTimerManager().PauseTimer(BurstTimerHandle); 
- 			GetWorld()->GetTimerManager().SetTimer(ShootTimerHandle, this, &AGunBase::Reload, ReloadTime, false);
- 		}
- 	}
-}
-
-void AGunBase::RifleShot()
-{
-	if(World && CurrentRifleShotCooldown <= 0)
-	{
-		CurrentRifleShotCooldown = RifleShotCooldown;// Linus
-		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
-		FHitResult HitResult;
-		FRotator Spread = SpawnRotation;
-		double XSpread = FMath::RandRange(-5.0f, 5.f);
-		double YSpread = FMath::RandRange(-5.0f, 5.f);
-		Spread.Yaw += XSpread;
-		Spread.Pitch += YSpread;
-		World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.0f);
-		GunFired(); // juni :3 
-		if(HitResult.GetActor())
-		{
-			//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-			HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
-			if(ShotSound){
-				UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
-			}
-			GunHit(); // juni :3
-		}
-	}
-}
 
 void AGunBase::ShotGunShot()
 {
@@ -137,11 +65,12 @@ void AGunBase::ShotGunShot()
 		{
 			FHitResult HitResult;
 			FRotator Spread = SpawnRotation;
-			double XSpread = FMath::RandRange(-15.0f, 15.f);
-			double YSpread = FMath::RandRange(-15.0f, 15.f);
+			const float XSpread = FMath::RandRange(ShotgunSpreadMin, ShotgunSpreadMax);
+			const float YSpread = FMath::RandRange(ShotgunSpreadMin, ShotgunSpreadMax);
 			Spread.Yaw += XSpread;
 			Spread.Pitch += YSpread;
-			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams); DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
+			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams);
+			//DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
 				//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
@@ -149,6 +78,8 @@ void AGunBase::ShotGunShot()
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 				}
+				ShotgunHitResult = HitResult;
+				ShotGunHitLocation = HitResult.Location;
 				GunHit(); // juni 
 			}
 		}
@@ -187,27 +118,19 @@ void AGunBase::ReloadPunch()
 	bCanHit = true;
 }
 
-void AGunBase::ChangeGunType()
-{
-	if(GunType >= 3)
-	{
-		GunType = 0;
-	}
-	else
-	{
-		++GunType;
-	}
-}
-
 void AGunBase::Punch()
 {
+	if(!bCanHit)
+	{
+		return;
+	}
+	GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &AGunBase::ReloadShotGunShot, ShotGunReloadTime, false);
 	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-	const TArray<AActor*> ActorsToIgnore = {GetOwner()};// might not work
-	// FHitResult HitResult;
+	const TArray<AActor*> ActorsToIgnore = {GetOwner()};
 
 	TArray<FHitResult> HitResults;
-	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true, FColor::Red, FColor::Green, 1);
+	UKismetSystemLibrary::SphereTraceMulti(this, SpawnLocation, SpawnLocation + (SpawnRotation.Vector() * PunchDistance), PunchRadius, UEngineTypes::ConvertToTraceType(ECC_Pawn), false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true);
 	for (FHitResult Result : HitResults)
 	{
 		if(ABaseCharacter* ActorHit = Cast<ABaseCharacter>(Result.GetActor()))
@@ -222,7 +145,6 @@ void AGunBase::Punch()
 			UGameplayStatics::SuggestProjectileVelocity_CustomArc(this,OutVelocity, ActorHit->GetActorLocation(), ActorHit->GetActorLocation() + (GetOwner()->GetActorRotation().Vector() * LaunchDistance));
 			ActorHit->ProjectileMovement->Velocity = OutVelocity;
 		}
-		
 	}
 	
 	
@@ -233,14 +155,20 @@ void AGunBase::Punch()
 	// 	ActorHit->TakeDamage(Damage, FDamageEvent(), GetOwner<APlayerCharacter>()->GetController(), this);
 	// }
 	bCanHit = false;
+	GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, HitCooldown, false);
 }
 
 void AGunBase::UseShotGun()
 {
-	ShotGunShot();
-	GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &AGunBase::ReloadShotGunShot, ShotGunReloadTime, false);
+	//UE_LOG(LogTemp, Warning, TEXT("trying to shoot"));
+	if(bCanShoot)
+	{
+		ShotGunShot();
+		bCanHit = false;
+		GetWorld()->GetTimerManager().SetTimer(BurstTimerHandle, this, &AGunBase::ReloadShotGunShot, ShotGunReloadTime, false);
+		GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, HitCooldown, false);
+	}
 	
-	// UE_LOG(LogTemp, Warning, TEXT("I set off a timer"));
 	// if(BurstCheck == 0 && !bCanceledShot) //crashed after this was added
 	// {
 	// 	++BurstCheck;

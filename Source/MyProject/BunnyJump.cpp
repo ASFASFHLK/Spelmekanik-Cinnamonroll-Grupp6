@@ -28,13 +28,13 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 			return;
 		}
 		SpeedAdded = true;
-		UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
+		//UE_LOG(LogTemp, Warning, TEXT("Adding speed"))
 		CurrentSpeedInc+= SpeedInc;
 
 		MovementComponent->MaxWalkSpeed+= SpeedInc;
 		if(MovementComponent->MaxWalkSpeed > MaxSpeed) // fixes a bug that can cause us to go faster than we are allowed to 
 		{
-			UE_LOG(LogTemp, Warning, TEXT("SpeedInc Vs MaxSpeed %f : %f"), CurrentSpeedInc, MaxSpeed)
+			//UE_LOG(LogTemp, Warning, TEXT("SpeedInc Vs MaxSpeed %f : %f"), CurrentSpeedInc, MaxSpeed)
 			MovementComponent->MaxWalkSpeed = MaxSpeed;
 		}
 	}
@@ -43,12 +43,12 @@ void ABunnyJump::OnUpdate(float DeltaTime)
 		Accumulator+= DeltaTime;
 		if(Accumulator > Timing && CurrentSpeedInc > 0)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Reseting speed"))
+		//	UE_LOG(LogTemp, Warning, TEXT("Reseting speed"))
 			CurrentSpeedInc = 0;
 			//Accumulator = 0;
-			UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
+			//UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
 			MovementComponent->MaxWalkSpeed = PlayerCharacter->DefaultMovementSpeed;
-			UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
+			//UE_LOG(LogTemp, Warning, TEXT("CurrentSpeed %f ResetSpeed %f"),MovementComponent->MaxWalkSpeed, PlayerCharacter->DefaultMovementSpeed )
 			
 		}
 		SpeedAdded = false;

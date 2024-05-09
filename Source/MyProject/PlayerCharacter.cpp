@@ -107,18 +107,10 @@ void APlayerCharacter::LookSides(float Value)
 
 void APlayerCharacter::Shoot() const
 {
-	UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
+	//UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
 	if(Gun)
 	{
 		Gun->Shoot();
-	}
-}
-
-void APlayerCharacter::CancelShot() const
-{
-	if(Gun)
-	{
-		Gun->CancelShot();
 	}
 }
 
@@ -143,7 +135,7 @@ void APlayerCharacter::ShowHud(const bool Show)
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                    AActor* DamageCauser)
 {
-
+	UE_LOG(LogTemp, Warning, TEXT("TOG DAMAGE"));
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	// Player Specific Damage handler 

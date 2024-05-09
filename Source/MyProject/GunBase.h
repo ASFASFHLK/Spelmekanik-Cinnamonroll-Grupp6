@@ -28,21 +28,23 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void Shoot();
-
-	UFUNCTION(BlueprintCallable)
-	void CancelShot();
-	UFUNCTION(BlueprintCallable)
-	void RifleShot();
+	UPROPERTY(BlueprintReadOnly)
+	FVector ShotGunHitLocation;
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult ShotgunHitResult;
+	// UFUNCTION(BlueprintCallable)
+	// UFUNCTION(BlueprintCallable)
+	// void CancelShot();
+	// UFUNCTION(BlueprintCallable)
+	// void RifleShot();
 	UFUNCTION(BlueprintCallable)
 	void ShotGunShot();
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
 	void LaserShot();
 	UFUNCTION(BlueprintCallable)
 	void ReloadShotGunShot();
 	UFUNCTION(BlueprintCallable)
 	void ReloadPunch();
-	UFUNCTION(BlueprintCallable)
-    void ChangeGunType();
 	UFUNCTION(BlueprintCallable)
     void Punch();
 private:
@@ -69,29 +71,29 @@ private:
 	UPROPERTY()
 	bool bCanHit = true;
 	UPROPERTY()
-	float ReloadTime = 0.8f;
-	UPROPERTY()
-	float BurstTime = 0.3f;
+	float ReloadTime = 0.5f;
 	UPROPERTY(EditAnywhere)
 	int Pellets = 20;
+	UPROPERTY(EditDefaultsOnly)
+	float ShotgunSpreadMin = -10;
+	UPROPERTY(EditDefaultsOnly)
+	float ShotgunSpreadMax = 10;
 	UPROPERTY(EditAnywhere)
 	int PunchRadius = 100;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess))
-	int GunType = 1;
 	UPROPERTY(EditAnywhere)
 	float Damage = 5;
-	UPROPERTY()
-	int Bursts = 5;
 	UPROPERTY(EditAnywhere)
 	int LaunchDistance = 5000;
 	UPROPERTY()
-	int ShotGunReloadTime = 1;
+	float ShotGunReloadTime = 0.5f;
 	UPROPERTY()
 	int ShotDistance = 800;
 	UPROPERTY()
 	int PunchDistance = 100;
 	UPROPERTY()
 	int BurstCheck = 0;
+	UPROPERTY()
+	float HitCooldown = 0.4;
 	UPROPERTY(EditDefaultsOnly, Category = "Gun")
 	float RifleShotCooldown;
 	UPROPERTY()

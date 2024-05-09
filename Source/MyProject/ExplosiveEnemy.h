@@ -15,7 +15,10 @@ class MYPROJECT_API AExplosiveEnemy : public ABaseEnemy
 	GENERATED_BODY()
 
 public:
+
+	virtual void ResetEnemy() override;
 	
+	UFUNCTION()
 	bool BothInPosition();
 	
 	UPROPERTY()
@@ -32,6 +35,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetExplosionRadius() const {return ExplosionRadius;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetIsBeingThrown(bool Value);
 
 private:
 	

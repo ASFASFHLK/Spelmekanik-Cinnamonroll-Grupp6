@@ -81,12 +81,12 @@ URivetAttributeSet* ABaseCharacter::GetAttributeSet() const
 float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                  AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
-	UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
+	//UE_LOG(LogTemp, Display, TEXT("I have been hit %s"), *GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), bIsParried ? TEXT("parried"): TEXT("not parried"));
 	
 	if(EventInstigator && EventInstigator->GetCharacter() == this )
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
+		//UE_LOG(LogTemp, Warning, TEXT("Actor is trying to damage itself"));
 		
 		return 0;
 		
@@ -94,8 +94,8 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	
 	if(HealthComp->TakeDamage(Damage)) // Checks if we are dead
 	{
-		SetActorEnableCollision(false);
-		SetActorHiddenInGame(true);
+		//SetActorEnableCollision(false);
+		//SetActorHiddenInGame(true);
 	}
 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;

@@ -10,9 +10,7 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"Engine",
-				"AIModule",
-				"GameplayAbilities",
-				"Paper2D"
+				"AIModule"
 			]
 		}
 	],
@@ -29,7 +27,11 @@
 			"Enabled": true
 		},
 		{
-			"Name": "GameplayAbilities",
+			"Name": "FMODStudio",
+			"Enabled": true
+		},
+		{
+			"Name": "FMODStudioNiagara",
 			"Enabled": true
 		}
 	]

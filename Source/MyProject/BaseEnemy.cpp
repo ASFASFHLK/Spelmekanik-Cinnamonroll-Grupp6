@@ -3,6 +3,7 @@
 
 #include "BaseEnemy.h"
 
+#include "EnemyAIController.h"
 #include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "HealthComp.h"
@@ -13,8 +14,21 @@
 void ABaseEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	SpawnDefaultController();
 	CurrentTarget = UGameplayStatics::GetPlayerCharacter(this, 0);
 	CurrentAttackCooldown = 0;
+	MyController = Cast<AEnemyAIController>(GetController());
+	
+	if(MyController)
+	{
+		MyBlackBoard = MyController->GetBlackboardComponent();
+	}
+}
+
+void ABaseEnemy::ScaleHealthAndDamage(float Health, float Damage)
+{
+	DamageDealt *= Damage;
+	HealthComp->SetCurrentHealth(HealthComp->GetCurrentHealth()*Health);
 }
 
 FVector ABaseEnemy::GetPlayerLocationFromSquad() const
@@ -38,6 +52,7 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 	
 }
 
+
 float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                              AActor* DamageCauser)
 {
@@ -46,12 +61,19 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 		Super::TakeDamage(0, DamageEvent, EventInstigator, DamageCauser);
 		return 0;
 	}
+
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	if(IsAlive)
+	{
+		TakeDamageVisual();
+	}
 	
 	if(0 >= HealthComp->GetCurrentHealth()) // If we die 
 	{
-		
-		HasDied();
+		if(IsAlive)
+		{
+			HasDied();
+		}
 	}
 	
 	return DamageTaken;
@@ -88,12 +110,24 @@ void ABaseEnemy::HasDied()
 	}
 	
 	// calls the event
-	if(!OnDeath.ExecuteIfBound())
+	if(OnDeath.IsBound())
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("I should have a deligate bound to me %c"), GetName());
+		OnDeath.Broadcast();
 	}	
 	OnDeath.Clear();
-	Destroy();
+	IsAlive = false;
+	Ragdoll();
+}
+
+void ABaseEnemy::ResetEnemy()
+{
+	IsAlive = true;
+	Partner = nullptr;
+	HealthComp->ResetHealth();
+}
+
+void ABaseEnemy::Ragdoll_Implementation()
+{
 }
 
 

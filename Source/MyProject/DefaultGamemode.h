@@ -40,6 +40,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool RemoveIfWeCanAfford(const int PriceToCheck);
 	
+
+	UFUNCTION(BlueprintNativeEvent)
+	void StartOptionsMenu();
+
 	
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -52,6 +56,12 @@ private:
 	AEnemy_Spawner* SpawnerRef;
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
+	bool bFirstWave = true;
+
+	UPROPERTY(EditDefaultsOnly)
+	float EnemyScaling;
 	
 	UPROPERTY(VisibleInstanceOnly)
 	int CurrentAmountOfCredits = 0;

@@ -30,7 +30,7 @@ void ARangedEnemyProjectile::ParriedPorjectile()
 void ARangedEnemyProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ARangedEnemyProjectile::OnOverlapBegin);
+	//ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ARangedEnemyProjectile::OnOverlapBegin);
 	
 }
 
@@ -62,6 +62,13 @@ void ARangedEnemyProjectile::OnOverlapBegin(UPrimitiveComponent* OverLappedCompo
 		return;
 	}
 	Destroy();// fungerar inte
+}
+
+void ARangedEnemyProjectile::DealDamage(ABaseCharacter* Character)
+{
+	if(ProjectileOwner != nullptr){
+		Character->TakeDamage(DamageDealt, FDamageEvent(), ProjectileOwner->GetInstigatorController(), this);
+	}
 }
 
 void ARangedEnemyProjectile::SetOwner(AActor* NewOwner)

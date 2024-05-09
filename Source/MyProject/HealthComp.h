@@ -24,11 +24,17 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetHealthModifier (int NewHealthModifier);
 
+	UFUNCTION(BlueprintCallable)
+	void ResetHealth();
+
 	UFUNCTION(BlueprintPure)
 	int32 GetMaxHealth() const;
 	
 	UFUNCTION(BlueprintPure)
 	int GetCurrentHealth() const;
+
+	UFUNCTION()
+	void SetCurrentHealth(const int NewHealth){CurrentHealth = NewHealth;}
 	
 	UFUNCTION(BlueprintCallable)
 	bool TakeDamage(const  int DamageToTake);

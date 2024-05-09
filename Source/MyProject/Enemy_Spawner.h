@@ -7,6 +7,7 @@
 #include "Enemy_Spawner.generated.h"
 
 
+class ABaseEnemy;
 class ASquad;
 class ASquadManager;
 class ASpawnerGate;
@@ -23,9 +24,30 @@ public:
 	// Sets default values for this actor's properties
 	
 	AEnemy_Spawner();
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseScaling(float Value);
+
+	UFUNCTION(BlueprintCallable)
+	float GetScalingDamage(){return ScalingDamage;}
+
+	UFUNCTION(BlueprintCallable)
+	float GetScalingHealth(){return ScalingHealth;}
 	
 	UFUNCTION()
-	bool SpawnEnemy();
+	bool PlaceEnemiesAtSpawnGates();
+
+	UFUNCTION(BlueprintCallable)
+	ASquad* GetSquad() const {return Squad;}
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation);
+
+	UFUNCTION(BlueprintCallable)
+	void OnDeathEvent();
+
+	UFUNCTION(BlueprintCallable)
+	void AddScaling(float Scaling);
 	
 	UFUNCTION()
 	void StartNextWave();
@@ -35,9 +57,6 @@ protected:
 
 private:
 	
-	UFUNCTION()
-	void OnDeathEvent();
-
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	TSubclassOf<ASquad> SquadType;
 	
@@ -65,11 +84,20 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	ASquad* Squad;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ScalingDamage = 1;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ScalingHealth = 1;
 	
+	UPROPERTY()
 	int LocationIndex = 0;
+	
 	UPROPERTY()
 	TArray<ASpawnerGate*> SpawnerGates;
-
+	
+	UFUNCTION()
 	void GetSpawnGatesInScene();
 	
 public:	

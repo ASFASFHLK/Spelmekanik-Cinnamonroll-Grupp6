@@ -17,7 +17,7 @@ class MYPROJECT_API AKillBox : public AActor
 	void OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	
-	FVector RespawnPos = FVector(-4010,-2600, 4552.0);
+	FVector RespawnPos = FVector(-4090,-2050, 4500);
 	
 public:	
 	// Sets default values for this actor's properties

@@ -66,8 +66,17 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void Shoot() const;
 	
+
 	UFUNCTION(BlueprintCallable)
 	void CancelShot() const;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
+	USoundBase* FireSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
+	USoundBase* HitSound;
+	virtual void BeginPlay() override;
+	
 
 
 
@@ -90,6 +99,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateVariables();
 
+	UFUNCTION(BlueprintCallable)
+	float GetLookSpeed() const {return LookSideSpeed;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetLookUpSpeed(const float Value){LookUpSpeed = Value;}
+	
+	UFUNCTION(BlueprintCallable)
+	void SetLookSidesSpeed(const float Value){LookSideSpeed = Value;}
 	
 public:
 	APlayerCharacter();

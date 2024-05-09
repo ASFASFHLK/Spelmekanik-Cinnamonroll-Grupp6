@@ -6,6 +6,7 @@
 #include "BaseEnemy.h"
 #include "MeleeEnemy.generated.h"
 
+class AEnemyAIController;
 class UBlackboardComponent;
 class AExplosiveEnemy;
 /**
@@ -18,10 +19,10 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 	
 public:
 
-	/*
-	UFUNCTION(BlueprintNativeEvent)
-	void CallPartnerToMove();
-	*/
+	AMeleeEnemy();
+	
+	UFUNCTION(BlueprintCallable)
+	void DecideWhichType();
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void ThrowExplosiveEnemy();
@@ -35,7 +36,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ResetThrowTimer();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintNativeEvent)
 	void SpawnExplosiveEnemy();
 
 	UFUNCTION()
@@ -49,6 +50,15 @@ public:
 
 	UFUNCTION()
 	AExplosiveEnemy* GetEnemyToThrow() const {return EnemyToThrow;}
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SlamIntoGround();
+
+	UFUNCTION(BlueprintCallable)
+	FVector GetAttackPointLocation() const {return AttackPoint->GetComponentLocation();}
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	USceneComponent* ExplosiveSpawnPoint;
 	
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -58,7 +68,7 @@ private:
 
 	UFUNCTION()
 	virtual void Attack() override;
-
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ThrowOrSpawnTimer;
 
@@ -83,8 +93,8 @@ private:
 	UPROPERTY()
 	AExplosiveEnemy* EnemyToThrow;
 
+	UPROPERTY(EditDefaultsOnly)
+	USceneComponent* AttackPoint;
 
 	
-	UFUNCTION()
-	void DecideWhichType();
 };

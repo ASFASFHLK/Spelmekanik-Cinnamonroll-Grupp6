@@ -39,6 +39,11 @@ void UHealthComp::SetHealthModifier(int NewHealthModifier)
 	CurrentHealth = GetMaxHealth();
 }
 
+void UHealthComp::ResetHealth()
+{
+	CurrentHealth = MaxHealth;
+}
+
 int32 UHealthComp::GetMaxHealth() const
 {
 	return AttributeSet->GetMaxHealth();

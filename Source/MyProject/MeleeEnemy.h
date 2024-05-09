@@ -56,6 +56,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FVector GetAttackPointLocation() const {return AttackPoint->GetComponentLocation();}
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	USceneComponent* ExplosiveSpawnPoint;
 	
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -92,4 +95,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* AttackPoint;
+
+	
 };

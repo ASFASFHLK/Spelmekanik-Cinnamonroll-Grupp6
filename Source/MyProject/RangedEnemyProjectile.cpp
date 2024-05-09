@@ -30,7 +30,7 @@ void ARangedEnemyProjectile::ParriedPorjectile()
 void ARangedEnemyProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ARangedEnemyProjectile::OnOverlapBegin);
+	//ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ARangedEnemyProjectile::OnOverlapBegin);
 	
 }
 

@@ -125,6 +125,13 @@ void AEnemy_Spawner::OnDeathEvent()
 	}
 }
 
+void AEnemy_Spawner::AddScaling(float Scaling)
+{
+	ScalingDamage += Scaling;
+	ScalingHealth += Scaling;
+	
+}
+
 void AEnemy_Spawner::GetSpawnGatesInScene()
 {
 	TArray<AActor*> FoundActors;

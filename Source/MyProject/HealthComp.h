@@ -41,6 +41,8 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly)
 	bool AllowHealthCompToSetHealth = true;
+	UFUNCTION(BlueprintCallable)
+	void AddHealth(const int HealthToAdd);
 	
 protected:
 	

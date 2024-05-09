@@ -5,6 +5,7 @@
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "ModifierComponent.h"
+#include "RivetAttributeSet.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -52,6 +53,35 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::SetGun(AGunBase* NewGun)
 {
 	Gun = NewGun;
+}
+
+void APlayerCharacter::UpdateVariables()
+{
+	MovementSpeed= Attributes->GetSpeed();
+	GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
+	JumpMaxCount = Attributes->GetJumpCount();
+	GetCharacterMovement()->JumpZVelocity = Attributes->GetJumpHeight();
+
+	
+	const float OldValue = Attributes->GetMaxHealth();
+	Attributes->SetMaxHealth(Attributes->GetTestMaxHealth());
+	if(Attributes->GetTestMaxHealth() == Attributes->GetMaxHealth() )
+	{
+		UE_LOG(LogTemp, Warning, TEXT("I have ben set!!!!!!!!"));
+	}
+	if(OldValue < Attributes->GetMaxHealth())
+	{
+		const float HealthValue = Attributes->GetHealth();
+		Attributes->SetHealth(HealthValue+ 20);
+	}
+	
+	if(Attributes->GetMaxHealth() < Attributes->GetHealth())
+	{
+		Attributes->SetHealth(Attributes->GetMaxHealth());
+	}
+	
+	
+	
 }
 
 
@@ -104,6 +134,7 @@ void APlayerCharacter::BeginPlay()
 	{
 		ModifierComponent->SetUp(); // prevents a de-sync 
 	}
+	UpdateVariables();
 }
 
 void APlayerCharacter::ShowHud(const bool Show)

@@ -86,11 +86,14 @@ public:
 	void ShowHud(const bool Show);
 
 	void SetGun(AGunBase* NewGun);
+	
+	UFUNCTION(BlueprintCallable)
+	void UpdateVariables();
 
 	
 public:
 	APlayerCharacter();
-	void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void Tick(float DeltaSeconds) override;

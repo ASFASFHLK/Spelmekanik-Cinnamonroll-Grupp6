@@ -101,20 +101,22 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
 }
 
-void ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect) const
+FActiveGameplayEffectHandle ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect)
 {
 	UE_LOG(LogTemp, Warning, TEXT("I have been called"))
 	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(this);
 
-	FGameplayEffectSpecHandle GameplayEffectSpecHandle =
+	const FGameplayEffectSpecHandle GameplayEffectSpecHandle =
 		AbilitySystemComponent->MakeOutgoingSpec(Effect, 1, EffectContextHandle);
 
 	if(GameplayEffectSpecHandle.IsValid())
 	{
-		FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
+		const FActiveGameplayEffectHandle ActiveGameplayEffectHandle =
 			AbilitySystemComponent->ApplyGameplayEffectSpecToTarget(*GameplayEffectSpecHandle.Data.Get(), AbilitySystemComponent );
+		return ActiveGameplayEffectHandle;
 	}
+	return NULL;
 }
 
 void ABaseCharacter::AddActiveAbility(const TSubclassOf<URivetGameplayAbility>& Ability) 
@@ -128,9 +130,9 @@ void ABaseCharacter::RemoveActiveAbility()
 	//AbilitySystemComponent->RemoveActiveEffects()
 }
 
-void ABaseCharacter::RemovePassiveAbility()
+void ABaseCharacter::RemovePassiveAbility(const FActiveGameplayEffectHandle EffectHandle,  const int AmountToRemove)
 {
-	//AbilitySystemComponent->RemoveActiveGameplayEffect();
+	const bool F = AbilitySystemComponent->RemoveActiveGameplayEffect(EffectHandle, AmountToRemove);
 }
 
 void ABaseCharacter::OnTakeDamage_Implementation()

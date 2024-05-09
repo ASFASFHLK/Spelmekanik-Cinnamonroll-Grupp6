@@ -45,20 +45,43 @@ public:
 	UFUNCTION()
 	virtual void OnRep_Armour(const FGameplayAttributeData& OldValue);
 	
-
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_TestHealth, Category= "Attributes")
+	FGameplayAttributeData TestHealth = 0;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, TestHealth)
+	UFUNCTION()
+	virtual void OnRep_TestHealth(const FGameplayAttributeData& OldValue);
 	
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_TestMaxHealth, Category= "Attributes")
+	FGameplayAttributeData TestMaxHealth = 0;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, TestMaxHealth)
+	UFUNCTION()
+	virtual void OnRep_TestMaxHealth(const FGameplayAttributeData& OldValue);
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Damage, Category= "Attributes")
-	FGameplayAttributeData Damage = 10; 
+	FGameplayAttributeData Damage = 10;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Damage)
 	UFUNCTION()
 	virtual void OnRep_Damage(const FGameplayAttributeData& OldValue);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Speed, Category= "Attributes")
-	FGameplayAttributeData Speed = 100; 
+	FGameplayAttributeData Speed = 700;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, Speed)
 	UFUNCTION()
 	virtual void OnRep_Speed(const FGameplayAttributeData& OldValue);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_JumpCount, Category= "Attributes")
+	FGameplayAttributeData JumpCount = 1;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, JumpCount)
+	UFUNCTION()
+	virtual void OnRep_JumpCount(const FGameplayAttributeData& OldValue);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_JumpHeight, Category= "Attributes")
+	FGameplayAttributeData JumpHeight = 1;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, JumpHeight)
+	UFUNCTION()
+	virtual void OnRep_JumpHeight(const FGameplayAttributeData& OldValue);
+
+	
 	void AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
 		const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty) const;
 	

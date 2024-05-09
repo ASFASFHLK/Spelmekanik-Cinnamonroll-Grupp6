@@ -7,6 +7,8 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+struct FGameplayTagContainer;
+struct FActiveGameplayEffectHandle;
 class UHealthComp;
 class URivetAttributeSet;
 class URivetGameplayAbility;
@@ -34,7 +36,7 @@ public:
     void OnTakeDamage();
 
 	UFUNCTION(BlueprintCallable)
-	void AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect) const;
+	FActiveGameplayEffectHandle AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect);
 	
 	UFUNCTION(BlueprintCallable)
 	void AddActiveAbility(const TSubclassOf<URivetGameplayAbility>& Ability);
@@ -43,7 +45,7 @@ public:
 	void RemoveActiveAbility();
 
 	UFUNCTION(BlueprintCallable)
-	void RemovePassiveAbility();
+	void RemovePassiveAbility(const FActiveGameplayEffectHandle EffectHandle, const int AmountToRemove = 1);
     
 protected:
 	// Called when the game starts or when spawned

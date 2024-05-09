@@ -71,6 +71,12 @@ void UHealthComp::SetMaxHealth(const int32 NewMaxHealthValue)
 }
 
 
+void UHealthComp::AddHealth(const int HealthToAdd)
+{
+	const int NewHealth = AttributeSet->GetHealth() + HealthToAdd;
+	AttributeSet->SetHealth(NewHealth);
+}
+
 // Called when the game starts
 void UHealthComp::BeginPlay()
 {

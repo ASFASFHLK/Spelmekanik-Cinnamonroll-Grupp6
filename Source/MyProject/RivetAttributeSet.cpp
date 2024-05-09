@@ -18,6 +18,7 @@ void URivetAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(URivetAttributeSet, Speed);
 	DOREPLIFETIME(URivetAttributeSet, Armour);
 	DOREPLIFETIME(URivetAttributeSet, MaxHealth);
+	DOREPLIFETIME(URivetAttributeSet, JumpCount);
 }
 
 void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -32,6 +33,8 @@ void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 
 void URivetAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	return;
+	UE_LOG(LogTemp, Warning, TEXT("Effect has happend"))
 	Super::PostGameplayEffectExecute(Data);
 	const FGameplayEffectContextHandle Context = Data.EffectSpec.GetContext();
 	//UAbilitySystemComponent* Source = Context.GetOriginalInstigatorAbilitySystemComponent();
@@ -56,7 +59,7 @@ void URivetAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
 		if(TargetCharacter)
 		{
-			TargetCharacter->HandleHealthChanged(DeltaValue, SourceTags);
+			//TargetCharacter->HandleHealthChanged(DeltaValue, SourceTags);
 		}
 	}
 	
@@ -70,6 +73,16 @@ void URivetAttributeSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 void URivetAttributeSet::OnRep_Armour(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, Armour, OldValue);
+}
+
+void URivetAttributeSet::OnRep_TestHealth(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, TestHealth, OldValue);
+}
+
+void URivetAttributeSet::OnRep_TestMaxHealth(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, TestMaxHealth, OldValue);
 }
 
 void URivetAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldValue)
@@ -87,10 +100,21 @@ void URivetAttributeSet::OnRep_Speed(const FGameplayAttributeData& OldValue)
 	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, Speed, OldValue);
 }
 
-void URivetAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
-	const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
-	const FGameplayAttribute& AffectedAttributeProperty) const
+void URivetAttributeSet::OnRep_JumpCount(const FGameplayAttributeData& OldValue)
 {
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, JumpCount, OldValue);
+}
+
+void URivetAttributeSet::OnRep_JumpHeight(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, JumpHeight, OldValue);
+}
+
+void URivetAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
+                                                     const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
+                                                     const FGameplayAttribute& AffectedAttributeProperty) const
+{
+	return;
 	UAbilitySystemComponent* AbilityComp = GetOwningAbilitySystemComponent();
 	const float CurrentMaxValue = MaxAttribute.GetCurrentValue();
 	if(!FMath::IsNearlyEqual(CurrentMaxValue, NewMaxValue) && AbilityComp)

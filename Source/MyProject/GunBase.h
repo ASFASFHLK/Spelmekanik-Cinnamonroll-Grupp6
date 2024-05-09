@@ -30,6 +30,8 @@ public:
 	void Shoot();
 	UPROPERTY(BlueprintReadOnly)
 	FVector ShotGunHitLocation;
+	UPROPERTY(BlueprintReadOnly)
+	FHitResult ShotgunHitResult;
 	// UFUNCTION(BlueprintCallable)
 	// UFUNCTION(BlueprintCallable)
 	// void CancelShot();

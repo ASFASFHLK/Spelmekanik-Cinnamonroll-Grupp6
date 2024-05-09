@@ -78,6 +78,7 @@ void AGunBase::ShotGunShot()
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 				}
+				ShotgunHitResult = HitResult;
 				ShotGunHitLocation = HitResult.Location;
 				GunHit(); // juni 
 			}

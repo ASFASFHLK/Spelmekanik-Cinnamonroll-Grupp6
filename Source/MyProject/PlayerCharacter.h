@@ -77,11 +77,6 @@ private:
 	USoundBase* HitSound;
 	virtual void BeginPlay() override;
 	
-
-
-
-	
-	virtual void BeginPlay() override;
 	UPROPERTY(EditDefaultsOnly)
 	bool StartWithHudVisible = true;
 	

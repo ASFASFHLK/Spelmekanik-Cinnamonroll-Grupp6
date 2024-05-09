@@ -114,6 +114,10 @@ void APlayerCharacter::Shoot() const
 	}
 }
 
+void APlayerCharacter::CancelShot() const
+{
+}
+
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();

@@ -110,6 +110,11 @@ void URivetAttributeSet::OnRep_JumpHeight(const FGameplayAttributeData& OldValue
 	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, JumpHeight, OldValue);
 }
 
+void URivetAttributeSet::OnRep_ExtraCredits(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, ExtraCredits, OldValue);
+}
+
 void URivetAttributeSet::AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
                                                      const FGameplayAttributeData& MaxAttribute, float NewMaxValue,
                                                      const FGameplayAttribute& AffectedAttributeProperty) const

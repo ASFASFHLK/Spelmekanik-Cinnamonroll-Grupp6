@@ -80,8 +80,6 @@ void APlayerCharacter::UpdateVariables()
 		Attributes->SetHealth(Attributes->GetMaxHealth());
 	}
 	
-	
-	
 }
 
 

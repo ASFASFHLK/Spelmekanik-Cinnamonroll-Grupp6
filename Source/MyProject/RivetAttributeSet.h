@@ -81,6 +81,11 @@ public:
 	UFUNCTION()
 	virtual void OnRep_JumpHeight(const FGameplayAttributeData& OldValue);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ExtraCredits, Category= "Attributes")
+	FGameplayAttributeData ExtraCredits = 1;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, ExtraCredits)
+	UFUNCTION()
+	virtual void OnRep_ExtraCredits(const FGameplayAttributeData& OldValue);
 	
 	void AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
 		const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty) const;

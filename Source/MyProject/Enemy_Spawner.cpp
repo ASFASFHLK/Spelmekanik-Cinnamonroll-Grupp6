@@ -29,8 +29,6 @@ void AEnemy_Spawner::BeginPlay()
 	GetSpawnGatesInScene();
 	//SquadManager = Cast<ASquadManager>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquadManager::StaticClass()));
 	Squad = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
-	
-	StartNextWave();
 }
 
 

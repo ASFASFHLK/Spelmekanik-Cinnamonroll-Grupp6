@@ -39,6 +39,9 @@ private:
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
 
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
+	bool bFirstWave = true;
+
 	UPROPERTY(EditDefaultsOnly)
 	float EnemyScaling;
 	

@@ -15,6 +15,9 @@ AMeleeEnemy::AMeleeEnemy()
 {
 	AttackPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Attack Point"));
 	AttackPoint->SetupAttachment(RootComponent);
+
+	ExplosiveSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Explosive Spawn Point"));
+	ExplosiveSpawnPoint->SetupAttachment(RootComponent);
 }
 
 void AMeleeEnemy::ThrowExplosiveEnemy_Implementation()

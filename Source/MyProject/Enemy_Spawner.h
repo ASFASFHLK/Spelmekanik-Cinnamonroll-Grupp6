@@ -45,6 +45,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnDeathEvent();
+
+	UFUNCTION(BlueprintCallable)
+	void AddScaling(float Scaling);
 	
 	UFUNCTION()
 	void StartNextWave();
@@ -82,10 +85,10 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	ASquad* Squad;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float ScalingDamage = 1;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float ScalingHealth = 1;
 	
 	UPROPERTY()

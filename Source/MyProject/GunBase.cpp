@@ -65,12 +65,12 @@ void AGunBase::ShotGunShot()
 		{
 			FHitResult HitResult;
 			FRotator Spread = SpawnRotation;
-			double XSpread = FMath::RandRange(-15.0f, 15.f);
-			double YSpread = FMath::RandRange(-15.0f, 15.f);
+			const float XSpread = FMath::RandRange(ShotgunSpreadMin, ShotgunSpreadMax);
+			const float YSpread = FMath::RandRange(ShotgunSpreadMin, ShotgunSpreadMax);
 			Spread.Yaw += XSpread;
 			Spread.Pitch += YSpread;
 			World->LineTraceSingleByChannel(HitResult, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), ECollisionChannel::ECC_Pawn, QueryParams);
-			// DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
+			//DrawDebugLine(World, SpawnLocation, SpawnLocation + (Spread.Vector() * ShotDistance), FColor::Red, false, 1.5f);
 			if(HitResult.GetActor())
 			{
 				//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());

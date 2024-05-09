@@ -35,7 +35,7 @@ void ADefaultGamemode::StartNextWave()
 	SpawnerRef->IncreaseScaling(EnemyScaling);
 	SpawnerRef->StartNextWave();
 	APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
-	Player->TeleportTo(FVector(-4010,-2600, 4552.0),Player->GetActorRotation());
+	Player->TeleportTo(FVector(-4090,-2050, 4500),Player->GetActorRotation());
 }
 
 void ADefaultGamemode::StartOptionsMenu_Implementation()

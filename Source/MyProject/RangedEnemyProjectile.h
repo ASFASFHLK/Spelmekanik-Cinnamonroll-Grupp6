@@ -45,7 +45,7 @@ public:
 	UStaticMeshComponent* ProjectileMesh;
 
 	UFUNCTION(BlueprintCallable)
-	int GetDamageDealt() const {return DamageDealt;}
+	void SetDamage(const int NewDamage){DamageDealt = NewDamage;}
 
 	virtual void SetOwner(AActor* NewOwner) override;
 	

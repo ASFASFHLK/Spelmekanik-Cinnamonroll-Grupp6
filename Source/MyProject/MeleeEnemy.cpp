@@ -4,11 +4,13 @@
 #include "MeleeEnemy.h"
 
 #include "EnemyAIController.h"
+#include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "KismetTraceUtils.h"
 #include "Squad.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/DamageEvents.h"
+#include "Kismet/GameplayStatics.h"
 
 
 AMeleeEnemy::AMeleeEnemy()
@@ -74,9 +76,19 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 	}
 }
 
+void AMeleeEnemy::HasDied()
+{
+	if(GetPartner())
+	{
+		GetPartner()->SetPartner(nullptr);
+	}
+	Super::HasDied();
+}
+
 void AMeleeEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 	DecideWhichType();
 	CurrentThrowOrSpawnTimer = 0;
 }

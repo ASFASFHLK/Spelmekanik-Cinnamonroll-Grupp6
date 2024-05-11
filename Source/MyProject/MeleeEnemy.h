@@ -6,6 +6,7 @@
 #include "BaseEnemy.h"
 #include "MeleeEnemy.generated.h"
 
+class AEnemy_Spawner;
 class AEnemyAIController;
 class UBlackboardComponent;
 class AExplosiveEnemy;
@@ -20,6 +21,8 @@ class MYPROJECT_API AMeleeEnemy : public ABaseEnemy
 public:
 
 	AMeleeEnemy();
+
+	
 	
 	UFUNCTION(BlueprintCallable)
 	void DecideWhichType();
@@ -66,6 +69,9 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 private:
+
+	virtual void HasDied() override;
+	
 	UFUNCTION()
 	virtual void BeginPlay() override;
 
@@ -98,6 +104,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* AttackPoint;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	AEnemy_Spawner* EnemySpawner;
 
 	
 };

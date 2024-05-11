@@ -40,7 +40,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ASquad* GetSquad() const {return Squad;}
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation);
 
 	UFUNCTION(BlueprintCallable)

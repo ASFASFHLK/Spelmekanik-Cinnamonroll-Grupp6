@@ -35,7 +35,7 @@ public:
 	ABaseEnemy* GetPartner() const {return Partner;}
 
 	UFUNCTION(BlueprintCallable)
-	void HasDied();
+	virtual void HasDied();
 
 	UFUNCTION(BlueprintNativeEvent)
 	void Ragdoll();

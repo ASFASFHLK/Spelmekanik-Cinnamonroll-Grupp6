@@ -27,5 +27,6 @@ void ARangeEnemy::Attack()
 		GetActorRotation(), SpawnInfo))
 	{
 		SpawnedProjectile->SetOwner(this);
+		SpawnedProjectile->SetDamage(DamageDealt);
 	}
 }

@@ -80,7 +80,7 @@ public:
 
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	UPROPERTY(EditAnywhere, Category="Combat")
 	float DamageDealt = 10.f;
 
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
@@ -89,7 +89,7 @@ protected:
 	UPROPERTY()
 	AEnemyAIController* MyController;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	UBlackboardComponent* MyBlackBoard;
 
 	UPROPERTY()

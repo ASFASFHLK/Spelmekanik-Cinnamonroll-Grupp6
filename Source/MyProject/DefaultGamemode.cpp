@@ -32,8 +32,6 @@ void ADefaultGamemode::StartNextWave()
 			return;
 		}
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Startar"));
-	//SpawnerRef->IncreaseScaling(EnemyScaling);
 	SpawnerRef->StartNextWave();
 	if(!bFirstWave)
 	{

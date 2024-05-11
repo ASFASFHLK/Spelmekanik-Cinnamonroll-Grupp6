@@ -26,10 +26,10 @@ void ABaseEnemy::BeginPlay()
 	}
 }
 
-void ABaseEnemy::ScaleHealthAndDamage(float Health, float Damage)
+void ABaseEnemy::ScaleHealthAndDamage(const float Health, const float Damage)
 {
 	DamageDealt = OriginalDamage * Damage;
-	HealthComp->SetCurrentHealth(HealthComp->GetCurrentHealth()*Health);
+	HealthComp->AddHealth(HealthComp->GetCurrentHealth()*Health);
 }
 
 FVector ABaseEnemy::GetPlayerLocationFromSquad() const
@@ -126,7 +126,6 @@ void ABaseEnemy::ResetEnemy()
 	IsAlive = true;
 	Partner = nullptr;
 	HealthComp->ResetHealth();
-	UE_LOG(LogTemp, Warning, TEXT("%i"), HealthComp->GetCurrentHealth());
 }
 
 void ABaseEnemy::Ragdoll_Implementation()

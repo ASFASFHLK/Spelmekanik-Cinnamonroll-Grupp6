@@ -36,14 +36,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetExplosionRadius() const {return ExplosionRadius;}
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void SetIsBeingThrown(bool Value);
 
 private:
 	
 	UFUNCTION()
 	virtual void Attack() override;
-
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TSubclassOf<UDamageType> DamageType;
 	

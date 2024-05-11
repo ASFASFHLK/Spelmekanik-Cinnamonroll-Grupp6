@@ -115,6 +115,7 @@ void AMeleeEnemy::Attack()
 //
 void AMeleeEnemy::DecideWhichType()
 {
+	
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
 	
@@ -144,6 +145,7 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaTypeInt = 3;
 	}
 	*/
+	
 
 	MyBlackBoard->SetValueAsInt("GorillaType", GorillaTypeInt);
 }

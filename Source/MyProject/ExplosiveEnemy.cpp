@@ -6,17 +6,20 @@
 #include "HealthComp.h"
 #include "Squad.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
-
+/*
 void AExplosiveEnemy::SetIsBeingThrown(bool Value)
 {
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	if(MyBlackBoard)
 	{
 		MyBlackBoard->SetValueAsBool("BeingThrown", Value);
 	}
 }
+*/
 
 void AExplosiveEnemy::Attack()
 {

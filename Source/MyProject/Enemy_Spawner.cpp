@@ -89,7 +89,7 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
 
 void AEnemy_Spawner::StartNextWave()
 {
-	IncreaseScaling(0.05);
+	IncreaseScaling(ScalingValue);
 	AmountOfEnemiesKilled = 0;
 	AmountOfEnemiesSpawned = 0;
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
@@ -122,13 +122,6 @@ void AEnemy_Spawner::OnDeathEvent()
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
 		
 	}
-}
-
-void AEnemy_Spawner::AddScaling(float Scaling)
-{
-	ScalingDamage += Scaling;
-	ScalingHealth += Scaling;
-	
 }
 
 void AEnemy_Spawner::GetSpawnGatesInScene()

@@ -45,9 +45,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnDeathEvent();
-
-	UFUNCTION(BlueprintCallable)
-	void AddScaling(float Scaling);
 	
 	UFUNCTION()
 	void StartNextWave();
@@ -90,6 +87,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float ScalingHealth = 1;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ScalingValue;
 	
 	UPROPERTY()
 	int LocationIndex = 0;

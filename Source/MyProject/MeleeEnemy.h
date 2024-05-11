@@ -59,6 +59,9 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	USceneComponent* ExplosiveSpawnPoint;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Combat")
+	int AmountOfExplosivesToSpawn;
 	
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -92,7 +95,7 @@ private:
 
 	UPROPERTY()
 	AExplosiveEnemy* EnemyToThrow;
-
+	
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* AttackPoint;
 

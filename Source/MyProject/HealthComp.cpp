@@ -80,6 +80,8 @@ void UHealthComp::AddHealth(const int HealthToAdd)
 {
 	const int NewHealth = AttributeSet->GetHealth() + HealthToAdd;
 	AttributeSet->SetHealth(NewHealth);
+	CurrentHealth = AttributeSet->GetHealth();
+	UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
 }
 
 // Called when the game starts
@@ -111,7 +113,6 @@ void UHealthComp::BeginPlay()
 void UHealthComp::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 	// ...
 }
 

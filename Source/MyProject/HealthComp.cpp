@@ -58,6 +58,7 @@ bool UHealthComp::TakeDamage(const int DamageToTake)
 {
 	const float Health = AttributeSet->GetHealth();
 	AttributeSet->SetHealth(FMath::Clamp(Health, 0.f, Health -DamageToTake));;
+	UE_LOG(LogTemp, Warning, TEXT("%f"), AttributeSet->GetHealth());
 	return AttributeSet->GetHealth() <= 0;
 }
 
@@ -81,7 +82,6 @@ void UHealthComp::AddHealth(const int HealthToAdd)
 	const int NewHealth = AttributeSet->GetHealth() + HealthToAdd;
 	AttributeSet->SetHealth(NewHealth);
 	CurrentHealth = AttributeSet->GetHealth();
-	UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
 }
 
 // Called when the game starts

@@ -24,13 +24,18 @@ void AExplosiveEnemy::SetIsBeingThrown(bool Value)
 void AExplosiveEnemy::Attack()
 {
 	Super::Attack();
-	Explode();
+	if(!DoingAttack)
+	{
+		Explode();
+		DoingAttack = true;
+	}
 }
 
 
 void AExplosiveEnemy::ResetEnemy()
 {
 	SetIsBeingThrown(false);
+	DoingAttack = false;
 	Super::ResetEnemy();
 }
 

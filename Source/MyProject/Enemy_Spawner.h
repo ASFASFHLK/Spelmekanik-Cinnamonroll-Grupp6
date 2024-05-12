@@ -27,12 +27,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void IncreaseScaling(float Value);
-
-	UFUNCTION(BlueprintCallable)
-	float GetScalingDamage(){return ScalingDamage;}
-
-	UFUNCTION(BlueprintCallable)
-	float GetScalingHealth(){return ScalingHealth;}
 	
 	UFUNCTION()
 	bool PlaceEnemiesAtSpawnGates();
@@ -82,10 +76,10 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	ASquad* Squad;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,  meta=(AllowPrivateAccess=true))
 	float ScalingDamage = 1;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite,  meta=(AllowPrivateAccess=true))
 	float ScalingHealth = 1;
 
 	UPROPERTY(EditDefaultsOnly)

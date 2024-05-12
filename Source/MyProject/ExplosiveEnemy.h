@@ -43,9 +43,6 @@ private:
 	
 	UFUNCTION()
 	virtual void Attack() override;
-
-	UPROPERTY()
-	bool DoingAttack;
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TSubclassOf<UDamageType> DamageType;

@@ -21,12 +21,8 @@ void UActiveAbilityDash::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 
 void UActiveAbilityDash::Dash(ABaseCharacter* Character)
 {
-	//const FVector ForwardDirection = Character->GetActorRotation().Vector();
-	//const FVector ForwardDirection = Character->GetVelocity().GetSafeNormal();
-	FVector MoveDirection = Character->GetVelocity();
-	MoveDirection.Z = 0.0f;
-	MoveDirection = MoveDirection.GetSafeNormal();
-	Character->LaunchCharacter(MoveDirection * DashDistance, true, false);
+	const FVector ForwardDirection = Character->GetActorRotation().Vector();
+	Character->LaunchCharacter(ForwardDirection * DashDistance, true, true);
 	Timer = DashCoolDown;
 	IsDashing = true;
 	

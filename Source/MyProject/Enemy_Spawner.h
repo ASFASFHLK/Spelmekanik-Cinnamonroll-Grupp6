@@ -33,6 +33,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	float GetScalingHealth(){return ScalingHealth;}
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseAmountOfEnemies(int Amount);
 	
 	UFUNCTION()
 	bool PlaceEnemiesAtSpawnGates();

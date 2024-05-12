@@ -52,7 +52,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> LoseScreen;
 	
-	UPROPERTY(VisibleInstanceOnly)
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* SpawnerRef;
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
@@ -65,5 +65,8 @@ private:
 	
 	UPROPERTY(VisibleInstanceOnly)
 	int CurrentAmountOfCredits = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int RoundAmount = 1;
 	
 };

@@ -32,6 +32,12 @@ void AEnemy_Spawner::BeginPlay()
 }
 
 
+void AEnemy_Spawner::IncreaseAmountOfEnemies(int Amount)
+{
+	AmountToSpawnAtStart += Amount;
+	EnemiesToKill += Amount;
+}
+
 bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
 {
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 

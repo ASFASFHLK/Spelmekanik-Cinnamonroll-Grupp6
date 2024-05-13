@@ -13,6 +13,12 @@ void UObjectPooler::SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Locatio
 	SpawnedActor = SpawnFromPool<AActor>(PoolClass, Location, Rotation);
 }
 
+void UObjectPooler::SpawnOnStart(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation,
+	AActor*& SpawnedActor)
+{
+	SpawnedActor = SpawnOnStart<AActor>(PoolClass, Location, Rotation);
+}
+
 void UObjectPooler::ReturnToPool(AActor* ReturnedActor)
 {
 	if(ReturnedActor == nullptr)

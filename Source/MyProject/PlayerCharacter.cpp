@@ -61,23 +61,18 @@ void APlayerCharacter::UpdateVariables()
 	GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
 	JumpMaxCount = Attributes->GetJumpCount();
 	GetCharacterMovement()->JumpZVelocity = Attributes->GetJumpHeight();
+	
+	const float OldValue = HealthComp->GetMaxHealth();
+	HealthComp->SetMaxHealth(Attributes->GetTestMaxHealth());
 
-	
-	const float OldValue = Attributes->GetMaxHealth();
-	Attributes->SetMaxHealth(Attributes->GetTestMaxHealth());
-	if(Attributes->GetTestMaxHealth() == Attributes->GetMaxHealth() )
+	if(OldValue < HealthComp->GetMaxHealth())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("I have ben set!!!!!!!!"));
-	}
-	if(OldValue < Attributes->GetMaxHealth())
-	{
-		const float HealthValue = Attributes->GetHealth();
-		Attributes->SetHealth(HealthValue+ 20);
+		HealthComp->AddHealth(20);
 	}
 	
-	if(Attributes->GetMaxHealth() < Attributes->GetHealth())
+	if(HealthComp->GetMaxHealth() < HealthComp->GetCurrentHealth())
 	{
-		Attributes->SetHealth(Attributes->GetMaxHealth());
+		HealthComp->SetHealthToMax();
 	}
 	
 }

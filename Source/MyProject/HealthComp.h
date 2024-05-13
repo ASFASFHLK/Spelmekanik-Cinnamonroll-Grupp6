@@ -6,7 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "HealthComp.generated.h"
 
-class URivetAttributeSet;
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MYPROJECT_API UHealthComp : public UActorComponent
@@ -56,8 +56,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UPROPERTY()
-	URivetAttributeSet* AttributeSet;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	int MaxHealth = 100;

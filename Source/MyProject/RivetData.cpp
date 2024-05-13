@@ -3,10 +3,3 @@
 
 #include "RivetData.h"
 
-RivetData::RivetData()
-{
-}
-
-RivetData::~RivetData()
-{
-}

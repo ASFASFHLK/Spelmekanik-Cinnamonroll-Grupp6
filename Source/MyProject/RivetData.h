@@ -21,9 +21,3 @@ enum class ERivetAbilityInputID : uint8
 };
 
 
-class MYPROJECT_API RivetData
-{
-public:
-	RivetData();
-	~RivetData();
-};

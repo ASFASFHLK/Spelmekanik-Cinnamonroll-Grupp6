@@ -19,19 +19,10 @@ public:
 
 	
 private:
-	bool CanDash = true;
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	float DashDistance;
-
-	UPROPERTY(EditAnywhere, Category = "Ability")
-	bool IsDashing;
-
-	UPROPERTY(EditAnywhere, Category = "Ability")
-	float DashCoolDown;
-
 	UPROPERTY()
-	float Timer;
+	ABaseCharacter* Character; 
 
-	void Dash(ABaseCharacter* Character);
-	
+	void Dash();	
 };

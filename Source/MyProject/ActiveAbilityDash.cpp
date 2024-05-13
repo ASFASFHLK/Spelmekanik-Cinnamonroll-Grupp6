@@ -11,22 +11,23 @@ void UActiveAbilityDash::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	UE_LOG(LogTemp, Warning, TEXT("Dash begun"))
-	
-	ABaseCharacter* Character = Cast<ABaseCharacter>(ActorInfo->AvatarActor);
+
+	if(Character == nullptr){
+		Character = Cast<ABaseCharacter>(ActorInfo->AvatarActor);
+    }
 	if(Character)
 	{
-		Dash(Character);
+		Dash();
 	}
 }
 
-void UActiveAbilityDash::Dash(ABaseCharacter* Character)
+void UActiveAbilityDash::Dash()
 {
 	//const FVector ForwardDirection = Character->GetActorRotation().Vector();
 	FVector MoveDirection = Character->GetVelocity();
 	MoveDirection.Z = 0.0f;
 	MoveDirection = MoveDirection.GetSafeNormal();
 	Character->LaunchCharacter(MoveDirection * DashDistance, true, false);
-	Timer = DashCoolDown;
-	IsDashing = true;
+
 	
 }

@@ -11,6 +11,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMaterialLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
 AMeleeEnemy::AMeleeEnemy()
@@ -68,6 +70,16 @@ void AMeleeEnemy::SpawnExplosiveEnemy_Implementation()
 void AMeleeEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	if(IsAttacking)
+	{
+		UE_LOG(LogTemp, Warning, TEXT(""));
+		 FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentTarget->GetActorLocation());
+		LookAtRotation.Yaw = 0;
+		LookAtRotation.Pitch = 0;
+		UE_LOG(LogTemp, Warning, TEXT("%f"), LookAtRotation.Roll);
+		SetActorRotation(LookAtRotation);
+	}
 	
 	CurrentThrowOrSpawnTimer -= DeltaSeconds;
 	if(CurrentThrowOrSpawnTimer <= 0)

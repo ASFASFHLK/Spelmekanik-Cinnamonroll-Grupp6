@@ -8,6 +8,7 @@
 #include "ExplosiveEnemy.h"
 #include "NetworkMessage.h"
 #include "SquadManager.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Tasks/GameplayTask_SpawnActor.h"
@@ -32,7 +33,10 @@ ASquad::ASquad()
 // Called every frame
 void ASquad::Tick(float DeltaTime)
 {
-	PlayerLocation = PlayerCharacter->GetActorLocation();
+	if(!PlayerCharacter->GetMovementComponent()->IsFalling())
+	{
+		PlayerLocation = PlayerCharacter->GetActorLocation();
+	}
 	Super::Tick(DeltaTime);
 }
 

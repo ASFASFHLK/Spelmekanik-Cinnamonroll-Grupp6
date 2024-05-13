@@ -106,6 +106,9 @@ private:
 	USceneComponent* AttackPoint;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	bool IsAttacking;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* EnemySpawner;
 
 	

@@ -94,6 +94,9 @@ protected:
 
 	UPROPERTY()
 	bool IsAlive = true;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	AActor* CurrentTarget;
 	
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -103,9 +106,6 @@ private:
 
 	UPROPERTY()
 	int OriginalDamage;
-	
-	UPROPERTY(EditAnywhere, Category = "Combat")
-	AActor* CurrentTarget;
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float AggroRange;

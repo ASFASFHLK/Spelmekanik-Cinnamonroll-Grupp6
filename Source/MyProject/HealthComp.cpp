@@ -25,18 +25,18 @@ FString UHealthComp::GetHealthAsText() const
 
 void UHealthComp::SetHealthToMax()
 {
-	AttributeSet->SetHealth(GetMaxHealth());
+	CurrentHealth = MaxHealth; 
 }
 
 void UHealthComp::SetHealthModifier(int NewHealthModifier)
 {
 	HealthModifier = NewHealthModifier;
 	// Makes sure that CurrentHp Can never be bigger than MaxHealth
-	if(CurrentHealth <= GetMaxHealth())
+	if(CurrentHealth <= MaxHealth)
 	{
 		return;
 	}
-	CurrentHealth = GetMaxHealth();
+	CurrentHealth = MaxHealth;
 }
 
 void UHealthComp::ResetHealth()
@@ -46,28 +46,28 @@ void UHealthComp::ResetHealth()
 
 int32 UHealthComp::GetMaxHealth() const
 {
-	return AttributeSet->GetMaxHealth();
+	return MaxHealth;
 }
 
 int UHealthComp::GetCurrentHealth() const
 {
-	return AttributeSet->GetHealth();
+	return CurrentHealth;
 }
 
 bool UHealthComp::TakeDamage(const int DamageToTake)
 {
-	const float Health = AttributeSet->GetHealth();
-	AttributeSet->SetHealth(FMath::Clamp(Health, 0.f, Health -DamageToTake));;
-	return AttributeSet->GetHealth() <= 0;
+	
+	CurrentHealth =  FMath::Clamp(CurrentHealth, 0.f, CurrentHealth -DamageToTake);
+	return CurrentHealth <= 0;
 }
 
 float UHealthComp::GetHealthPercentage() const
 {
-	if(AttributeSet->GetMaxHealth() == 0)
+	if(MaxHealth == 0)
 	{
 		return  0.0;
 	}
-	return AttributeSet->GetHealth()/AttributeSet->GetMaxHealth();
+	return CurrentHealth/static_cast<float>(MaxHealth);
 }
 
 void UHealthComp::SetMaxHealth(const int32 NewMaxHealthValue)
@@ -78,31 +78,21 @@ void UHealthComp::SetMaxHealth(const int32 NewMaxHealthValue)
 
 void UHealthComp::AddHealth(const int HealthToAdd)
 {
-	const int NewHealth = AttributeSet->GetHealth() + HealthToAdd;
-	AttributeSet->SetHealth(NewHealth);
-	CurrentHealth = AttributeSet->GetHealth();
-	UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
+
+	CurrentHealth += HealthToAdd; 
+	if(CurrentHealth > MaxHealth)
+	{
+		CurrentHealth = MaxHealth; 
+	}
+	
+	//UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
 }
 
 // Called when the game starts
 void UHealthComp::BeginPlay()
 {
 	Super::BeginPlay();
-	const ABaseCharacter* Character = Cast<ABaseCharacter>(GetOwner());
-	if(Character != nullptr)
-	{
-		AttributeSet = Character->GetAttributeSet();
-		if(AttributeSet->GetHealth() > AttributeSet->GetMaxHealth())
-		{
-		//AttributeSet->SetHealth(AttributeSet->GetMaxHealth());	
-		}
-		if(AllowHealthCompToSetHealth)
-		{
-			AttributeSet->SetHealth(MaxHealth);
-			AttributeSet->SetMaxHealth(MaxHealth);
-		}
-
-	}
+	CurrentHealth = MaxHealth; 
 	
 	//CurrentHealth = GetMaxHealth();
 	// ...

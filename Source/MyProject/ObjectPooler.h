@@ -40,8 +40,14 @@ public:
 	UFUNCTION(BlueprintCallable, meta=(DeterminesOutputType = "PoolClass", DynamicOutputParam = "SpawnedActor"))
 	void SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation, AActor*& SpawnedActor);
 
+	UFUNCTION(BlueprintCallable, meta=(DeterminesOutputType = "PoolClass", DynamicOutputParam = "SpawnedActor"))
+	void SpawnOnStart(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation, AActor*& SpawnedActor);
+
 	template<typename T>
 	T* SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation);
+
+	template<typename T>
+	T* SpawnOnStart(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation);
 	
 	UFUNCTION(BlueprintCallable)
 	void ReturnToPool(AActor* ReturnedActor);
@@ -50,6 +56,22 @@ private:
 	UPROPERTY()
 	TMap<UClass*, FPoolArray> ObjectPools;
 };
+
+template <typename T>
+T* UObjectPooler::SpawnOnStart(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation)
+{
+	T* ActorToBeSpawned = nullptr;
+	if(PoolClass.Get()->ImplementsInterface(UPoolable::StaticClass()))
+	{
+		FPoolArray& ObjectPool = ObjectPools.FindOrAdd(PoolClass);
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+		ActorToBeSpawned = GetWorld()->SpawnActor<T>(PoolClass, Location, Rotation, SpawnParameters);
+		ObjectPool.Add(ActorToBeSpawned);
+	}
+	return ActorToBeSpawned;
+}
+
 
 template <typename T>
 T* UObjectPooler::SpawnFromPool(TSubclassOf<AActor> PoolClass, FVector Location, FRotator Rotation)

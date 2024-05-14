@@ -32,11 +32,7 @@ void AEnemy_Spawner::BeginPlay()
 }
 
 
-void AEnemy_Spawner::IncreaseAmountOfEnemies(int Amount)
-{
-	AmountToSpawnAtStart += Amount;
-	EnemiesToKill += Amount;
-}
+
 
 bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enemy)
 {
@@ -69,23 +65,30 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enem
 
 
 
-void AEnemy_Spawner::StartNextWave()
+void AEnemy_Spawner::StartNextWave(int Amount)
 {
 	IncreaseScaling(ScalingValue);
-	AmountOfEnemiesKilled = 0;
-	AmountOfEnemiesSpawned = 0;
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
-	for(int i = 0; i < AmountToSpawnAtStart; i++)
+	for(int i = 0; i < Amount; i++)
 	{
 		if(PlaceEnemiesAtSpawnGates(nullptr))
 		{
-			AmountOfEnemiesSpawned++;
 		}
 	}
 }
 
+void AEnemy_Spawner::StartNextCustomWave(TSubclassOf<ABaseEnemy> EnemyType, int Amount)
+{
+	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
+	for(int i = 0; i < Amount; i++)
+	{
+		if(PlaceEnemiesAtSpawnGates(EnemyType))
+		{
+		}
+	}
+}
 
-
+/*
 void AEnemy_Spawner::OnDeathEvent()
 {
 	if(EnemiesToKill > AmountOfEnemiesSpawned)
@@ -97,15 +100,13 @@ void AEnemy_Spawner::OnDeathEvent()
 	}
 	
 	AmountOfEnemiesKilled++;
-	
 	if(AmountOfEnemiesKilled >= EnemiesToKill)
 	{
 		//Endgame with player as winner
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
-		
 	}
 }
-
+*/
 void AEnemy_Spawner::GetSpawnGatesInScene()
 {
 	TArray<AActor*> FoundActors;

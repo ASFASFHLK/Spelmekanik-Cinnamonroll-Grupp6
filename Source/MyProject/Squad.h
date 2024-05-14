@@ -7,6 +7,7 @@
 #include "Containers/Map.h"
 #include "Squad.generated.h"
 
+class ADefaultGamemode;
 class AEnemy_Spawner;
 class AExplosiveEnemy;
 class ASquadManager;
@@ -62,5 +63,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	AEnemy_Spawner* EnemySpawner;
+
+	UPROPERTY()
+	ADefaultGamemode* GameMode;
 
 };

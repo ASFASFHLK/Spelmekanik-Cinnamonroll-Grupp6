@@ -114,6 +114,7 @@ void ABaseEnemy::HasDied()
 	// calls the event
 	if(OnDeath.IsBound())
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Bunden"));
 		OnDeath.Broadcast();
 	}	
 	OnDeath.Clear();

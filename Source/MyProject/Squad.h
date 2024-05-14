@@ -68,4 +68,7 @@ private:
 	UPROPERTY()
 	ADefaultGamemode* GameMode;
 
+	UPROPERTY()
+	FVector Temp;
+
 };

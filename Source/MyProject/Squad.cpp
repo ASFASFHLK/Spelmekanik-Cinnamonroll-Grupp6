@@ -38,6 +38,10 @@ void ASquad::Tick(float DeltaTime)
 	if(!PlayerCharacter->GetMovementComponent()->IsFalling())
 	{
 		PlayerLocation = PlayerCharacter->GetActorLocation();
+	}else
+	{
+		PlayerLocation.X = PlayerCharacter->GetActorLocation().X;
+		PlayerLocation.Y = PlayerCharacter->GetActorLocation().Y;
 	}
 	Super::Tick(DeltaTime);
 }

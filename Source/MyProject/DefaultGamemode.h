@@ -8,6 +8,7 @@
 
 class ASquad;
 class AEnemy_Spawner;
+class APlayerCharacter;
 /**
  * 
  */
@@ -98,7 +99,6 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int CurrentAmountKilled;
 	
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	bool Tutorial = true;
 
@@ -107,6 +107,9 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int EnemiesToKillInTutorial = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	APlayerCharacter* PlayerCharacter;
 	
 	
 };

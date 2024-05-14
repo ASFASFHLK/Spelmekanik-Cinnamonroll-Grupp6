@@ -125,6 +125,7 @@ void ADefaultGamemode::OnEnemyKilled()
 void ADefaultGamemode::BeginPlay()
 {
 	Super::BeginPlay();
+	PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this,0));
 	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 	SquadRef = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
 }

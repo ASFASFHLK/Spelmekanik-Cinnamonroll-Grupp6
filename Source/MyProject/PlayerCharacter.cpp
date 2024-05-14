@@ -11,6 +11,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
+void APlayerCharacter::DashVisuals_Implementation()
+{
+}
+
 APlayerCharacter::APlayerCharacter()
 {
 	bAbilitiesInitialized = false;
@@ -122,6 +126,10 @@ void APlayerCharacter::BeginPlay()
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                    AActor* DamageCauser)
 {
+	if(IsInvulnerable)
+	{
+		return 0;
+	}
 	UE_LOG(LogTemp, Warning, TEXT("TOG DAMAGE"));
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 

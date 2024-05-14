@@ -71,6 +71,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	bool StartWithHudVisible = true;
+
+	UPROPERTY()
+	bool IsInvulnerable;
 	
 public:
 	UPROPERTY()
@@ -92,6 +95,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void SetLookSidesSpeed(const float Value){LookSideSpeed = Value;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetIsInvulnerable(bool Value){IsInvulnerable = Value;}
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void DashVisuals();
 	
 public:
 	APlayerCharacter();

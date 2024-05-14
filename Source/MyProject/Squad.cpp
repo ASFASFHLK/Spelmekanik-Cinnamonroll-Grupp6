@@ -59,10 +59,12 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	}
 }
 
-void ASquad::AddToSquad(ABaseEnemy* SpawnedEnemy)
+void ASquad::ExplodeAllEnemies()
 {
-	SpawnedEnemy->SetSquad(this);
-	SquadMembers.Add(SpawnedEnemy);
+	for(int i = 0; i < ExplosiveEnemies.Num(); i++)
+	{
+		ExplosiveEnemies[i]->Explode();
+	}
 }
 
 void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)

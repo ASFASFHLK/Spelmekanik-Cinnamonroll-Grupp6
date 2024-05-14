@@ -5,6 +5,7 @@
 
 #include "Enemy_Spawner.h"
 #include "PlayerCharacter.h"
+#include "Squad.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -125,6 +126,7 @@ void ADefaultGamemode::BeginPlay()
 {
 	Super::BeginPlay();
 	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+	SquadRef = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
 }
 
 void ADefaultGamemode::StartRoundGameMode_Implementation()

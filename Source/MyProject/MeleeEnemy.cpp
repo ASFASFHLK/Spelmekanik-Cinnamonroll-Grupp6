@@ -142,6 +142,10 @@ void AMeleeEnemy::DecideWhichType()
 	
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
+
+	GorillaType = "Thrower";
+	GorillaTypeInt = 1;
+	/*
 	
 	if(SpawnerValue + ThrowerValue < 8)
 	{

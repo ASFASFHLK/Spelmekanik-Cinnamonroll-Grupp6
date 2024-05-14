@@ -32,7 +32,8 @@ public:
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
 
 	UFUNCTION(BlueprintCallable)
-	void AddToSquad(ABaseEnemy* SpawnedEnemy);
+	void ExplodeAllEnemies();
+
 	
 	UFUNCTION(BlueprintCallable)
 	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd);

@@ -6,7 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "DefaultGamemode.generated.h"
 
-class ASquadManager;
+class ASquad;
 class AEnemy_Spawner;
 /**
  * 
@@ -74,8 +74,8 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* SpawnerRef;
 	
-	UPROPERTY(VisibleInstanceOnly)
-	ASquadManager* SquadRef;
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	ASquad* SquadRef;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	bool bFirstWave = true;

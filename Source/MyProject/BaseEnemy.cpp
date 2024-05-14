@@ -57,7 +57,7 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                              AActor* DamageCauser)
 {
-	if(DamageCauser->IsA(AExplosiveEnemy::StaticClass()))
+	if(DamageCauser->IsA(ABaseEnemy::StaticClass()))
 	{
 		Super::TakeDamage(0, DamageEvent, EventInstigator, DamageCauser);
 		return 0;

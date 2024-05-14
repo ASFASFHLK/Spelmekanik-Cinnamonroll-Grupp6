@@ -25,6 +25,8 @@ public:
 	void StartShopPhase();
 	UFUNCTION(BlueprintCallable)
 	void StartNextWave();
+	UFUNCTION(BlueprintNativeEvent)
+	void OnSpawnNewWave();
 
 	// Credit Related
 	UFUNCTION(BlueprintPure)

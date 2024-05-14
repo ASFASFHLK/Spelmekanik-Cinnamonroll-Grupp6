@@ -33,12 +33,17 @@ void ADefaultGamemode::StartNextWave()
 		}
 	}
 	SpawnerRef->StartNextWave(AmountToSpawn);
+	OnSpawnNewWave();
 	if(!bFirstWave)
 	{
 		APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
 		Player->TeleportTo(FVector(-4090,-2050, 4500),Player->GetActorRotation());
 	}
 	
+}
+
+void ADefaultGamemode::OnSpawnNewWave_Implementation()
+{
 }
 
 void ADefaultGamemode::StartOptionsMenu_Implementation()

@@ -4,10 +4,12 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "DefaultGamemode.h"
 #include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "NetworkMessage.h"
 #include "SquadManager.h"
+#include "GameFramework/PawnMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Tasks/GameplayTask_SpawnActor.h"
@@ -21,6 +23,7 @@ void ASquad::BeginPlay()
 	
 	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
 	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+	GameMode = Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this));
 }
 
 ASquad::ASquad()
@@ -32,7 +35,10 @@ ASquad::ASquad()
 // Called every frame
 void ASquad::Tick(float DeltaTime)
 {
-	PlayerLocation = PlayerCharacter->GetActorLocation();
+	if(!PlayerCharacter->GetMovementComponent()->IsFalling())
+	{
+		PlayerLocation = PlayerCharacter->GetActorLocation();
+	}
 	Super::Tick(DeltaTime);
 }
 
@@ -45,7 +51,7 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	}else
 	{
 		SquadMembers.Remove(EnemyToRemove);
-		EnemySpawner->OnDeathEvent();
+		GameMode->OnEnemyKilled();
 	}
 }
 

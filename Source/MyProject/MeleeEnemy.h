@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void SpawnExplosiveEnemy();
 
+	UFUNCTION(BlueprintCallable)
+	void SetGorillaType(const int TypeInt){GorillaTypeInt = TypeInt;}
+
 	UFUNCTION()
 	int32 GetGorillaType() const {return GorillaTypeInt;}
 
@@ -104,6 +107,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* AttackPoint;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	bool IsAttacking;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* EnemySpawner;

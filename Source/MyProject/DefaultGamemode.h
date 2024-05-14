@@ -39,7 +39,14 @@ public:
 	void RemoveCredits(const int AmountToRemove);
 	UFUNCTION(BlueprintCallable)
 	bool RemoveIfWeCanAfford(const int PriceToCheck);
-	
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseAmountOfEnemies(int Amount);
+
+	UFUNCTION()
+	void OnEnemyKilled();
+
+	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintNativeEvent)
 	void StartOptionsMenu();
@@ -54,6 +61,7 @@ private:
 	
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* SpawnerRef;
+	
 	UPROPERTY(VisibleInstanceOnly)
 	ASquadManager* SquadRef;
 
@@ -68,5 +76,21 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int RoundAmount = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int AmountToSpawn;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int AmountToKill;
+
+	UPROPERTY()
+	int CurrentAmountKilled;
+	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	bool Tutorial = true;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int TutorialStep = 0;
 	
 };

@@ -5,7 +5,6 @@
 
 #include "Enemy_Spawner.h"
 #include "PlayerCharacter.h"
-#include "SquadManager.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -23,6 +22,7 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 
 void ADefaultGamemode::StartNextWave()
 {
+	CurrentAmountKilled = 0;
 	if(SpawnerRef == nullptr)
 	{
 		SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
@@ -32,7 +32,7 @@ void ADefaultGamemode::StartNextWave()
 			return;
 		}
 	}
-	SpawnerRef->StartNextWave();
+	SpawnerRef->StartNextWave(AmountToSpawn);
 	if(!bFirstWave)
 	{
 		APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
@@ -93,6 +93,28 @@ bool ADefaultGamemode::RemoveIfWeCanAfford(const int PriceToCheck)
 		return true;
 	}
 	return false;
+}
+
+void ADefaultGamemode::IncreaseAmountOfEnemies(int Amount)
+{
+	AmountToKill+= Amount;
+	AmountToSpawn+= Amount;
+}
+
+void ADefaultGamemode::OnEnemyKilled()
+{
+	CurrentAmountKilled++;
+	if(CurrentAmountKilled >= AmountToKill)
+	{
+		//Endgame with player as winner
+		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
+	}
+}
+
+void ADefaultGamemode::BeginPlay()
+{
+	Super::BeginPlay();
+	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 }
 
 

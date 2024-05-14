@@ -169,7 +169,5 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaTypeInt = 3;
 	}
 	*/
-	
-
 	MyBlackBoard->SetValueAsInt("GorillaType", GorillaTypeInt);
 }

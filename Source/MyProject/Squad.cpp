@@ -4,6 +4,7 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "DefaultGamemode.h"
 #include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "NetworkMessage.h"
@@ -22,6 +23,7 @@ void ASquad::BeginPlay()
 	
 	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
 	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+	GameMode = Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this));
 }
 
 ASquad::ASquad()
@@ -49,7 +51,7 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	}else
 	{
 		SquadMembers.Remove(EnemyToRemove);
-		EnemySpawner->OnDeathEvent();
+		GameMode->OnEnemyKilled();
 	}
 }
 

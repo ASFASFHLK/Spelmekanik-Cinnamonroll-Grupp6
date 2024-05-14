@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void SpawnExplosiveEnemy();
 
+	UFUNCTION(BlueprintCallable)
+	void SetGorillaType(const int TypeInt){GorillaTypeInt = TypeInt;}
+
 	UFUNCTION()
 	int32 GetGorillaType() const {return GorillaTypeInt;}
 

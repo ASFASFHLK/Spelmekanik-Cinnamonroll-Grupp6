@@ -37,8 +37,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void IncreaseAmountOfEnemies(int Amount);
 	
-	UFUNCTION()
-	bool PlaceEnemiesAtSpawnGates();
+	UFUNCTION(BlueprintCallable)
+	bool PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enemy);
 
 	UFUNCTION(BlueprintCallable)
 	ASquad* GetSquad() const {return Squad;}
@@ -68,7 +68,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Spawner Settings", BlueprintReadWrite, Meta = (MakeEditWidget = true, AllowPrivateAccess = true))
 	int AmountOfTotalSquads = 6;
-	int AmountOfTotalSquadsToSpawn = 0;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Spawner Settings", BlueprintReadOnly, meta=(AllowPrivateAccess=true))
 	int EnemiesToKill = 10;

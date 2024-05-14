@@ -4,6 +4,7 @@
 #include "Squad.h"
 
 #include "BaseEnemy.h"
+#include "DefaultGamemode.h"
 #include "Enemy_Spawner.h"
 #include "ExplosiveEnemy.h"
 #include "NetworkMessage.h"
@@ -22,6 +23,7 @@ void ASquad::BeginPlay()
 	
 	PlayerCharacter = UGameplayStatics::GetPlayerPawn(this, 0);
 	EnemySpawner = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+	GameMode = Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this));
 }
 
 ASquad::ASquad()
@@ -36,6 +38,10 @@ void ASquad::Tick(float DeltaTime)
 	if(!PlayerCharacter->GetMovementComponent()->IsFalling())
 	{
 		PlayerLocation = PlayerCharacter->GetActorLocation();
+	}else
+	{
+		PlayerLocation.X = PlayerCharacter->GetActorLocation().X;
+		PlayerLocation.Y = PlayerCharacter->GetActorLocation().Y;
 	}
 	Super::Tick(DeltaTime);
 }
@@ -46,17 +52,23 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	if(EnemyToRemove->IsA(AExplosiveEnemy::StaticClass()))
 	{
 		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
+		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() < 3)
+		{
+			GameMode->OnEnemyKilled();
+		}
 	}else
 	{
 		SquadMembers.Remove(EnemyToRemove);
-		EnemySpawner->OnDeathEvent();
+		GameMode->OnEnemyKilled();
 	}
 }
 
-void ASquad::AddToSquad(ABaseEnemy* SpawnedEnemy)
+void ASquad::ExplodeAllEnemies()
 {
-	SpawnedEnemy->SetSquad(this);
-	SquadMembers.Add(SpawnedEnemy);
+	for(int i = 0; i < ExplosiveEnemies.Num(); i++)
+	{
+		ExplosiveEnemies[i]->Explode();
+	}
 }
 
 void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)

@@ -6,8 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "DefaultGamemode.generated.h"
 
-class ASquadManager;
+class ASquad;
 class AEnemy_Spawner;
+class APlayerCharacter;
 /**
  * 
  */
@@ -24,6 +25,8 @@ public:
 	void StartShopPhase();
 	UFUNCTION(BlueprintCallable)
 	void StartNextWave();
+	UFUNCTION(BlueprintNativeEvent)
+	void OnSpawnNewWave();
 
 	// Credit Related
 	UFUNCTION(BlueprintPure)
@@ -39,7 +42,26 @@ public:
 	void RemoveCredits(const int AmountToRemove);
 	UFUNCTION(BlueprintCallable)
 	bool RemoveIfWeCanAfford(const int PriceToCheck);
+
+	UFUNCTION(BlueprintCallable)
+	void IncreaseAmountOfEnemies(int Amount);
+
+	UFUNCTION()
+	void OnEnemyKilled();
+
+	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	bool GetTutorial() const {return Tutorial;}
+
+	UFUNCTION()
+	int GetTutorialStep() const {return TutorialStep;}
 	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartTutorial();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartRoundGameMode();
 
 	UFUNCTION(BlueprintNativeEvent)
 	void StartOptionsMenu();
@@ -54,8 +76,9 @@ private:
 	
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	AEnemy_Spawner* SpawnerRef;
-	UPROPERTY(VisibleInstanceOnly)
-	ASquadManager* SquadRef;
+	
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	ASquad* SquadRef;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	bool bFirstWave = true;
@@ -68,5 +91,27 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int RoundAmount = 1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int AmountToSpawn;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int AmountToKill;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int CurrentAmountKilled;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	bool Tutorial = true;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int TutorialStep = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int EnemiesToKillInTutorial = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	APlayerCharacter* PlayerCharacter;
+	
 	
 };

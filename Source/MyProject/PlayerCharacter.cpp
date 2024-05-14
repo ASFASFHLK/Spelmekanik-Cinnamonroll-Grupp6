@@ -11,6 +11,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
+void APlayerCharacter::DashVisuals_Implementation()
+{
+}
+
 APlayerCharacter::APlayerCharacter()
 {
 	bAbilitiesInitialized = false;
@@ -29,7 +33,6 @@ APlayerCharacter::APlayerCharacter()
 	PlayerFirstPersonMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh1P"));
 	PlayerFirstPersonMesh->SetupAttachment(CharacterCamera);
 	PlayerFirstPersonMesh->SetOnlyOwnerSee(true);
-	ModifierComponent = CreateDefaultSubobject<UModifierComponent>(TEXT("Mod Comp"));
 	// Turns of shadows 
 	PlayerFirstPersonMesh->bCastDynamicShadow = false;
 	PlayerFirstPersonMesh->CastShadow = false;
@@ -109,9 +112,7 @@ void APlayerCharacter::Shoot() const
 	}
 }
 
-void APlayerCharacter::CancelShot() const
-{
-}
+
 
 void APlayerCharacter::BeginPlay()
 {
@@ -119,21 +120,16 @@ void APlayerCharacter::BeginPlay()
 
 	GetCharacterMovement()->AirControl = AirTime;
 	DefaultMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
-	if(ModifierComponent != nullptr)
-	{
-		ModifierComponent->SetUp(); // prevents a de-sync 
-	}
 	UpdateVariables();
-}
-
-void APlayerCharacter::ShowHud(const bool Show)
-{
-
 }
 
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                                    AActor* DamageCauser)
 {
+	if(IsInvulnerable)
+	{
+		return 0;
+	}
 	UE_LOG(LogTemp, Warning, TEXT("TOG DAMAGE"));
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 

@@ -142,6 +142,8 @@ void AMeleeEnemy::DecideWhichType()
 	
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
+
+	
 	
 	if(SpawnerValue + ThrowerValue < 8)
 	{
@@ -169,7 +171,5 @@ void AMeleeEnemy::DecideWhichType()
 		GorillaTypeInt = 3;
 	}
 	*/
-	
-
 	MyBlackBoard->SetValueAsInt("GorillaType", GorillaTypeInt);
 }

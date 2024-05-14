@@ -24,10 +24,7 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	// Legacy 
-	UModifierComponent* ModifierComponent;
+
 
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
@@ -65,11 +62,6 @@ private:
 	
 	UFUNCTION(BlueprintCallable)
 	void Shoot() const;
-	
-
-	UFUNCTION(BlueprintCallable)
-	void CancelShot() const;
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
 	USoundBase* FireSound;
@@ -79,16 +71,17 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	bool StartWithHudVisible = true;
+
+	UPROPERTY()
+	bool IsInvulnerable;
 	
 public:
 	UPROPERTY()
 	float DefaultMovementSpeed = 0;
+	
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
-	UFUNCTION(BlueprintCallable)
-
-	void ShowHud(const bool Show);
-
+	
 	void SetGun(AGunBase* NewGun);
 	
 	UFUNCTION(BlueprintCallable)
@@ -102,6 +95,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void SetLookSidesSpeed(const float Value){LookSideSpeed = Value;}
+
+	UFUNCTION(BlueprintCallable)
+	void SetIsInvulnerable(bool Value){IsInvulnerable = Value;}
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void DashVisuals();
 	
 public:
 	APlayerCharacter();

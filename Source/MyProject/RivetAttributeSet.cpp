@@ -33,6 +33,7 @@ void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 
 void URivetAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Hello from Post"))
 	return;
 	UE_LOG(LogTemp, Warning, TEXT("Effect has happend"))
 	Super::PostGameplayEffectExecute(Data);

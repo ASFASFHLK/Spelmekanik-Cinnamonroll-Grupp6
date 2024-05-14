@@ -32,31 +32,14 @@ void AEnemy_Spawner::BeginPlay()
 }
 
 
-void AEnemy_Spawner::IncreaseAmountOfEnemies(int Amount)
-{
-	AmountToSpawnAtStart += Amount;
-	EnemiesToKill += Amount;
-}
 
-bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
+
+bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enemy)
 {
 	if(Enemies.Num() < 1 or SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
 	{
 		return false;
 	}
-	
-/*
-	if(AmountOfTotalSquadsToSpawn <= 0)
-	{
-		return;
-	}
-	
-
-	if(SpawnerGates.Num() < 1) // prevents indexing into invalid arrays 
-	{
-		return;
-	}
-	*/
 	
 	const FVector SpawnPoint = SpawnerGates[LocationIndex]->GetSpawnPointVector();
 	LocationIndex++;
@@ -66,70 +49,64 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates()
 	{
 		LocationIndex = 0;
 	}
-/*
-	if(ASquad* Squad = GetWorld()->SpawnActor<ASquad>(SquadType, SpawnPoint, FRotator(),FActorSpawnParameters()))
-	{
-		Squad->SetSquadManager(SquadManager);
-		SquadManager->AddSquad(Squad);
-	}
-	*/
-
-	
 	
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
-	
-	SpawnEnemy(Enemies[EnemyIndex], SpawnPoint, FRotator(0,0,0));
-	/*
-	if(ABaseEnemy* Enemy = Test(Enemies[EnemyIndex], SpawnPoint, FRotator()))
+	if(Enemy != nullptr)
 	{
-		Enemy->OnDeath.BindUFunction(this, TEXT("OnDeathEvent"));
-		Squad->AddToSquad(Enemy);
-		return true;
+		SpawnEnemy(Enemy, SpawnPoint, FRotator(0,0,0));
+	}else
+	{
+		SpawnEnemy(Enemies[EnemyIndex], SpawnPoint, FRotator(0,0,0));
 	}
-	*/
+	
 	return true;
 }
 
 
 
 
-void AEnemy_Spawner::StartNextWave()
+void AEnemy_Spawner::StartNextWave(int Amount)
 {
 	IncreaseScaling(ScalingValue);
-	AmountOfEnemiesKilled = 0;
-	AmountOfEnemiesSpawned = 0;
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
-	for(int i = 0; i < AmountToSpawnAtStart; i++)
+	for(int i = 0; i < Amount; i++)
 	{
-		if(PlaceEnemiesAtSpawnGates())
+		if(PlaceEnemiesAtSpawnGates(nullptr))
 		{
-			AmountOfEnemiesSpawned++;
 		}
 	}
 }
 
+void AEnemy_Spawner::StartNextCustomWave(TSubclassOf<ABaseEnemy> EnemyType, int Amount)
+{
+	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
+	for(int i = 0; i < Amount; i++)
+	{
+		if(PlaceEnemiesAtSpawnGates(EnemyType))
+		{
+		}
+	}
+}
 
-
+/*
 void AEnemy_Spawner::OnDeathEvent()
 {
 	if(EnemiesToKill > AmountOfEnemiesSpawned)
 	{
-		if(PlaceEnemiesAtSpawnGates())
+		if(PlaceEnemiesAtSpawnGates(nullptr))
 		{
 			AmountOfEnemiesSpawned++;
 		}
 	}
 	
 	AmountOfEnemiesKilled++;
-	
 	if(AmountOfEnemiesKilled >= EnemiesToKill)
 	{
 		//Endgame with player as winner
 		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
-		
 	}
 }
-
+*/
 void AEnemy_Spawner::GetSpawnGatesInScene()
 {
 	TArray<AActor*> FoundActors;

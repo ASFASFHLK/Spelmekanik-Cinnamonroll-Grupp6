@@ -7,6 +7,7 @@
 #include "Containers/Map.h"
 #include "Squad.generated.h"
 
+class ADefaultGamemode;
 class AEnemy_Spawner;
 class AExplosiveEnemy;
 class ASquadManager;
@@ -31,7 +32,8 @@ public:
 	void RemoveFromSquad(ABaseEnemy* EnemyToRemove);
 
 	UFUNCTION(BlueprintCallable)
-	void AddToSquad(ABaseEnemy* SpawnedEnemy);
+	void ExplodeAllEnemies();
+
 	
 	UFUNCTION(BlueprintCallable)
 	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd);
@@ -62,5 +64,11 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	AEnemy_Spawner* EnemySpawner;
+
+	UPROPERTY()
+	ADefaultGamemode* GameMode;
+
+	UPROPERTY()
+	FVector Temp;
 
 };

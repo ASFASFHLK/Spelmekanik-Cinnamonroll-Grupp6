@@ -10,7 +10,7 @@ void UActiveAbilityDash::ActivateAbility(const FGameplayAbilitySpecHandle Handle
                                          const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	UE_LOG(LogTemp, Warning, TEXT("Dash begun"))
+	
 
 	if(Character == nullptr){
 		Character = Cast<ABaseCharacter>(ActorInfo->AvatarActor);

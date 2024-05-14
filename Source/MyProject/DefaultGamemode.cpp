@@ -5,7 +5,7 @@
 
 #include "Enemy_Spawner.h"
 #include "PlayerCharacter.h"
-#include "SquadManager.h"
+#include "Squad.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -23,22 +23,27 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 
 void ADefaultGamemode::StartNextWave()
 {
+	CurrentAmountKilled = 0;
 	if(SpawnerRef == nullptr)
 	{
 		SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 		if(SpawnerRef == nullptr)
 		{
-			UE_LOG(LogTemp, Error, TEXT("There should be an Enemy_Spawner in the scene"))
 			return;
 		}
 	}
-	SpawnerRef->StartNextWave();
+	SpawnerRef->StartNextWave(AmountToSpawn);
+	OnSpawnNewWave();
 	if(!bFirstWave)
 	{
 		APlayerCharacter* Player =Cast<APlayerCharacter>( UGameplayStatics::GetPlayerCharacter(this,0));
 		Player->TeleportTo(FVector(-4090,-2050, 4500),Player->GetActorRotation());
 	}
 	
+}
+
+void ADefaultGamemode::OnSpawnNewWave_Implementation()
+{
 }
 
 void ADefaultGamemode::StartOptionsMenu_Implementation()
@@ -64,7 +69,6 @@ void ADefaultGamemode::AddCredits(const int AmountToAdd)
 {
 	if(AmountToAdd < 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AmountToAdd can not be negative"));
 		return;
 	}
 	CurrentAmountOfCredits+= AmountToAdd;
@@ -95,6 +99,49 @@ bool ADefaultGamemode::RemoveIfWeCanAfford(const int PriceToCheck)
 	return false;
 }
 
+void ADefaultGamemode::IncreaseAmountOfEnemies(int Amount)
+{
+	AmountToKill+= Amount;
+	AmountToSpawn+= Amount;
+}
+
+void ADefaultGamemode::OnEnemyKilled()
+{
+	CurrentAmountKilled++;
+	if(Tutorial)
+	{
+		if(CurrentAmountKilled >= EnemiesToKillInTutorial)
+		{
+			StartTutorial();
+			CurrentAmountKilled = 0;
+		}
+	}else
+	{
+		if(CurrentAmountKilled >= AmountToKill)
+		{
+			//Endgame with player as winner
+		
+			Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
+		
+		}
+	}
+}
+
+void ADefaultGamemode::BeginPlay()
+{
+	Super::BeginPlay();
+	PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this,0));
+	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
+	SquadRef = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
+}
+
+void ADefaultGamemode::StartRoundGameMode_Implementation()
+{
+}
+
+void ADefaultGamemode::StartTutorial_Implementation()
+{
+}
 
 void ADefaultGamemode::StartShopPhase_Implementation()
 {

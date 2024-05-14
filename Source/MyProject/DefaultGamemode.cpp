@@ -28,7 +28,6 @@ void ADefaultGamemode::StartNextWave()
 		SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 		if(SpawnerRef == nullptr)
 		{
-			UE_LOG(LogTemp, Error, TEXT("There should be an Enemy_Spawner in the scene"))
 			return;
 		}
 	}
@@ -64,7 +63,6 @@ void ADefaultGamemode::AddCredits(const int AmountToAdd)
 {
 	if(AmountToAdd < 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("AmountToAdd can not be negative"));
 		return;
 	}
 	CurrentAmountOfCredits+= AmountToAdd;
@@ -104,10 +102,22 @@ void ADefaultGamemode::IncreaseAmountOfEnemies(int Amount)
 void ADefaultGamemode::OnEnemyKilled()
 {
 	CurrentAmountKilled++;
-	if(CurrentAmountKilled >= AmountToKill)
+	if(Tutorial)
 	{
-		//Endgame with player as winner
-		Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
+		if(CurrentAmountKilled >= EnemiesToKillInTutorial)
+		{
+			StartTutorial();
+			CurrentAmountKilled = 0;
+		}
+	}else
+	{
+		if(CurrentAmountKilled >= AmountToKill)
+		{
+			//Endgame with player as winner
+		
+			Cast<ADefaultGamemode>(UGameplayStatics::GetGameMode(this))->EndGame(true);
+		
+		}
 	}
 }
 
@@ -117,6 +127,13 @@ void ADefaultGamemode::BeginPlay()
 	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 }
 
+void ADefaultGamemode::StartRoundGameMode_Implementation()
+{
+}
+
+void ADefaultGamemode::StartTutorial_Implementation()
+{
+}
 
 void ADefaultGamemode::StartShopPhase_Implementation()
 {

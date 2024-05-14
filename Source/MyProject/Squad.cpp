@@ -48,6 +48,10 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	if(EnemyToRemove->IsA(AExplosiveEnemy::StaticClass()))
 	{
 		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
+		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() < 3)
+		{
+			GameMode->OnEnemyKilled();
+		}
 	}else
 	{
 		SquadMembers.Remove(EnemyToRemove);

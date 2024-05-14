@@ -48,6 +48,18 @@ public:
 
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	bool GetTutorial() const {return Tutorial;}
+
+	UFUNCTION()
+	int GetTutorialStep() const {return TutorialStep;}
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartTutorial();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartRoundGameMode();
+
 	UFUNCTION(BlueprintNativeEvent)
 	void StartOptionsMenu();
 
@@ -83,7 +95,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int AmountToKill;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int CurrentAmountKilled;
 	
 
@@ -92,5 +104,9 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int TutorialStep = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int EnemiesToKillInTutorial = 0;
+	
 	
 };

@@ -11,7 +11,15 @@ ARangeEnemy::ARangeEnemy()
 	ProjectileSpawnPoint->SetupAttachment(RootComponent);
 }
 
-void ARangeEnemy::Attack()
+ void ARangeEnemy::Flee_Implementation()
+ {
+ }
+
+ void ARangeEnemy::LockInPlace_Implementation()
+ {
+ }
+
+ void ARangeEnemy::Attack()
 {
 	Super::Attack();
 	if(bIsParried)

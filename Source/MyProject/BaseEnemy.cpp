@@ -19,6 +19,7 @@ void ABaseEnemy::BeginPlay()
 	CurrentAttackCooldown = 0;
 	MyController = Cast<AEnemyAIController>(GetController());
 	OriginalDamage = DamageDealt;
+	OriginalHealth = HealthComp->GetMaxHealth();
 	
 	if(MyController)
 	{
@@ -29,7 +30,14 @@ void ABaseEnemy::BeginPlay()
 void ABaseEnemy::ScaleHealthAndDamage(const float Health, const float Damage)
 {
 	DamageDealt = OriginalDamage * Damage;
-	HealthComp->AddHealth(HealthComp->GetCurrentHealth()*Health);
+	float Temp = OriginalHealth*Health;
+	UE_LOG(LogTemp, Warning, TEXT("DET HÄR ÄR SCALING: %f"), Health);
+	HealthComp->SetMaxHealth(Temp);
+	HealthComp->SetHealthToMax();
+	UE_LOG(LogTemp, Warning, TEXT("%i"), HealthComp->GetCurrentHealth());
+	
+	
+	
 }
 
 FVector ABaseEnemy::GetPlayerLocationFromSquad() const

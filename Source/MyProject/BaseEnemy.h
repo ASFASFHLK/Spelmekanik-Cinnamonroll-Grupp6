@@ -121,6 +121,9 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Squad")
 	ABaseEnemy* Partner;
+
+	UPROPERTY()
+	int OriginalHealth;
 	
 	
 };

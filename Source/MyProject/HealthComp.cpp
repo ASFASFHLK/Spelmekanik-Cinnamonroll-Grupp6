@@ -79,11 +79,13 @@ void UHealthComp::SetMaxHealth(const int32 NewMaxHealthValue)
 void UHealthComp::AddHealth(const int HealthToAdd)
 {
 
-	CurrentHealth += HealthToAdd; 
+	CurrentHealth += HealthToAdd;
+	
 	if(CurrentHealth > MaxHealth)
 	{
 		CurrentHealth = MaxHealth; 
 	}
+	
 	
 	//UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
 }

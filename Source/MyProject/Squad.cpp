@@ -52,8 +52,9 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 	if(EnemyToRemove->IsA(AExplosiveEnemy::StaticClass()))
 	{
 		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
-		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() < 3)
+		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() == 2)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("dödat en Star"))
 			GameMode->OnEnemyKilled();
 		}
 	}else

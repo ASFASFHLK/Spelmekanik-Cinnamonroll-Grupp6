@@ -16,6 +16,12 @@ public:
 	// Sets default values for this actor's properties
 	ARangeEnemy();
 
+	UFUNCTION(BlueprintNativeEvent)
+	void Flee();
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void LockInPlace();
+
 private:
 	virtual void Attack() override;
 	
@@ -24,5 +30,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	USceneComponent* ProjectileSpawnPoint;
+	
 };
 

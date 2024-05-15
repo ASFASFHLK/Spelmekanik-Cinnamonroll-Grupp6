@@ -35,6 +35,7 @@ ASquad::ASquad()
 // Called every frame
 void ASquad::Tick(float DeltaTime)
 {
+	
 	if(!PlayerCharacter->GetMovementComponent()->IsFalling())
 	{
 		PlayerLocation = PlayerCharacter->GetActorLocation();

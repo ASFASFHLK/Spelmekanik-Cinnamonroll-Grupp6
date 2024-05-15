@@ -5,6 +5,7 @@
 #include "GunBase.h"
 #include "HealthComp.h"
 #include "ModifierComponent.h"
+#include "RivetAbilitySystemComponent.h"
 #include "RivetAttributeSet.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -121,6 +122,7 @@ void APlayerCharacter::BeginPlay()
 	GetCharacterMovement()->AirControl = AirTime;
 	DefaultMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
 	UpdateVariables();
+	
 }
 
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,

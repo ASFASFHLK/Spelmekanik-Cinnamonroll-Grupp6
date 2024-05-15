@@ -196,8 +196,12 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 }
 
 
-
-
+FGameplayTagContainer ABaseCharacter::GetPlayerTags()
+{
+	FGameplayTagContainer Container;
+	AbilitySystemComponent->GetOwnedGameplayTags(Container);
+	return Container;
+}
 
 void ABaseCharacter::PossessedBy(AController* NewController)
 {

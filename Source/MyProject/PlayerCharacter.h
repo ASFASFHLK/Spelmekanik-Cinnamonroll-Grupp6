@@ -28,7 +28,7 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
-	TSubclassOf<AGunBase> EquipedGun; // Please use me😭
+	TSubclassOf<AGunBase> EquipedGun; // Please use me😭// No
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
@@ -102,7 +102,6 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void DashVisuals();
 	
-public:
 	APlayerCharacter();
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

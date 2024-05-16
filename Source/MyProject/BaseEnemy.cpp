@@ -31,10 +31,8 @@ void ABaseEnemy::ScaleHealthAndDamage(const float Health, const float Damage)
 {
 	DamageDealt = OriginalDamage * Damage;
 	float Temp = OriginalHealth*Health;
-	UE_LOG(LogTemp, Warning, TEXT("DET HÄR ÄR SCALING: %f"), Health);
 	HealthComp->SetMaxHealth(Temp);
 	HealthComp->SetHealthToMax();
-	UE_LOG(LogTemp, Warning, TEXT("%i"), HealthComp->GetCurrentHealth());
 	
 	
 	

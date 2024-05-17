@@ -12,6 +12,7 @@
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName)\
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName)\
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+class APlayerCharacter;
 /**
  * 
  */
@@ -89,5 +90,7 @@ public:
 	
 	void AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
 		const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty) const;
-	
+
+	UPROPERTY()
+	APlayerCharacter* Player; 
 };

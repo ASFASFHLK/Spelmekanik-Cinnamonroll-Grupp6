@@ -84,6 +84,8 @@ protected:
 	TObjectPtr<URivetAbilitySystemComponent> AbilitySystemComponent;
 	TObjectPtr<URivetAttributeSet> Attributes;
 
+	UFUNCTION(BlueprintCallable)
+	FGameplayTagContainer GetPlayerTags();
 	/***********
 		*Overrides 
 	************/

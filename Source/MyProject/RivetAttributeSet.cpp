@@ -6,6 +6,7 @@
 #include "GameplayEffectExtension.h"
 #include "PlayerCharacter.h"
 
+
 URivetAttributeSet::URivetAttributeSet()
 {
 }
@@ -24,15 +25,29 @@ void URivetAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 void URivetAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
-	if(Attribute == GetMaxHealthAttribute())
+	if(Player== nullptr)
 	{
-		//AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
+		AActor* Character = GetOwningActor();
+		if(Character)
+		{
+			Player = Cast<APlayerCharacter>(Character);
+			UE_LOG(LogTemp, Error, TEXT("PLAYER HAS BEEN SET "))
+		}
 	}
 	
+	/**	if(Attribute == GetMaxHealthAttribute())
+	{
+		//AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());
+	}**/
 }
 
 void URivetAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+	if(Player)
+	{
+		Player->UpdateVariables();
+	}
+	
 	UE_LOG(LogTemp, Warning, TEXT("Hello from Post"))
 	return;
 	UE_LOG(LogTemp, Warning, TEXT("Effect has happend"))

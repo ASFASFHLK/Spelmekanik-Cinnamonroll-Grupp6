@@ -143,14 +143,20 @@ void AMeleeEnemy::DecideWhichType()
 	SpawnerValue = FMath::RandRange(0, 10);
 	ThrowerValue = FMath::RandRange(0, 10);
 
+	int Type = FMath::RandRange(0, 1);
+	UE_LOG(LogTemp, Warning, TEXT("%i"), Type);
 	
-	
-	if(SpawnerValue + ThrowerValue < 8)
+	if(Type == 0)
 	{
 		GorillaType = "Charger";
 		GorillaTypeInt = 0;
-		
-	}else if(ThrowerValue - SpawnerValue > 2)
+	}else
+	{
+		GorillaType = "Spawner";
+		GorillaTypeInt = 2;
+	}
+/*
+	else if(ThrowerValue - SpawnerValue > 2)
 	{
 		GorillaType = "Thrower";
 		GorillaTypeInt = 1;

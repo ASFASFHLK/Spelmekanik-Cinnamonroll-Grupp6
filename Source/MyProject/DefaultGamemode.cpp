@@ -50,6 +50,10 @@ void ADefaultGamemode::StartOptionsMenu_Implementation()
 {
 }
 
+void ADefaultGamemode::EnemyDied_Implementation()
+{
+}
+
 int ADefaultGamemode::GetAmountOfCredits() const
 {
 	return CurrentAmountOfCredits;
@@ -108,6 +112,7 @@ void ADefaultGamemode::IncreaseAmountOfEnemies(int Amount)
 void ADefaultGamemode::OnEnemyKilled()
 {
 	CurrentAmountKilled++;
+	EnemyDied();
 	if(Tutorial)
 	{
 		if(CurrentAmountKilled >= EnemiesToKillInTutorial)

@@ -103,7 +103,6 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 
 FActiveGameplayEffectHandle ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect)
 {
-	UE_LOG(LogTemp, Warning, TEXT("I have been called"))
 	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
 	EffectContextHandle.AddSourceObject(this);
 

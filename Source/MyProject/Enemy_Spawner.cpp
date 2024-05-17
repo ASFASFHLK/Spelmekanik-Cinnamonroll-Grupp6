@@ -40,8 +40,9 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enem
 	{
 		return false;
 	}
-	
-	const FVector SpawnPoint = SpawnerGates[LocationIndex]->GetSpawnPointVector();
+	ASpawnerGate* SpawnRef = SpawnerGates[LocationIndex]; 
+	const FVector SpawnPoint = SpawnRef->GetSpawnPointVector();
+
 	LocationIndex++;
 	
 	// Resets the location 
@@ -49,7 +50,7 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enem
 	{
 		LocationIndex = 0;
 	}
-	
+	SpawnRef->StartSpawnGateEvent();
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	if(Enemy != nullptr)
 	{

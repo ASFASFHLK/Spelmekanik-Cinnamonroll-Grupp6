@@ -15,6 +15,16 @@ ASpawnerGate::ASpawnerGate()
 	SpawnPoint->SetupAttachment(RootComponent);
 }
 
+void ASpawnerGate::SpawnGateActivated_Implementation()
+{
+	
+}
+
+void ASpawnerGate::StartSpawnGateEvent()
+{
+	SpawnGateActivated();
+}
+
 // Called when the game starts or when spawned
 void ASpawnerGate::BeginPlay()
 {

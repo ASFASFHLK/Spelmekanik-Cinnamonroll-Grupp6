@@ -20,6 +20,11 @@ public:
 	UPROPERTY(EditInstanceOnly)
 	UStaticMeshComponent* SpawnPoint;
 
+	UFUNCTION(BlueprintNativeEvent)
+	void SpawnGateActivated();
+	
+	void StartSpawnGateEvent();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

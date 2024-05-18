@@ -10,7 +10,7 @@ void ADashModifier::OnAdded()
 {
 	Super::OnAdded();
 
-	PlayerCharacter->InputComponent->BindAction("Dash", IE_Pressed, this, &ADashModifier::Dash);
+	// PlayerCharacter->InputComponent->BindAction("Dash", IE_Pressed, this, &ADashModifier::Dash);
 	Timer = 0;
 }
 

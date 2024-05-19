@@ -67,12 +67,11 @@ void APlayerCharacter::UpdateVariables()
 	GetCharacterMovement()->JumpZVelocity = Attributes->GetJumpHeight();
 	
 	const float OldValue = HealthComp->GetMaxHealth();
-	//HealthComp->SetMaxHealth(Attributes->GetTestMaxHealth());
+	HealthComp->SetMaxHealth(Attributes->GetTestMaxHealth());
 
 	if(OldValue < HealthComp->GetMaxHealth())
 	{
-		//Gjorde så att man endast spawnade in med 20 hp
-		//HealthComp->AddHealth(20);
+		HealthComp->AddHealth(20); 
 	}
 	
 	if(HealthComp->GetMaxHealth() < HealthComp->GetCurrentHealth())

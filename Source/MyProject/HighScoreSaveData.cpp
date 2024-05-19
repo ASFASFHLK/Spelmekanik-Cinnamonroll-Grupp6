@@ -18,3 +18,8 @@ TArray<FHighScoreData> UHighScoreSaveData::GetSortedListOfHighScores(const int C
 
 	return ReturnArray; 	
 }
+
+void UHighScoreSaveData::AddHighScoreItem(const FHighScoreData &HighScore)
+{
+	HighScores.Add(HighScore);
+}

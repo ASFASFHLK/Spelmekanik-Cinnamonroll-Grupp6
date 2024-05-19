@@ -10,32 +10,32 @@
  * 
  */
 USTRUCT(BlueprintType)
-struct FHighScoreData
+struct FHighScoreData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
-	FHighScoreData()
-	{
-		
-	}
-	
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	FText NameOfPlayer;
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	int32 RoundReached = 0;
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	float PlayTime = 0;
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	FDateTime TimeOfRecord;
 };
 
-UCLASS()
+UCLASS(Blueprintable)
 class MYPROJECT_API UHighScoreSaveData : public USaveGame
 {
 
 	GENERATED_BODY()
-	TArray<FHighScoreData> HighScores;
+
 public:
+	UPROPERTY(BlueprintReadOnly)
+	TArray<FHighScoreData> HighScores;
+	
 	UFUNCTION(BlueprintCallable)
 	TArray<FHighScoreData> GetSortedListOfHighScores(const int CutOff = 5);
-
+	UFUNCTION(BlueprintCallable)
+	void AddHighScoreItem(const FHighScoreData &HighScore);
+	
 };

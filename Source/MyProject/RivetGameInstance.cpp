@@ -2,8 +2,18 @@
 
 
 #include "RivetGameInstance.h"
-
 #include "Kismet/GameplayStatics.h"
+
+bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
+{
+	return UGameplayStatics::DeleteGameInSlot(GameDataSlotName, Slot);
+}
+
+bool URivetGameInstance::RemoveHighScoreFromSlot(const int Slot)
+{
+	return UGameplayStatics::DeleteGameInSlot(HighScoreSlotName, Slot);
+}
+
 
 URivetSaveGame* URivetGameInstance::CreateNewGameDataAtSlot(const int Slot)
 {
@@ -19,7 +29,7 @@ UHighScoreSaveData* URivetGameInstance::CreateNewHighScoreDataAtSlot(const int S
 	return HighScoreData; 
 }
 
-URivetSaveGame* URivetGameInstance::LoadGameFromSlot(const int Slot)
+URivetSaveGame* URivetGameInstance::LoadSaveGameFromSlot(const int Slot)
 {
 	USaveGame* Game = UGameplayStatics::LoadGameFromSlot(GameDataSlotName, Slot);
 	
@@ -41,7 +51,8 @@ URivetSaveGame* URivetGameInstance::LoadGameFromSlot(const int Slot)
 UHighScoreSaveData* URivetGameInstance::LoadHighScores(const int Slot)
 {
 
-	USaveGame* Game = UGameplayStatics::LoadGameFromSlot(GameDataSlotName, Slot);
+	USaveGame* Game = UGameplayStatics::LoadGameFromSlot(HighScoreSlotName, Slot);
+
 	
 	if(Game == nullptr)
 	{
@@ -50,8 +61,9 @@ UHighScoreSaveData* URivetGameInstance::LoadHighScores(const int Slot)
 	}
 	
 	HighScoreData = Cast<UHighScoreSaveData>(Game);
+
 	
-	if(SaveGameData == nullptr)
+	if(HighScoreData == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Could not convert save data to UHighScoreData in slot %d"), Slot)
 	}

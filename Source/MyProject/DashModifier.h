@@ -31,7 +31,6 @@ private:
 	UPROPERTY()
 	float Timer;
 
-	UFUNCTION(BlueprintCallable)
 	void Dash();
 
 	int DashCharges = 1;

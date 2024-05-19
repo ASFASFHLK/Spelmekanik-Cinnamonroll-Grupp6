@@ -47,10 +47,6 @@ public:
 	void ReloadPunch();
 	UFUNCTION(BlueprintCallable)
     void Punch();
-	
-	UFUNCTION(BlueprintNativeEvent)
-	void AnimatedOnHit();
-	
 private:
 	UFUNCTION()
 	void UseShotGun();

@@ -21,11 +21,6 @@ void UActiveAbilityDash::ActivateAbility(const FGameplayAbilitySpecHandle Handle
 	}
 }
 
-void UActiveAbilityDash::ActivateAbility_Implementation()
-{
-	ActivateAbility();
-}
-
 void UActiveAbilityDash::Dash()
 {
 	//const FVector ForwardDirection = Character->GetActorRotation().Vector();

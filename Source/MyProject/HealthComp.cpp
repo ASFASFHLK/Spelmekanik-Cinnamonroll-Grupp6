@@ -85,9 +85,7 @@ void UHealthComp::AddHealth(const int HealthToAdd)
 	{
 		CurrentHealth = MaxHealth; 
 	}
-	
-	
-	//UE_LOG(LogTemp, Display, TEXT("%f"), AttributeSet->GetHealth());
+	//UE_LOG(LogTemp, Display, TEXT("%d"), MaxHealth);
 }
 
 // Called when the game starts

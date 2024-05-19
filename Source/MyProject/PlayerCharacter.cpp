@@ -61,6 +61,11 @@ void APlayerCharacter::SetGun(AGunBase* NewGun)
 
 void APlayerCharacter::UpdateVariables()
 {
+	if(!bAbilitiesInitialized)
+	{
+		return; 
+	}
+	
 	MovementSpeed= Attributes->GetSpeed();
 	GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
 	JumpMaxCount = Attributes->GetJumpCount();

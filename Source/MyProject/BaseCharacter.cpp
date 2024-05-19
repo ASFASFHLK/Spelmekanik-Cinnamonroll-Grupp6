@@ -136,7 +136,7 @@ void ABaseCharacter::RemovePassiveAbility(const FActiveGameplayEffectHandle Effe
 
 void ABaseCharacter::OnTakeDamage_Implementation()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I have been called DAMAGE EVENT"));
+	//UE_LOG(LogTemp, Warning, TEXT("I have been called DAMAGE EVENT"));
 }
 
 void ABaseCharacter::Parry()
@@ -240,7 +240,7 @@ void ABaseCharacter::AddStartupGameplayAbilities()
 	check(AbilitySystemComponent);
 	if( GetLocalRole() == ROLE_Authority && !bAbilitiesInitialized)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("I have been called"))
+		//UE_LOG(LogTemp, Warning, TEXT("I have been called"))
 		for( const TSubclassOf<URivetGameplayAbility>& Ability : GameplayAbilities )
 		{
 			AddActiveAbility(Ability);

@@ -71,7 +71,7 @@ void APlayerCharacter::UpdateVariables()
 
 	if(OldValue < HealthComp->GetMaxHealth())
 	{
-		HealthComp->AddHealth(20);
+		HealthComp->AddHealth(20); 
 	}
 	
 	if(HealthComp->GetMaxHealth() < HealthComp->GetCurrentHealth())
@@ -132,7 +132,6 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	{
 		return 0;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("TOG DAMAGE"));
 	const float DamageTaken = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
 	// Player Specific Damage handler 

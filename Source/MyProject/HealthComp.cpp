@@ -3,9 +3,6 @@
 
 #include "HealthComp.h"
 
-#include "BaseCharacter.h"
-#include "RivetAttributeSet.h"
-
 // Sets default values for this component's properties
 UHealthComp::UHealthComp()
 {

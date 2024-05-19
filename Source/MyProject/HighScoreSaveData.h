@@ -13,12 +13,17 @@ USTRUCT(BlueprintType)
 struct FHighScoreData
 {
 	GENERATED_USTRUCT_BODY()
+	FHighScoreData()
+	{
+		
+	}
+	
 	UPROPERTY(BlueprintReadOnly)
 	FText NameOfPlayer;
 	UPROPERTY(BlueprintReadOnly)
-	int32 RoundReached;
+	int32 RoundReached = 0;
 	UPROPERTY(BlueprintReadOnly)
-	float PlayTime;
+	float PlayTime = 0;
 	UPROPERTY(BlueprintReadOnly)
 	FDateTime TimeOfRecord;
 };

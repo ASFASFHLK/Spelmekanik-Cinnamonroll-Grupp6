@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Poolable.h"
 #include "GameFramework/Actor.h"
 #include "RangedEnemyProjectile.generated.h"
 
@@ -11,7 +12,7 @@ class USphereComponent;
 class UProjectileMovementComponent;
 
 UCLASS()
-class MYPROJECT_API ARangedEnemyProjectile : public AActor
+class MYPROJECT_API ARangedEnemyProjectile : public AActor, public IPoolable
 {
 	GENERATED_BODY()
 	

@@ -19,6 +19,10 @@ ARangeEnemy::ARangeEnemy()
  {
  }
 
+ void ARangeEnemy::FireProjectile_Implementation()
+ {
+ }
+
  void ARangeEnemy::Attack()
 {
 	Super::Attack();
@@ -37,4 +41,7 @@ ARangeEnemy::ARangeEnemy()
 		SpawnedProjectile->SetOwner(this);
 		SpawnedProjectile->SetDamage(DamageDealt);
 	}
+	
+
+	FireProjectile();
 }

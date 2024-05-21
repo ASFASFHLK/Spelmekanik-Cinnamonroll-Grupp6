@@ -7,7 +7,7 @@
 /**
  * 
  */
-#define ERivetAbilityInputIDText "None", "Confirm", "Cancel", "Dash", "TimeSlow", "Parry"
+#define E_RIVET_ABILITY_INPUT_ID_TEXT "None", "Confirm", "Cancel", "Dash", "TimeSlow", "Parry"
 	
 UENUM(BlueprintType)
 enum class ERivetAbilityInputID : uint8

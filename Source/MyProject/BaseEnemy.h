@@ -50,16 +50,12 @@ public:
 	float GetTargetIsCloseRange() const{return TargetIsCloseRange;}
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-
-	//bool HasPartner() const;
-
+	
 	UFUNCTION(BlueprintCallable)
 	void SetSquad(ASquad* NewSquad) {MySquad = NewSquad;}
 
 	UFUNCTION(BlueprintCallable)
 	ASquad* GetMySquad() const {return MySquad;}
-	
-	//void MyPartnerHasDied();
 	
 	UFUNCTION()
 	void SetPartner(ABaseEnemy* NewPartner) {Partner = NewPartner;}

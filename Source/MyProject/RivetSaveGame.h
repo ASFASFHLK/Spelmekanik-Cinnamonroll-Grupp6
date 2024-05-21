@@ -44,7 +44,7 @@ struct FSaveGameData
 	FRotator CharacterRotator;
 
 	UPROPERTY(BlueprintReadWrite)
-	TArray<FText> Upgrades;
+	TArray<FString> Upgrades;
 
 	UPROPERTY(BlueprintReadWrite)
 	float PlayTime;
@@ -68,6 +68,11 @@ class MYPROJECT_API URivetSaveGame : public USaveGame
 {
 
 	GENERATED_BODY()
+public:
+	UPROPERTY(BlueprintReadWrite)
 	FSaveGameData SaveData;
+
+	UFUNCTION(BlueprintCallable)
+	void AddPassiveEffectRowName(const FString RowName);
 	FUnlocks Unlocks;
 };

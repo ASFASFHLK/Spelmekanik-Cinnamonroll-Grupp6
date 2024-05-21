@@ -101,6 +101,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void DashVisuals();
+
+	UFUNCTION(BlueprintCallable)
+	void SetMouseInverted(const bool Inverted);
 	
 public:
 	APlayerCharacter();

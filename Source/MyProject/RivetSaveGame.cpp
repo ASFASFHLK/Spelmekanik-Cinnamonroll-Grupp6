@@ -3,3 +3,7 @@
 
 #include "RivetSaveGame.h"
 
+void URivetSaveGame::AddPassiveEffectRowName(const FString RowName)
+{
+	SaveData.Upgrades.Add(RowName);
+}

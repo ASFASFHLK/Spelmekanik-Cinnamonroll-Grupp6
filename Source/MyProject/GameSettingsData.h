@@ -26,7 +26,7 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	FKeyBindData KeyBinds; 
 	UPROPERTY(BlueprintReadWrite)
-	float MouseSense = 0.5;
+	float MouseSense = 2;
 	UPROPERTY(BlueprintReadWrite)
 	FString PlayerName = "Rivet";
 	UPROPERTY(BlueprintReadWrite)

@@ -81,6 +81,8 @@ public:
 	bool ValidSaveData();
 	UFUNCTION(BlueprintCallable)
 	void ClearPassiveUpgrades();
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerName(const FString NameOfPlayer);
 	
 	FUnlocks Unlocks;
 };

@@ -17,3 +17,13 @@ void URivetSaveGame::ClearPassiveUpgrades()
 {
 	SaveData.Upgrades.Empty();
 }
+
+void URivetSaveGame::SetPlayerName(const FString NameOfPlayer)
+{
+	if(NameOfPlayer == "")
+	{
+		SaveData.PlayerName = "Rivet";
+		return;
+	}
+	SaveData.PlayerName = NameOfPlayer;
+}

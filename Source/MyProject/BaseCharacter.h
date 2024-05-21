@@ -60,9 +60,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	float JumpHeight;
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual void MoveForward(float Value);
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	virtual void MoveSides(float Value);
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float MovementSpeed = 300.0f;

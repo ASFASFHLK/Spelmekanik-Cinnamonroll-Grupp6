@@ -28,6 +28,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void OnSpawnNewWave();
 
+	UFUNCTION(BlueprintNativeEvent)
+	void EnemyDied();
+
 	// Credit Related
 	UFUNCTION(BlueprintPure)
 	int GetAmountOfCredits() const;

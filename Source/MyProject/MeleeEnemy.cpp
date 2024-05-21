@@ -73,7 +73,6 @@ void AMeleeEnemy::Tick(float DeltaSeconds)
 
 	if(IsAttacking)
 	{
-		UE_LOG(LogTemp, Warning, TEXT(""));
 		 FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentTarget->GetActorLocation());
 		LookAtRotation.Yaw = 0;
 		LookAtRotation.Pitch = 0;
@@ -144,7 +143,6 @@ void AMeleeEnemy::DecideWhichType()
 	ThrowerValue = FMath::RandRange(0, 10);
 
 	int Type = FMath::RandRange(0, 1);
-	UE_LOG(LogTemp, Warning, TEXT("%i"), Type);
 	
 	if(Type == 0)
 	{

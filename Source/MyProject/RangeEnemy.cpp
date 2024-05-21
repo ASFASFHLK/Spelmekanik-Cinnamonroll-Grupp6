@@ -19,6 +19,10 @@ ARangeEnemy::ARangeEnemy()
  {
  }
 
+ void ARangeEnemy::FireProjectile_Implementation()
+ {
+ }
+
  void ARangeEnemy::Attack()
 {
 	Super::Attack();
@@ -30,11 +34,14 @@ ARangeEnemy::ARangeEnemy()
 
 
 	const FActorSpawnParameters SpawnInfo;
-
+/*
 	if(ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, ProjectileSpawnPoint->GetComponentLocation(),
 		GetActorRotation(), SpawnInfo))
 	{
 		SpawnedProjectile->SetOwner(this);
 		SpawnedProjectile->SetDamage(DamageDealt);
 	}
+	*/
+
+	FireProjectile();
 }

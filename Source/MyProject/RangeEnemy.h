@@ -22,13 +22,16 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void LockInPlace();
 
+	UFUNCTION(BlueprintNativeEvent)
+	void FireProjectile();
+
 private:
 	virtual void Attack() override;
 	
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ARangedEnemyProjectile> Projectile;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
 	USceneComponent* ProjectileSpawnPoint;
 	
 };

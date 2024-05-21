@@ -34,14 +34,14 @@ ARangeEnemy::ARangeEnemy()
 
 
 	const FActorSpawnParameters SpawnInfo;
-/*
+
 	if(ARangedEnemyProjectile* SpawnedProjectile =  GetWorld()->SpawnActor<ARangedEnemyProjectile>(Projectile, ProjectileSpawnPoint->GetComponentLocation(),
 		GetActorRotation(), SpawnInfo))
 	{
 		SpawnedProjectile->SetOwner(this);
 		SpawnedProjectile->SetDamage(DamageDealt);
 	}
-	*/
+	
 
 	FireProjectile();
 }

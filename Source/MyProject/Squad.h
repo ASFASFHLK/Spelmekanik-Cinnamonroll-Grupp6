@@ -44,6 +44,9 @@ public:
 	UFUNCTION()
 	FVector GetPlayerLocation() const {return PlayerLocation;}
 
+	UFUNCTION(BlueprintCallable)
+	bool CanSpawnExplosive();
+
 
 private:
 	
@@ -71,4 +74,6 @@ private:
 	UPROPERTY()
 	FVector Temp;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Squad")
+	int NumberOfExplosivesAllowed;
 };

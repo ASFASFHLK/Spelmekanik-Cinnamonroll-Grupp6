@@ -18,6 +18,8 @@ public:
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 
 	
+	UFUNCTION(BlueprintNativeEvent)
+	void ActivateAbility();
 private:
 	UPROPERTY(EditAnywhere, Category = "Ability")
 	float DashDistance;

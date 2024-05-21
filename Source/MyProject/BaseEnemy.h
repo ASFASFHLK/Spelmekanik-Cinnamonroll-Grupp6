@@ -83,7 +83,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Combat")
 	float DamageDealt = 10.f;
 
-	UPROPERTY(VisibleAnywhere, Category = "Squad")
+	UPROPERTY(BlueprintReadWrite, Category = "Squad")
 	ASquad* MySquad;
 
 	UPROPERTY()

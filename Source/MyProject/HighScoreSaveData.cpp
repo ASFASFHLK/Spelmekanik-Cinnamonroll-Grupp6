@@ -5,7 +5,7 @@
 
 TArray<FHighScoreData> UHighScoreSaveData::GetSortedListOfHighScores(const int CutOff)
 {
-	const int Target = CutOff < HighScores.Num()?  CutOff: HighScores.Num() -1; 
+	const int Target = CutOff < HighScores.Num()?  CutOff: HighScores.Num(); 
 	TArray<FHighScoreData> ReturnArray;
 	
 	HighScores.Sort([](const FHighScoreData& A, const FHighScoreData& B) {

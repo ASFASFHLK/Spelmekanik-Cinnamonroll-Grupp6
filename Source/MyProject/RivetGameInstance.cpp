@@ -1,8 +1,31 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "RivetGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+
+URivetSaveGame* URivetGameInstance::LoadOrNewGameSaveData(const int Slot)
+{
+	if(SaveGameData == nullptr)
+	{
+		if(LoadSaveGameFromSlot(Slot) == nullptr)
+		{
+			return CreateNewGameDataAtSlot(Slot);
+		}
+	}
+	return SaveGameData;
+}
+
+UHighScoreSaveData* URivetGameInstance::LoadOrNewHighScoreSaveData(const int Slot)
+{
+	if(HighScoreData == nullptr)
+	{
+		if(LoadHighScoresFromSlot() == nullptr)
+		{
+			return CreateNewHighScoreDataAtSlot(Slot);
+		}
+	}
+	return HighScoreData;
+}
 
 bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
 {
@@ -48,7 +71,7 @@ URivetSaveGame* URivetGameInstance::LoadSaveGameFromSlot(const int Slot)
 	return SaveGameData; 
 }
 
-UHighScoreSaveData* URivetGameInstance::LoadHighScores(const int Slot)
+UHighScoreSaveData* URivetGameInstance::LoadHighScoresFromSlot(const int Slot)
 {
 
 	USaveGame* Game = UGameplayStatics::LoadGameFromSlot(HighScoreSlotName, Slot);

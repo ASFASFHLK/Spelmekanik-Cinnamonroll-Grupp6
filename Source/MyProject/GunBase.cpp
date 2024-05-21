@@ -3,7 +3,6 @@
 
 #include "GunBase.h"
 
-#include "BaseEnemy.h"
 #include "PlayerCharacter.h"
 #include "RangedEnemyProjectile.h"
 #include "Engine/DamageEvents.h"
@@ -61,8 +60,7 @@ void AGunBase::ShotGunShot()
 		bCanShoot = false;
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-		GunFired(); // juni
-		bool EventCalled = false; 
+		GunFired(); // juni 
 		for (int i = 0; i < Pellets; ++i)
 		{
 			FHitResult HitResult;
@@ -82,17 +80,7 @@ void AGunBase::ShotGunShot()
 				}
 				ShotgunHitResult = HitResult;
 				ShotGunHitLocation = HitResult.Location;
-				GunHit(); // juni
-				if(!EventCalled)
-				{
-					if(HitResult.GetActor()->GetClass()->IsChildOf(ABaseEnemy::StaticClass())) // Should be replaced with a tag check as it is way cheaper 
-					{
-						AnimatedOnHit();
-						EventCalled = true; 
-					}
-	
-				}
-				
+				GunHit(); // juni 
 			}
 		}
 	}
@@ -168,10 +156,6 @@ void AGunBase::Punch()
 	// }
 	bCanHit = false;
 	GetWorld()->GetTimerManager().SetTimer(HitTimerHandle, this, &AGunBase::ReloadPunch, HitCooldown, false);
-}
-
-void AGunBase::AnimatedOnHit_Implementation()
-{
 }
 
 void AGunBase::UseShotGun()

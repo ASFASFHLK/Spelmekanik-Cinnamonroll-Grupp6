@@ -55,6 +55,7 @@ void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
 		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() == 2)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("dödat en Star"))
 			GameMode->OnEnemyKilled();
 		}
 	}else
@@ -97,15 +98,6 @@ AExplosiveEnemy* ASquad::LookForExplosiveToThrow()
 		}
 	}
 	return ClosestEnemy; 
-}
-
-bool ASquad::CanSpawnExplosive()
-{
-	if(ExplosiveEnemies.Num() < NumberOfExplosivesAllowed)
-	{
-		return true;
-	}
-	return false;
 }
 
 

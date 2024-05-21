@@ -72,6 +72,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	bool StartWithHudVisible = true;
 
+
 	UPROPERTY()
 	bool IsInvulnerable;
 	

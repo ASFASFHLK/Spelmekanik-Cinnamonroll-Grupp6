@@ -6,7 +6,6 @@
 #include "Enemy_Spawner.h"
 #include "PlayerCharacter.h"
 #include "Squad.h"
-#include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 void ADefaultGamemode::EndGame(bool PlayerWin)
@@ -16,8 +15,9 @@ void ADefaultGamemode::EndGame(bool PlayerWin)
 		StartShopPhase();
 	}else
 	{
-		UUserWidget* LoserWidget = CreateWidget<UUserWidget>(GetWorld(),LoseScreen);
-		LoserWidget->AddToViewport();
+		EndGameEvent();
+		//UUserWidget* LoserWidget = CreateWidget<UUserWidget>(GetWorld(),LoseScreen);
+		//LoserWidget->AddToViewport();
 	}
 }
 
@@ -40,6 +40,10 @@ void ADefaultGamemode::StartNextWave()
 		Player->TeleportTo(FVector(-4090,-2050, 4500),Player->GetActorRotation());
 	}
 	
+}
+
+void ADefaultGamemode::EndGameEvent_Implementation()
+{
 }
 
 void ADefaultGamemode::OnSpawnNewWave_Implementation()

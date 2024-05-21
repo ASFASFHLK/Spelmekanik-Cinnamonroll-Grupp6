@@ -32,6 +32,8 @@ class MYPROJECT_API UHighScoreSaveData : public USaveGame
 public:
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FHighScoreData> HighScores;
+	UFUNCTION(BlueprintCallable)
+	bool HasHighScoreData() const;
 	
 	UFUNCTION(BlueprintCallable)
 	TArray<FHighScoreData> GetSortedListOfHighScores(const int CutOff = 5);

@@ -18,6 +18,12 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	GENERATED_BODY()
 
 	UFUNCTION(BlueprintCallable)
+	URivetSaveGame* LoadOrNewGameSaveData(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	UHighScoreSaveData* LoadOrNewHighScoreSaveData(const int Slot = 0);
+	
+	UFUNCTION(BlueprintCallable)
 	bool RemoveGameDataFromSlot(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
@@ -33,7 +39,7 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	URivetSaveGame* LoadSaveGameFromSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
-	UHighScoreSaveData* LoadHighScores(const int Slot = 0);
+	UHighScoreSaveData* LoadHighScoresFromSlot(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
 	bool DoesGameDataExist(const int Slot = 0);
@@ -44,6 +50,8 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	UFUNCTION(BlueprintCallable)
 	bool SaveGameDataToSlot(URivetSaveGame* GameData, const int Slot = 0 );
 
+	
+	
 	UFUNCTION(BlueprintCallable)
 	bool SaveHighScoreDataToSlot(UHighScoreSaveData* HighScore, const int Slot = 0);
 	

@@ -3,9 +3,14 @@
 
 #include "HighScoreSaveData.h"
 
+bool UHighScoreSaveData::HasHighScoreData() const
+{
+	return HighScores.Num() > 0; 
+}
+
 TArray<FHighScoreData> UHighScoreSaveData::GetSortedListOfHighScores(const int CutOff)
 {
-	const int Target = CutOff < HighScores.Num()?  CutOff: HighScores.Num(); 
+	const int Target = CutOff < HighScores.Num() and CutOff > 0  ? CutOff: HighScores.Num(); 
 	TArray<FHighScoreData> ReturnArray;
 	
 	HighScores.Sort([](const FHighScoreData& A, const FHighScoreData& B) {

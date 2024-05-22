@@ -18,15 +18,13 @@ public:
 
 	virtual void ResetEnemy() override;
 	
-	UFUNCTION()
-	bool BothInPosition();
-	
 	UPROPERTY()
 	bool PartnerInPosition;
 
-	UPROPERTY()
-	bool IAmInPosition;
-
+	UFUNCTION()
+	bool GetExploded() const {return Exploded;}
+	
+	
 	UFUNCTION()
 	bool CanBeThrown();
 	
@@ -52,4 +50,7 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float ExplosionRadius;
+
+	UPROPERTY(BlueprintReadWrite,meta=(AllowPrivateAccess = true))
+	bool Exploded;
 };

@@ -80,6 +80,7 @@ void ADefaultGamemode::AddCredits(const int AmountToAdd)
 		return;
 	}
 	CurrentAmountOfCredits+= AmountToAdd;
+	TotalAmountOfCredits += AmountToAdd;
 }
 
 void ADefaultGamemode::ResetCredits()
@@ -111,6 +112,11 @@ void ADefaultGamemode::IncreaseAmountOfEnemies(int Amount)
 {
 	AmountToKill+= Amount;
 	AmountToSpawn+= Amount;
+}
+
+void ADefaultGamemode::IncreaseEnemiesKilled()
+{
+	AmountOfKills++;
 }
 
 void ADefaultGamemode::OnEnemyKilled()

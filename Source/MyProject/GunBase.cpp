@@ -6,6 +6,8 @@
 #include "BaseEnemy.h"
 #include "PlayerCharacter.h"
 #include "RangedEnemyProjectile.h"
+#include "RivetAttributeSet.h"
+#include "../../../../../../../Program Files/Epic Games/UE_5.3/Engine/Source/Runtime/Core/Public/Logging/LogMacros.h"
 #include "Engine/DamageEvents.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -21,6 +23,11 @@ AGunBase::AGunBase()
 void AGunBase::BeginPlay()
 {
 	Super::BeginPlay();
+	CHaracterRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
+	if(CHaracterRef == nullptr)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Can not find player"))
+	}
 	if(GetOwner())
 	{
 		GetOwner<APlayerCharacter>()->SetGun(this);
@@ -62,7 +69,8 @@ void AGunBase::ShotGunShot()
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		GunFired(); // juni
-		bool EventCalled = false; 
+		bool EventCalled = false;
+		int DamageAttribute = CHaracterRef->GetAttributeSet()->GetDamage();
 		for (int i = 0; i < Pellets; ++i)
 		{
 			FHitResult HitResult;
@@ -76,7 +84,7 @@ void AGunBase::ShotGunShot()
 			if(HitResult.GetActor())
 			{
 				//UE_LOG(LogTemp, Display, TEXT("Hit a target %s"),*HitResult.GetActor()->GetName());
-				HitResult.GetActor()->TakeDamage(Damage, FDamageEvent(),GetOwner<APlayerCharacter>()->GetController(), this );
+				HitResult.GetActor()->TakeDamage(DamageAttribute, FDamageEvent(),CHaracterRef->GetController(), this );
 				if(ShotSound){
 					UGameplayStatics::PlaySoundAtLocation(World, ShotSound, SpawnLocation, FRotator::ZeroRotator);
 				}

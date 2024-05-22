@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "GunBase.generated.h"
 
+class APlayerCharacter;
+
 UCLASS(BlueprintType)
 class MYPROJECT_API AGunBase : public AActor
 {
@@ -111,6 +113,9 @@ private:
 	FCollisionQueryParams QueryParams = FCollisionQueryParams();
 	UPROPERTY()
 	UWorld* const World = GetWorld();
+	
+	UPROPERTY()
+	APlayerCharacter* CHaracterRef;
 
 
  };

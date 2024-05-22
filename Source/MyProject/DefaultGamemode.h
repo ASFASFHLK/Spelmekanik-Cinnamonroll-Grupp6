@@ -52,6 +52,9 @@ public:
 	void IncreaseAmountOfEnemies(int Amount);
 
 	UFUNCTION()
+	void IncreaseEnemiesKilled();
+
+	UFUNCTION()
 	void OnEnemyKilled();
 
 	virtual void BeginPlay() override;
@@ -93,6 +96,15 @@ private:
 	
 	UPROPERTY(VisibleInstanceOnly)
 	int CurrentAmountOfCredits = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int TotalAmountOfCredits = 0;
+
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int32 AmountOfKills = 0;
+	
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
+	int32 AmountOfRepairs = 0;
 
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int RoundAmount = 1;

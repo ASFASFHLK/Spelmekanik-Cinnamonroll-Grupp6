@@ -105,6 +105,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetMouseInverted(const bool Inverted);
+
 	
 public:
 	APlayerCharacter();

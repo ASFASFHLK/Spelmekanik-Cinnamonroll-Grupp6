@@ -39,16 +39,6 @@ void AExplosiveEnemy::ResetEnemy()
 	Super::ResetEnemy();
 }
 
-bool AExplosiveEnemy::BothInPosition()
-{
-	if(!IAmInPosition || !PartnerInPosition)
-	{
-		return false;
-	}
-	return true;
-}
-
-
 bool AExplosiveEnemy::CanBeThrown()
 {
 	if(MySquad)

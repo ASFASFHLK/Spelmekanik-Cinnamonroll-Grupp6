@@ -49,18 +49,24 @@ void ASquad::Tick(float DeltaTime)
 
 void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 {
-	
-	if(EnemyToRemove->IsA(AExplosiveEnemy::StaticClass()))
+	AExplosiveEnemy* ExplosiveEnemy = Cast<AExplosiveEnemy>(EnemyToRemove);
+	if(ExplosiveEnemy)
 	{
-		ExplosiveEnemies.Remove(Cast<AExplosiveEnemy>(EnemyToRemove));
+		ExplosiveEnemies.Remove(ExplosiveEnemy);
 		if(GameMode->GetTutorial() && GameMode->GetTutorialStep() == 2)
 		{
 			GameMode->OnEnemyKilled();
 		}
+		if(!ExplosiveEnemy->GetExploded())
+		{
+			GameMode->IncreaseEnemiesKilled();
+		}
+		
 	}else
 	{
 		SquadMembers.Remove(EnemyToRemove);
 		GameMode->OnEnemyKilled();
+		GameMode->IncreaseEnemiesKilled();
 	}
 }
 

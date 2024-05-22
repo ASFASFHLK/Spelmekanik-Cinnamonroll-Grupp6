@@ -91,14 +91,19 @@ float ABaseCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, 
 		return 0;
 		
 	}
+	float NewDamage = Damage - Attributes->GetArmour();
+	if(NewDamage < 1)
+	{
+		NewDamage = 1; 
+	}
 	
-	if(HealthComp->TakeDamage(Damage)) // Checks if we are dead
+	if(HealthComp->TakeDamage(NewDamage)) // Checks if we are dead
 	{
 		//SetActorEnableCollision(false);
 		//SetActorHiddenInGame(true);
 	}
 
-	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser) + Damage;
+	return Super::TakeDamage(NewDamage, DamageEvent, EventInstigator, DamageCauser) + NewDamage;
 }
 
 FActiveGameplayEffectHandle ABaseCharacter::AddPassiveEffect(const TSubclassOf<UGameplayEffect>& Effect)

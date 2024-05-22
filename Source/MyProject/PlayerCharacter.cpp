@@ -16,6 +16,11 @@ void APlayerCharacter::DashVisuals_Implementation()
 {
 }
 
+void APlayerCharacter::SetMouseInverted(const bool Inverted)
+{
+	InvertCamera = Inverted;
+}
+
 APlayerCharacter::APlayerCharacter()
 {
 	bAbilitiesInitialized = false;

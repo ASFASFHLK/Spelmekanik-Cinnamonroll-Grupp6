@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RivetGameInstance.h"
+
+#include "GameSettingsData.h"
 #include "Kismet/GameplayStatics.h"
 
 URivetSaveGame* URivetGameInstance::LoadOrNewGameSaveData(const int Slot)
@@ -27,6 +29,18 @@ UHighScoreSaveData* URivetGameInstance::LoadOrNewHighScoreSaveData(const int Slo
 	return HighScoreData;
 }
 
+UGameSettingsData* URivetGameInstance::LoadOrNewGameSettingsData(const int Slot)
+{
+	if(SettingsData == nullptr)
+	{
+		if(LoadGameSettingsDataFromSlot(Slot) == nullptr)
+		{
+			return CreateNewGameSettingsDataAtSlot(Slot);
+		}
+	}
+	return SettingsData;
+}
+
 bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
 {
 	return UGameplayStatics::DeleteGameInSlot(GameDataSlotName, Slot);
@@ -35,6 +49,11 @@ bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
 bool URivetGameInstance::RemoveHighScoreFromSlot(const int Slot)
 {
 	return UGameplayStatics::DeleteGameInSlot(HighScoreSlotName, Slot);
+}
+
+bool URivetGameInstance::RemoveGameSettingsDataFromSlot(const int Slot)
+{
+	return UGameplayStatics::DeleteGameInSlot(GameSettingsSlotName, Slot);
 }
 
 
@@ -50,6 +69,13 @@ UHighScoreSaveData* URivetGameInstance::CreateNewHighScoreDataAtSlot(const int S
 	USaveGame* NewHighScoreData = UGameplayStatics::CreateSaveGameObject(UHighScoreSaveData::StaticClass());
 	HighScoreData = Cast<UHighScoreSaveData>(NewHighScoreData);
 	return HighScoreData; 
+}
+
+UGameSettingsData* URivetGameInstance::CreateNewGameSettingsDataAtSlot(const int Slot)
+{
+	USaveGame* NewSettingsData = UGameplayStatics::CreateSaveGameObject(UGameSettingsData::StaticClass());
+	SettingsData = Cast<UGameSettingsData>(NewSettingsData);
+	return SettingsData; 
 }
 
 URivetSaveGame* URivetGameInstance::LoadSaveGameFromSlot(const int Slot)
@@ -95,6 +121,28 @@ UHighScoreSaveData* URivetGameInstance::LoadHighScoresFromSlot(const int Slot)
 	
 }
 
+UGameSettingsData* URivetGameInstance::LoadGameSettingsDataFromSlot(const int Slot)
+{
+	USaveGame* SaveData = UGameplayStatics::LoadGameFromSlot(GameSettingsSlotName, Slot);
+
+	
+	if(SaveData == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not find Settings data in slot %d"), Slot)
+		return nullptr;
+	}
+	
+	SettingsData = Cast<UGameSettingsData>(SaveData);
+
+	
+	if(SettingsData == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not convert save data to UGameSettingsData in slot %d"), Slot)
+	}
+	
+	return SettingsData; 
+}
+
 bool URivetGameInstance::DoesGameDataExist(const int Slot)
 {
 	return UGameplayStatics::DoesSaveGameExist(GameDataSlotName, Slot);
@@ -114,6 +162,12 @@ bool URivetGameInstance::SaveGameDataToSlot( URivetSaveGame* GameData, const int
 bool URivetGameInstance::SaveHighScoreDataToSlot(UHighScoreSaveData* HighScore, const int Slot)
 {
 	const bool Saved = UGameplayStatics::SaveGameToSlot(HighScore, HighScoreSlotName, Slot);
+	return Saved; 
+}
+
+bool URivetGameInstance::SaveSettingsDataToSlot(UGameSettingsData* Settings, const int Slot)
+{
+	const bool Saved = UGameplayStatics::SaveGameToSlot(Settings, GameSettingsSlotName, Slot);
 	return Saved; 
 }
 

@@ -23,6 +23,7 @@ struct FSaveGameData
 		PlayTime = 0;
 		WorldPos = FVector::ZeroVector;
 		CharacterRotator = FRotator::ZeroRotator;
+		PlayerName = "Rivet";
 	}
 
 	UPROPERTY(BlueprintReadWrite)
@@ -44,11 +45,14 @@ struct FSaveGameData
 	FRotator CharacterRotator;
 
 	UPROPERTY(BlueprintReadWrite)
-	TArray<FText> Upgrades;
+	TArray<FString> Upgrades;
 
 	UPROPERTY(BlueprintReadWrite)
 	float PlayTime;
-
+	
+	UPROPERTY(BlueprintReadWrite)
+	FString PlayerName;
+	
 	UPROPERTY(BlueprintReadWrite)
 	FString WeaponSkin;
 };
@@ -68,6 +72,17 @@ class MYPROJECT_API URivetSaveGame : public USaveGame
 {
 
 	GENERATED_BODY()
+public:
+	UPROPERTY(BlueprintReadWrite)
 	FSaveGameData SaveData;
+	UFUNCTION(BlueprintCallable)
+	void AddPassiveEffectRowName(const FString RowName);
+	UFUNCTION(BlueprintCallable)
+	bool ValidSaveData();
+	UFUNCTION(BlueprintCallable)
+	void ClearPassiveUpgrades();
+	UFUNCTION(BlueprintCallable)
+	void SetPlayerName(const FString NameOfPlayer);
+	
 	FUnlocks Unlocks;
 };

@@ -87,28 +87,6 @@ float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent
 	return DamageTaken;
 }
 
-/*
-bool ABaseEnemy::HasPartner() const
-{
-	if(Partner == nullptr)
-	{
-		return false;
-	}
-	return true;
-}
-
-
-
-void ABaseEnemy::MyPartnerHasDied()
-{
-	Partner = nullptr;
-	if(MySquad)
-	{
-		MySquad->FindNewPartner(this);
-	}
-}
-*/
-
 void ABaseEnemy::HasDied()
 {
 	
@@ -137,7 +115,6 @@ void ABaseEnemy::ResetEnemy()
 void ABaseEnemy::Ragdoll_Implementation()
 {
 }
-
 
 void ABaseEnemy::Attack()
 {

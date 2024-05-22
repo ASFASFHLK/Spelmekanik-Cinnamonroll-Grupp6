@@ -72,6 +72,7 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	bool StartWithHudVisible = true;
 
+
 	UPROPERTY()
 	bool IsInvulnerable;
 	
@@ -101,6 +102,9 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void DashVisuals();
+
+	UFUNCTION(BlueprintCallable)
+	void SetMouseInverted(const bool Inverted);
 	
 public:
 	APlayerCharacter();

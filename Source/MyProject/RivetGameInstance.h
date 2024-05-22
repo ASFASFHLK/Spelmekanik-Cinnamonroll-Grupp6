@@ -8,6 +8,7 @@
 #include "Engine/GameInstance.h"
 #include "RivetGameInstance.generated.h"
 
+class UGameSettingsData;
 class URivetSaveGame;
 /**
  * 
@@ -24,10 +25,16 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	UHighScoreSaveData* LoadOrNewHighScoreSaveData(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
+	UGameSettingsData* LoadOrNewGameSettingsData(const int Slot = 0);
+	
+	UFUNCTION(BlueprintCallable)
 	bool RemoveGameDataFromSlot(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
 	bool RemoveHighScoreFromSlot(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveGameSettingsDataFromSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
 	URivetSaveGame* CreateNewGameDataAtSlot(const int Slot = 0);
@@ -36,10 +43,16 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	UHighScoreSaveData* CreateNewHighScoreDataAtSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
+	UGameSettingsData* CreateNewGameSettingsDataAtSlot(const int Slot = 0);
+	
+	UFUNCTION(BlueprintCallable)
 	URivetSaveGame* LoadSaveGameFromSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
 	UHighScoreSaveData* LoadHighScoresFromSlot(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	UGameSettingsData* LoadGameSettingsDataFromSlot(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
 	bool DoesGameDataExist(const int Slot = 0);
@@ -49,11 +62,12 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	
 	UFUNCTION(BlueprintCallable)
 	bool SaveGameDataToSlot(URivetSaveGame* GameData, const int Slot = 0 );
-
-	
 	
 	UFUNCTION(BlueprintCallable)
 	bool SaveHighScoreDataToSlot(UHighScoreSaveData* HighScore, const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	bool SaveSettingsDataToSlot(UGameSettingsData* Settings, const int Slot = 0);
 	
 	UPROPERTY(EditDefaultsOnly)
 	FString GameDataSlotName = "GameData";
@@ -62,7 +76,10 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	FString HighScoreSlotName = "HighScore";
 
 	UPROPERTY(EditDefaultsOnly)
-	FString Unlocks = "Unlocks";
+	FString UnlocksSlotName = "Unlocks";
+
+	UPROPERTY(EditDefaultsOnly)
+	FString GameSettingsSlotName = "Settings";
 	
 public:
 	UPROPERTY(BlueprintReadOnly)
@@ -70,6 +87,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	UHighScoreSaveData* HighScoreData;
+
+	UPROPERTY(BlueprintReadOnly)
+	UGameSettingsData* SettingsData;
 	
 	UPROPERTY(BlueprintReadWrite)
 	bool Tutorial = false;

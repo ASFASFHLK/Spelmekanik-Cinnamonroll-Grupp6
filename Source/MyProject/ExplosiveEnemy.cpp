@@ -36,6 +36,10 @@ void AExplosiveEnemy::ResetEnemy()
 {
 	SetIsBeingThrown(false);
 	DoingAttack = false;
+	if(MyBlackBoard)
+	{
+		MyBlackBoard->SetValueAsBool("PlayerIsClose", false);
+	}
 	Super::ResetEnemy();
 }
 

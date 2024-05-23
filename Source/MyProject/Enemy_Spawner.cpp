@@ -2,11 +2,12 @@
 
 
 #include "Enemy_Spawner.h"
-#include "DefaultGamemode.h"
 #include "BaseEnemy.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpawnerGate.h"
 #include "SquadManager.h"
+#include "Runtime/Core/Tests/Containers/TestUtils.h"
+#include "Algo/RandomShuffle.h"
 
 // Sets default values
 AEnemy_Spawner::AEnemy_Spawner()
@@ -119,6 +120,12 @@ void AEnemy_Spawner::GetSpawnGatesInScene()
 		{
 			SpawnerGates.Add(SpawnerGate);
 		}
+	}
+	
+	Algo::RandomShuffle(SpawnerGates);
+	for(ASpawnerGate* spawner : SpawnerGates)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *spawner->GetName());
 	}
 }
 

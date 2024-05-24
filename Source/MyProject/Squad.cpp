@@ -75,6 +75,7 @@ void ASquad::ExplodeAllEnemies()
 	for(int i = 0; i < ExplosiveEnemies.Num(); i++)
 	{
 		ExplosiveEnemies[i]->Explode();
+		ExplosiveEnemies[i]->ShutDownBehavior();
 	}
 }
 
@@ -84,6 +85,33 @@ void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)
 	{
 		ExplosiveEnemies.Add(EnemyToAdd);
 		EnemyToAdd->SetSquad(this);
+	}
+}
+
+void ASquad::AddMemberToASquad(ABaseEnemy* EnemyToAdd)
+{
+	if(EnemyToAdd)
+	{
+		if(EnemyToAdd->IsA(AExplosiveEnemy::StaticClass()))
+		{
+			ExplosiveEnemies.Add(Cast<AExplosiveEnemy>(EnemyToAdd));
+		}else
+		{
+			SquadMembers.Add(EnemyToAdd);
+		}
+		EnemyToAdd->SetSquad(this);
+	}
+}
+
+void ASquad::ShutDownAllEnemies()
+{
+	for(int i = 0; i < SquadMembers.Num(); i++)
+	{
+		SquadMembers[i]->ShutDownBehavior();
+	}
+	for(int i = 0; i < ExplosiveEnemies.Num(); i++)
+	{
+		ExplosiveEnemies[i]->ShutDownBehavior();
 	}
 }
 

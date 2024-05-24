@@ -38,6 +38,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd);
 
+	UFUNCTION(BlueprintCallable)
+	void AddMemberToASquad(ABaseEnemy* EnemyToAdd);
+	
+	UFUNCTION(BlueprintCallable)
+	void ShutDownAllEnemies();
+
 	UFUNCTION()
 	AExplosiveEnemy* LookForExplosiveToThrow();
 	

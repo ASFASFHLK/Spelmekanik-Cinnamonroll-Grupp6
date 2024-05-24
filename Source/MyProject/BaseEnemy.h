@@ -74,6 +74,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void TakeDamageVisual();
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ShutDownBehavior();
+
 
 protected:
 	UPROPERTY(EditAnywhere, Category="Combat")

@@ -29,7 +29,11 @@ public:
 	void OnSpawnNewWave();
 	UFUNCTION(BlueprintNativeEvent)
 	void EndGameEvent();
-
+	UFUNCTION(BlueprintNativeEvent)
+	void OnStartNextWave();
+	UFUNCTION(BlueprintCallable)
+	void TriggerNextWaveEvent();
+	
 	UFUNCTION(BlueprintNativeEvent)
 	void EnemyDied();
 

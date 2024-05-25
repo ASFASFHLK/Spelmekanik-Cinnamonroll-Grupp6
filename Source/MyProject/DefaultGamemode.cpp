@@ -58,6 +58,15 @@ void ADefaultGamemode::EnemyDied_Implementation()
 {
 }
 
+void ADefaultGamemode::OnStartNextWave_Implementation()
+{
+}
+
+void ADefaultGamemode::TriggerNextWaveEvent()
+{
+	OnStartNextWave();
+}
+
 int ADefaultGamemode::GetAmountOfCredits() const
 {
 	return CurrentAmountOfCredits;

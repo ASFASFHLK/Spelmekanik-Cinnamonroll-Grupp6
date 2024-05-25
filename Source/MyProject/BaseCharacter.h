@@ -123,5 +123,7 @@ public:
 	void Parry();
 	UFUNCTION()
 	void StopBeingParried();
+	UFUNCTION(BlueprintNativeEvent)
+	void OnStartupGameplayAbilitiesFinish(); 
 	
 };

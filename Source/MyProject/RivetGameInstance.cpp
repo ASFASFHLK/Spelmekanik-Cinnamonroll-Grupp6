@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RivetGameInstance.h"
-
 #include "GameSettingsData.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -9,7 +8,7 @@ URivetSaveGame* URivetGameInstance::LoadOrNewGameSaveData(const int Slot)
 {
 	if(SaveGameData == nullptr)
 	{
-		if(LoadSaveGameFromSlot(Slot) == nullptr)
+		if(not DoesGameDataExist(Slot) or LoadSaveGameFromSlot(Slot) == nullptr)
 		{
 			return CreateNewGameDataAtSlot(Slot);
 		}
@@ -21,7 +20,7 @@ UHighScoreSaveData* URivetGameInstance::LoadOrNewHighScoreSaveData(const int Slo
 {
 	if(HighScoreData == nullptr)
 	{
-		if(LoadHighScoresFromSlot() == nullptr)
+		if(not DoesHighScoreDataExist(Slot) or LoadHighScoresFromSlot(Slot) == nullptr)
 		{
 			return CreateNewHighScoreDataAtSlot(Slot);
 		}
@@ -33,7 +32,7 @@ UGameSettingsData* URivetGameInstance::LoadOrNewGameSettingsData(const int Slot)
 {
 	if(SettingsData == nullptr)
 	{
-		if(LoadGameSettingsDataFromSlot(Slot) == nullptr)
+		if(not DoesSettingsDataExist(Slot) or LoadGameSettingsDataFromSlot(Slot) == nullptr)
 		{
 			return CreateNewGameSettingsDataAtSlot(Slot);
 		}
@@ -43,17 +42,32 @@ UGameSettingsData* URivetGameInstance::LoadOrNewGameSettingsData(const int Slot)
 
 bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
 {
-	return UGameplayStatics::DeleteGameInSlot(GameDataSlotName, Slot);
+	SaveGameData = nullptr;
+	if(!DoesGameDataExist(Slot))
+	{
+		return UGameplayStatics::DeleteGameInSlot(GameDataSlotName, Slot);
+	}
+	return false;
 }
 
 bool URivetGameInstance::RemoveHighScoreFromSlot(const int Slot)
 {
-	return UGameplayStatics::DeleteGameInSlot(HighScoreSlotName, Slot);
+	HighScoreData = nullptr;
+	if(!DoesHighScoreDataExist(Slot))
+	{
+		return UGameplayStatics::DeleteGameInSlot(HighScoreSlotName, Slot);
+	}
+	return false; 
 }
 
 bool URivetGameInstance::RemoveGameSettingsDataFromSlot(const int Slot)
 {
-	return UGameplayStatics::DeleteGameInSlot(GameSettingsSlotName, Slot);
+	SettingsData = nullptr;
+	if(DoesSettingsDataExist(Slot))
+	{
+		return UGameplayStatics::DeleteGameInSlot(GameSettingsSlotName, Slot);
+	}
+	return false;
 }
 
 
@@ -151,6 +165,11 @@ bool URivetGameInstance::DoesGameDataExist(const int Slot)
 bool URivetGameInstance::DoesHighScoreDataExist(const int Slot)
 {
 	return UGameplayStatics::DoesSaveGameExist(HighScoreSlotName, Slot);
+}
+
+bool URivetGameInstance::DoesSettingsDataExist(const int Slot)
+{
+	return UGameplayStatics::DoesSaveGameExist(GameSettingsSlotName, Slot);
 }
 
 bool URivetGameInstance::SaveGameDataToSlot( URivetSaveGame* GameData, const int Slot)

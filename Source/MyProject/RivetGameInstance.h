@@ -59,6 +59,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 
 	UFUNCTION(BlueprintCallable)
 	bool DoesHighScoreDataExist(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	bool DoesSettingsDataExist(const int Slot);
 	
 	UFUNCTION(BlueprintCallable)
 	bool SaveGameDataToSlot(URivetSaveGame* GameData, const int Slot = 0 );

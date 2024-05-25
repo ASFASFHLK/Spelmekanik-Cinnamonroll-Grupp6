@@ -28,9 +28,11 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	float MouseSense = 2;
 	UPROPERTY(BlueprintReadWrite)
-	FString PlayerName = "Rivet";
+	FString PlayerName = "Hero";
 	UPROPERTY(BlueprintReadWrite)
 	bool InvertedMouse = false;
 	UPROPERTY(BlueprintReadWrite)
-	float AudioVolume = 1; 
+	float AudioVolume = 1;
+	UPROPERTY(BlueprintReadWrite)
+	float ExposureCompensation = 0.5f;
 };

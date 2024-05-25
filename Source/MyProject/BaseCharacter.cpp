@@ -155,6 +155,11 @@ void ABaseCharacter::StopBeingParried()
 	bIsParried = false;
 }
 
+void ABaseCharacter::OnStartupGameplayAbilitiesFinish_Implementation()
+{
+}
+
+
 float ABaseCharacter::InternalTakeRadialDamage(float Damage, FRadialDamageEvent const& RadialDamageEvent,
                                                AController* EventInstigator, AActor* DamageCauser)
 {
@@ -255,6 +260,7 @@ void ABaseCharacter::AddStartupGameplayAbilities()
 		{
 			AddPassiveEffect(Effect);
 		}
-		bAbilitiesInitialized = true;	
+		bAbilitiesInitialized = true;
+		OnStartupGameplayAbilitiesFinish();
 	}
 }

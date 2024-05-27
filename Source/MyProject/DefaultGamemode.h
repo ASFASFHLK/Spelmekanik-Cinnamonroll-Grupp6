@@ -131,6 +131,9 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	int EnemiesToKillInTutorial = 0;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess))
+	int RoundsToUnlockGoldenGun;
+
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	APlayerCharacter* PlayerCharacter;
 	

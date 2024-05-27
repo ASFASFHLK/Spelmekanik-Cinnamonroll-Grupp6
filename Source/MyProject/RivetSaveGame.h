@@ -84,8 +84,6 @@ public:
 	void ClearPassiveUpgrades();
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerName(const FString NameOfPlayer);
-	UPROPERTY(BlueprintReadOnly)
-	int32 Kills = 0; 
 	FUnlocks Unlocks;
 	UPROPERTY(BlueprintReadWrite)
 	bool IsSaveDataValid = false; 

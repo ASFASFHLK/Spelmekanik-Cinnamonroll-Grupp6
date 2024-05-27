@@ -34,5 +34,5 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	float AudioVolume = 1;
 	UPROPERTY(BlueprintReadWrite)
-	float ExposureCompensation = 0.5f;
+	float ExposureCompensation = 10.6f;
 };

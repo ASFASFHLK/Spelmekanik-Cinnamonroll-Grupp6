@@ -69,7 +69,7 @@ void AGunBase::ShotGunShot()
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 		GunFired(); // juni
 		bool EventCalled = false;
-		int DamageAttribute = CHaracterRef->GetAttributeSet()->GetDamage();
+		int const DamageAttribute = CHaracterRef->GetAttributeSet()->GetDamage();
 		for (int i = 0; i < Pellets; ++i)
 		{
 			FHitResult HitResult;

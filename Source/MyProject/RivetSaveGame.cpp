@@ -10,7 +10,7 @@ void URivetSaveGame::AddPassiveEffectRowName(const FString RowName)
 
 bool URivetSaveGame::ValidSaveData()
 {
-	return SaveData.CurrentRound > 1;
+	return SaveData.CurrentRound > 1 && IsSaveDataValid;
 }
 
 void URivetSaveGame::ClearPassiveUpgrades()

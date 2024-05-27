@@ -88,7 +88,7 @@ public:
 	int32 Kills = 0; 
 	FUnlocks Unlocks;
 	UPROPERTY(BlueprintReadWrite)
-	bool InvalidDate = false; 
+	bool IsSaveDataValid = false; 
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateSaveData(const int CurrentHealth, const int CurrentCredits, const int CurrentRound, const int BoughtUpgradeSlots, const FVector& WorldPos, const FRotator& CharacterRotator, const FString PlayerName = "", const float PlayTime = 0 ); 

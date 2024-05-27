@@ -34,6 +34,9 @@ private:
 	UCameraComponent* CharacterCamera;
 
 	UPROPERTY()
+	TArray<FName> GunSkins;
+	
+	UPROPERTY()
 	AGunBase* Gun = nullptr;
 	
 	UPROPERTY(EditAnywhere)
@@ -97,13 +100,22 @@ public:
 	void SetLookSidesSpeed(const float Value){LookSideSpeed = Value;}
 
 	UFUNCTION(BlueprintCallable)
-	void SetIsInvulnerable(bool Value){IsInvulnerable = Value;}
+	void SetIsInvulnerable(const bool Value){IsInvulnerable = Value;}
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void DashVisuals();
 
 	UFUNCTION(BlueprintCallable)
 	void SetMouseInverted(const bool Inverted);
+
+	UFUNCTION(BlueprintCallable)
+	void UnlockSkin(FName SkinName);
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ChangeGunSkin(FName SkinName);
+
+	UFUNCTION(BlueprintCallable)
+	TArray<FName> GetGunSkins(){return GunSkins;}
 
 	
 public:

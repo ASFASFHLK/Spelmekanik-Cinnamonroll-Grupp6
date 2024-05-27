@@ -84,9 +84,9 @@ public:
 	void ClearPassiveUpgrades();
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerName(const FString NameOfPlayer);
-	UPROPERTY(BlueprintReadOnly)
-	int32 Kills = 0; 
 	FUnlocks Unlocks;
+	UPROPERTY(BlueprintReadWrite)
+	bool IsSaveDataValid = false; 
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateSaveData(const int CurrentHealth, const int CurrentCredits, const int CurrentRound, const int BoughtUpgradeSlots, const FVector& WorldPos, const FRotator& CharacterRotator, const FString PlayerName = "", const float PlayTime = 0 ); 

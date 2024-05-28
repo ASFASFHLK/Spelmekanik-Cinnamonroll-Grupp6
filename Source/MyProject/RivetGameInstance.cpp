@@ -2,6 +2,7 @@
 
 #include "RivetGameInstance.h"
 #include "GameSettingsData.h"
+#include "RivetUnlockSaveData.h"
 #include "Kismet/GameplayStatics.h"
 
 URivetSaveGame* URivetGameInstance::LoadOrNewGameSaveData(const int Slot)
@@ -40,6 +41,19 @@ UGameSettingsData* URivetGameInstance::LoadOrNewGameSettingsData(const int Slot)
 	return SettingsData;
 }
 
+URivetUnlockSaveData* URivetGameInstance::LoadOrNewUnlockSaveData(const int Slot)
+{
+	if(UnlockData == nullptr)
+	{
+		if(not DoesUnlockDataExist(Slot) or LoadUnlockDataFromSlot(Slot) == nullptr)
+		{
+			return CreateNewUnlockSaveDataAtSlot(Slot);
+		}
+	}
+	return UnlockData;
+	
+}
+
 bool URivetGameInstance::RemoveGameDataFromSlot(const int Slot)
 {
 	SaveGameData = nullptr;
@@ -70,6 +84,17 @@ bool URivetGameInstance::RemoveGameSettingsDataFromSlot(const int Slot)
 	return false;
 }
 
+bool URivetGameInstance::RemoveUnlockDataFromSlot(const int Slot)
+{
+	UnlockData = nullptr;
+	if(DoesUnlockDataExist(Slot))
+	{
+		return UGameplayStatics::DeleteGameInSlot(UnlocksSlotName, Slot);
+	}
+	return false;
+	
+}
+
 
 URivetSaveGame* URivetGameInstance::CreateNewGameDataAtSlot(const int Slot)
 {
@@ -90,6 +115,13 @@ UGameSettingsData* URivetGameInstance::CreateNewGameSettingsDataAtSlot(const int
 	USaveGame* NewSettingsData = UGameplayStatics::CreateSaveGameObject(UGameSettingsData::StaticClass());
 	SettingsData = Cast<UGameSettingsData>(NewSettingsData);
 	return SettingsData; 
+}
+
+URivetUnlockSaveData* URivetGameInstance::CreateNewUnlockSaveDataAtSlot(const int Slot)
+{
+	USaveGame* NewUnlockData = UGameplayStatics::CreateSaveGameObject(URivetUnlockSaveData::StaticClass());
+	UnlockData = Cast<URivetUnlockSaveData>(NewUnlockData);
+	return  UnlockData;
 }
 
 URivetSaveGame* URivetGameInstance::LoadSaveGameFromSlot(const int Slot)
@@ -157,6 +189,28 @@ UGameSettingsData* URivetGameInstance::LoadGameSettingsDataFromSlot(const int Sl
 	return SettingsData; 
 }
 
+URivetUnlockSaveData* URivetGameInstance::LoadUnlockDataFromSlot(const int Slot)
+{
+	USaveGame* SaveData = UGameplayStatics::LoadGameFromSlot(UnlocksSlotName, Slot);
+
+	
+	if(SaveData == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not find UnlockData data in slot %d"), Slot)
+		return nullptr;
+	}
+	
+	UnlockData = Cast<URivetUnlockSaveData>(SaveData);
+
+	
+	if(UnlockData == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not convert save data to UGameSettingsData in slot %d"), Slot)
+	}
+	
+	return UnlockData; 
+}
+
 bool URivetGameInstance::DoesGameDataExist(const int Slot)
 {
 	return UGameplayStatics::DoesSaveGameExist(GameDataSlotName, Slot);
@@ -170,6 +224,11 @@ bool URivetGameInstance::DoesHighScoreDataExist(const int Slot)
 bool URivetGameInstance::DoesSettingsDataExist(const int Slot)
 {
 	return UGameplayStatics::DoesSaveGameExist(GameSettingsSlotName, Slot);
+}
+
+bool URivetGameInstance::DoesUnlockDataExist(const int Slot)
+{
+	return UGameplayStatics::DoesSaveGameExist(UnlocksSlotName, Slot);
 }
 
 bool URivetGameInstance::SaveGameDataToSlot( URivetSaveGame* GameData, const int Slot)
@@ -190,4 +249,8 @@ bool URivetGameInstance::SaveSettingsDataToSlot(UGameSettingsData* Settings, con
 	return Saved; 
 }
 
-
+bool URivetGameInstance::SaveUnlockDataToSlot(URivetUnlockSaveData* UnlockSaveData, const int Slot)
+{
+	const bool Saved = UGameplayStatics::SaveGameToSlot(UnlockSaveData, UnlocksSlotName, Slot);
+	return Saved; 
+}

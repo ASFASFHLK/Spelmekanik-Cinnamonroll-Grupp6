@@ -39,7 +39,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool TakeDamage(const  int DamageToTake);
 	
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, BlueprintCallable)
 	float GetHealthPercentage() const;
 
 	UFUNCTION(BlueprintCallable)

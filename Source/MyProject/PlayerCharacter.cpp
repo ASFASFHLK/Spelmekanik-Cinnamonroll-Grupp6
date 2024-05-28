@@ -53,6 +53,7 @@ APlayerCharacter::APlayerCharacter()
 	UnlockSkin("Default");
 	UnlockSkin("Hologram");
 	UnlockSkin("Golden");
+	UnlockSkin("Pink Madness");
 
 }
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

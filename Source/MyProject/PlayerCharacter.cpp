@@ -52,6 +52,7 @@ APlayerCharacter::APlayerCharacter()
 	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 	UnlockSkin("Default");
 	UnlockSkin("Hologram");
+	UnlockSkin("Golden");
 
 }
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

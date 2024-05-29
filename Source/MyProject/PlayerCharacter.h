@@ -107,15 +107,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetMouseInverted(const bool Inverted);
-
-	UFUNCTION(BlueprintCallable)
-	void UnlockSkin(FName SkinName);
-
+	
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void ChangeGunSkin(FName SkinName);
 
-	UFUNCTION(BlueprintCallable)
-	TArray<FName> GetGunSkins(){return GunSkins;}
+
 
 	
 public:

@@ -21,10 +21,6 @@ void APlayerCharacter::SetMouseInverted(const bool Inverted)
 	InvertCamera = Inverted;
 }
 
-void APlayerCharacter::UnlockSkin(const FName SkinName)
-{
-	GunSkins.AddUnique(SkinName);
-}
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -50,10 +46,6 @@ APlayerCharacter::APlayerCharacter()
 
 	// sets default position
 	PlayerFirstPersonMesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
-	UnlockSkin("Default");
-	UnlockSkin("Hologram");
-	UnlockSkin("Golden");
-	UnlockSkin("Pink Madness");
 
 }
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

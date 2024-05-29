@@ -3,6 +3,10 @@
 
 #include "MyProjectPlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "UnrealClient.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
+#include "InputCoreTypes.h"
 
 void AMyProjectPlayerController::BeginPlay()
 {
@@ -16,4 +20,5 @@ void AMyProjectPlayerController::BeginPlay()
 
 		UE_LOG(LogTemp, Warning, TEXT("BeginPlay"));
 	}
+
 }

@@ -28,4 +28,29 @@ protected:
 	virtual void BeginPlay() override;
 
 	// End Actor interface
+private:
+	UFUNCTION(BlueprintCallable, Category = "Utility")
+	static void SimulateLeftMouseButtonClick(bool bButtonDown)
+	{
+		FSlateApplication& SlateApp = FSlateApplication::Get();
+		FPointerEvent MouseEvent(
+			0, 
+			SlateApp.CursorPointerIndex,
+			SlateApp.GetCursorPos(),
+			SlateApp.GetLastCursorPos(),
+			SlateApp.GetPressedMouseButtons(),
+			EKeys::LeftMouseButton, 
+			0, 
+			SlateApp.GetPlatformApplication()->GetModifierKeys()
+		);
+
+		if (bButtonDown)
+		{
+			SlateApp.ProcessMouseButtonDownEvent(nullptr, MouseEvent);
+		}
+		else
+		{
+			SlateApp.ProcessMouseButtonUpEvent(MouseEvent);
+		}
+	}	
 };

@@ -8,6 +8,7 @@
 #include "Engine/GameInstance.h"
 #include "RivetGameInstance.generated.h"
 
+class URivetUnlockSaveData;
 class UGameSettingsData;
 class URivetSaveGame;
 /**
@@ -26,6 +27,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	
 	UFUNCTION(BlueprintCallable)
 	UGameSettingsData* LoadOrNewGameSettingsData(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	URivetUnlockSaveData* LoadOrNewUnlockSaveData(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
 	bool RemoveGameDataFromSlot(const int Slot = 0);
@@ -35,6 +39,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 
 	UFUNCTION(BlueprintCallable)
 	bool RemoveGameSettingsDataFromSlot(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	bool RemoveUnlockDataFromSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
 	URivetSaveGame* CreateNewGameDataAtSlot(const int Slot = 0);
@@ -44,6 +51,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	
 	UFUNCTION(BlueprintCallable)
 	UGameSettingsData* CreateNewGameSettingsDataAtSlot(const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	URivetUnlockSaveData* CreateNewUnlockSaveDataAtSlot(const int Slot = 0);
 	
 	UFUNCTION(BlueprintCallable)
 	URivetSaveGame* LoadSaveGameFromSlot(const int Slot = 0);
@@ -55,6 +65,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 	UGameSettingsData* LoadGameSettingsDataFromSlot(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
+	URivetUnlockSaveData* LoadUnlockDataFromSlot(const int Slot = 0);
+	
+	UFUNCTION(BlueprintCallable)
 	bool DoesGameDataExist(const int Slot = 0);
 
 	UFUNCTION(BlueprintCallable)
@@ -62,6 +75,9 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 
 	UFUNCTION(BlueprintCallable)
 	bool DoesSettingsDataExist(const int Slot);
+
+	UFUNCTION(BlueprintCallable)
+	bool DoesUnlockDataExist(const int Slot);
 	
 	UFUNCTION(BlueprintCallable)
 	bool SaveGameDataToSlot(URivetSaveGame* GameData, const int Slot = 0 );
@@ -71,18 +87,20 @@ class MYPROJECT_API URivetGameInstance : public UGameInstance
 
 	UFUNCTION(BlueprintCallable)
 	bool SaveSettingsDataToSlot(UGameSettingsData* Settings, const int Slot = 0);
+
+	UFUNCTION(BlueprintCallable)
+	bool SaveUnlockDataToSlot(URivetUnlockSaveData* UnlockSaveData, const int Slot = 0);
 	
-	UPROPERTY(EditDefaultsOnly)
-	FString GameDataSlotName = "GameData";
+	//UPROPERTY(EditDefaultsOnly)
+	const FString GameDataSlotName = "GameData";
+	
+	const FString HighScoreSlotName = "HighScore";
 
-	UPROPERTY(EditDefaultsOnly)
-	FString HighScoreSlotName = "HighScore";
+	//UPROPERTY(EditDefaultsOnly)
+	const FString UnlocksSlotName = "Unlocks";
 
-	UPROPERTY(EditDefaultsOnly)
-	FString UnlocksSlotName = "Unlocks";
-
-	UPROPERTY(EditDefaultsOnly)
-	FString GameSettingsSlotName = "Settings";
+	//UPROPERTY(EditDefaultsOnly)
+	const FString GameSettingsSlotName = "Settings";
 	
 public:
 	UPROPERTY(BlueprintReadOnly)
@@ -93,6 +111,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	UGameSettingsData* SettingsData;
+
+	UPROPERTY(BlueprintReadOnly)
+	URivetUnlockSaveData* UnlockData;
 	
 	UPROPERTY(BlueprintReadWrite)
 	bool Tutorial = false;

@@ -84,6 +84,10 @@ public:
 	void ClearPassiveUpgrades();
 	UFUNCTION(BlueprintCallable)
 	void SetPlayerName(const FString NameOfPlayer);
+	UFUNCTION(BlueprintCallable)
+	void SetWeaponSkin(const FString WeaponSkin);
+	UFUNCTION(BlueprintCallable)
+	FString GetWeaponSkin(){return SaveData.WeaponSkin;};
 	FUnlocks Unlocks;
 	UPROPERTY(BlueprintReadWrite)
 	bool IsSaveDataValid = false; 

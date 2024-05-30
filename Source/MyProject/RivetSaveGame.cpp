@@ -28,9 +28,14 @@ void URivetSaveGame::SetPlayerName(const FString NameOfPlayer)
 	SaveData.PlayerName = NameOfPlayer;
 }
 
+void URivetSaveGame::SetWeaponSkin(const FString WeaponSkin)
+{
+	SaveData.WeaponSkin = WeaponSkin;
+}
+
 void URivetSaveGame::UpdateSaveData(const int CurrentHealth, const int CurrentCredits, const int CurrentRound,
-	const int BoughtUpgradeSlots, const FVector& WorldPos, const FRotator& CharacterRotator, const FString PlayerName,
-	const float PlayTime)
+                                    const int BoughtUpgradeSlots, const FVector& WorldPos, const FRotator& CharacterRotator, const FString PlayerName,
+                                    const float PlayTime)
 {
 	SaveData.CurrentHealth = CurrentHealth;
 	SaveData.CurrentCredits = CurrentCredits;

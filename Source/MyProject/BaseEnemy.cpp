@@ -35,13 +35,13 @@ void ABaseEnemy::ScaleHealthAndDamage(const float Health, const float Damage)
 	HealthComp->SetHealthToMax();
 	
 	
-	
 }
 
 FVector ABaseEnemy::GetPlayerLocationFromSquad() const
 {
 	if(MySquad)
 	{
+		
 		return MySquad->GetPlayerLocation();
 	}
 
@@ -51,6 +51,8 @@ FVector ABaseEnemy::GetPlayerLocationFromSquad() const
 void ABaseEnemy::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	
 
 	if(CurrentAttackCooldown >= 0)
 	{

@@ -78,6 +78,9 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void StartOptionsMenu();
 
+	UFUNCTION(BlueprintCallable)
+	float GetCalculatedScaling();
+
 	
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -95,7 +98,7 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess))
 	bool bFirstWave = true;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, meta=(AllowPrivateAccess))
 	float EnemyScaling;
 	
 	UPROPERTY(VisibleInstanceOnly)

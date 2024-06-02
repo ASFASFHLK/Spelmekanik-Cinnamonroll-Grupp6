@@ -16,11 +16,7 @@ AEnemy_Spawner::AEnemy_Spawner()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void AEnemy_Spawner::IncreaseScaling(float Value)
-{
-	ScalingHealth += Value;
-	ScalingDamage += Value;
-}
+
 
 // Called when the game starts or when spawned
 void AEnemy_Spawner::BeginPlay()
@@ -55,10 +51,10 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enem
 	const int EnemyIndex = FMath::RandRange(0, Enemies.Num()-1);
 	if(Enemy != nullptr)
 	{
-		SpawnEnemy(Enemy, SpawnPoint, FRotator(0,0,0));
+		SpawnEnemy(Enemy, SpawnPoint, FRotator(0,0,0),ScalingValue);
 	}else
 	{
-		SpawnEnemy(Enemies[EnemyIndex], SpawnPoint, FRotator(0,0,0));
+		SpawnEnemy(Enemies[EnemyIndex], SpawnPoint, FRotator(0,0,0),ScalingValue);
 	}
 	
 	return true;
@@ -69,13 +65,10 @@ bool AEnemy_Spawner::PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enem
 
 void AEnemy_Spawner::StartNextWave(int Amount)
 {
-	IncreaseScaling(ScalingValue);
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < Amount; i++)
 	{
-		if(PlaceEnemiesAtSpawnGates(nullptr))
-		{
-		}
+		PlaceEnemiesAtSpawnGates(nullptr);
 	}
 }
 
@@ -84,9 +77,8 @@ void AEnemy_Spawner::StartNextCustomWave(TSubclassOf<ABaseEnemy> EnemyType, int 
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < Amount; i++)
 	{
-		if(PlaceEnemiesAtSpawnGates(EnemyType))
-		{
-		}
+		PlaceEnemiesAtSpawnGates(EnemyType);
+		
 	}
 }
 

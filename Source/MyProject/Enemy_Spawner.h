@@ -26,7 +26,7 @@ public:
 	AEnemy_Spawner();
 
 	UFUNCTION(BlueprintCallable)
-	void IncreaseScaling(float Value);
+	void SetScaling(const float Value){ScalingValue = Value;}
 	
 	UFUNCTION(BlueprintCallable)
 	bool PlaceEnemiesAtSpawnGates(TSubclassOf<class ABaseEnemy> Enemy);
@@ -35,7 +35,7 @@ public:
 	ASquad* GetSquad() const {return Squad;}
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation);
+	void SpawnEnemy(TSubclassOf<class ABaseEnemy> EnemyType, FVector Location, FRotator Rotation, float Scaling);
 
 	//UFUNCTION(BlueprintCallable)
 	//void OnDeathEvent();
@@ -66,7 +66,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true))
 	float ScalingHealth = 1;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	float ScalingValue;
 	
 	UPROPERTY()

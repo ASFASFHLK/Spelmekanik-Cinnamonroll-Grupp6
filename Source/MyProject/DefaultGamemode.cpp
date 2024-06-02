@@ -32,6 +32,8 @@ void ADefaultGamemode::StartNextWave()
 			return;
 		}
 	}
+	
+	SpawnerRef->SetScaling(GetCalculatedScaling());
 	SpawnerRef->StartNextWave(AmountToSpawn);
 	OnSpawnNewWave();
 	if(!bFirstWave)
@@ -157,6 +159,11 @@ void ADefaultGamemode::BeginPlay()
 	PlayerCharacter = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerCharacter(this,0));
 	SpawnerRef = Cast<AEnemy_Spawner>(UGameplayStatics::GetActorOfClass(GetWorld(), AEnemy_Spawner::StaticClass()));
 	SquadRef = Cast<ASquad>(UGameplayStatics::GetActorOfClass(GetWorld(), ASquad::StaticClass()));
+}
+
+float ADefaultGamemode::GetCalculatedScaling()
+{
+	return 1 + (RoundAmount * EnemyScaling);
 }
 
 void ADefaultGamemode::StartRoundGameMode_Implementation()

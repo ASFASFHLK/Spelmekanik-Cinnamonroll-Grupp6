@@ -74,6 +74,7 @@ void AEnemy_Spawner::StartNextWave(int Amount)
 
 void AEnemy_Spawner::StartNextCustomWave(TSubclassOf<ABaseEnemy> EnemyType, int Amount)
 {
+	SetScaling(1);
 	//AmountOfTotalSquadsToSpawn = AmountOfTotalSquads;
 	for(int i = 0; i < Amount; i++)
 	{

@@ -77,6 +77,12 @@ void ASquad::ExplodeAllEnemies()
 		ExplosiveEnemies[i]->Explode();
 		ExplosiveEnemies[i]->ShutDownBehavior();
 	}
+	for(int i = 0; i < SquadMembers.Num(); i++)
+	{
+		SquadMembers[i]->ReturnToPool();
+		SquadMembers.Remove(SquadMembers[i]);
+		
+	}
 }
 
 void ASquad::AddExplosiveToSquad(AExplosiveEnemy* EnemyToAdd)

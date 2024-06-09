@@ -79,7 +79,7 @@ void ASquad::ExplodeAllEnemies()
 	}
 	for(int i = 0; i < SquadMembers.Num(); i++)
 	{
-		SquadMembers[i]->ReturnToPool();
+		SquadMembers[i]->Ragdoll();
 		SquadMembers.Remove(SquadMembers[i]);
 		
 	}

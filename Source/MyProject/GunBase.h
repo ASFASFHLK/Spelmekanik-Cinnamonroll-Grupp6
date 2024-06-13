@@ -16,6 +16,7 @@ class MYPROJECT_API AGunBase : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AGunBase();
+	void Init(); 
 
 protected:
 	// Called when the game starts or when spawned

@@ -18,10 +18,8 @@ AGunBase::AGunBase()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-// Called when the game starts or when spawned
-void AGunBase::BeginPlay()
+void AGunBase::Init()
 {
-	Super::BeginPlay();
 	CHaracterRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
 	if(CHaracterRef == nullptr)
 	{
@@ -29,12 +27,19 @@ void AGunBase::BeginPlay()
 	}
 	if(GetOwner())
 	{
-		GetOwner<APlayerCharacter>()->SetGun(this);
+		//GetOwner<APlayerCharacter>()->SetGun(this);
 		PlayerController = Cast<APlayerController>(GetOwner<APlayerCharacter>()->GetController());
 		SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();	
 		SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation()+ SpawnRotation.RotateVector(MuzzleOffset);
 		QueryParams.AddIgnoredActor(PlayerController->GetPawn());
 	}
+}
+
+// Called when the game starts or when spawned
+void AGunBase::BeginPlay()
+{
+	Super::BeginPlay();
+
 }
 
 void AGunBase::GunHit_Implementation()
@@ -52,9 +57,6 @@ void AGunBase::Tick(float DeltaTime)
 void AGunBase::Shoot()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Trying to shoot"));
-	if(this == nullptr || GetOwner<APlayerCharacter>()->GetController() == nullptr){
-		return;
-	}
 	UseShotGun();
 }
 

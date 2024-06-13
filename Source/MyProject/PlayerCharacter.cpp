@@ -4,8 +4,6 @@
 #include "DefaultGamemode.h"
 #include "GunBase.h"
 #include "HealthComp.h"
-#include "ModifierComponent.h"
-#include "RivetAbilitySystemComponent.h"
 #include "RivetAttributeSet.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -130,8 +128,15 @@ void APlayerCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	GetCharacterMovement()->AirControl = AirTime;
-	DefaultMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
 	UpdateVariables();
+
+	if(EquippedGun != nullptr)
+	{
+		Gun = GetWorld()->SpawnActor<AGunBase>(EquippedGun,FVector(), FRotator());
+		Gun->SetOwner(this);
+		Gun->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
+		Gun->Init();
+	}
 	
 }
 
@@ -159,5 +164,16 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 void APlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	
+}
+
+void APlayerCharacter::TriggerSetupPlayer()
+{
+	SetUpPlayer();
+}
+
+
+void APlayerCharacter::SetUpPlayer_Implementation()
+{
 	
 }

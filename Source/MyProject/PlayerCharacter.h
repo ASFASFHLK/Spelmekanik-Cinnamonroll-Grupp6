@@ -7,6 +7,7 @@
 #include "PlayerCharacter.generated.h"
 
 
+class URivetSaveGame;
 class UModifierComponent;
 class UNiagaraSystem;
 class UCameraComponent;
@@ -28,7 +29,7 @@ class MYPROJECT_API APlayerCharacter : public ABaseCharacter
 
 private:
 	UPROPERTY(EditAnywhere,Category="Equipment")
-	TSubclassOf<AGunBase> EquipedGun; // Please use me😭
+	TSubclassOf<AGunBase> EquippedGun; // Please use me😭
 	
 	UPROPERTY(EditDefaultsOnly)
 	UCameraComponent* CharacterCamera;
@@ -36,7 +37,7 @@ private:
 	UPROPERTY()
 	TArray<FName> GunSkins;
 	
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
 	AGunBase* Gun = nullptr;
 	
 	UPROPERTY(EditAnywhere)
@@ -65,11 +66,7 @@ private:
 	
 	UFUNCTION(BlueprintCallable)
 	void Shoot() const;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
-	USoundBase* FireSound;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Sound")
-	USoundBase* HitSound;
+	
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditDefaultsOnly)
@@ -79,8 +76,7 @@ private:
 	bool IsInvulnerable;
 	
 public:
-	UPROPERTY()
-	float DefaultMovementSpeed = 0;
+
 	
 	UPROPERTY(EditDefaultsOnly, Category="Player Mesh")
 	USkeletalMeshComponent* PlayerFirstPersonMesh;
@@ -120,4 +116,11 @@ public:
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void Tick(float DeltaSeconds) override;
+	
+	UFUNCTION(BlueprintNativeEvent)
+	void SetUpPlayer();
+	
+	UFUNCTION(BlueprintCallable)
+	void TriggerSetupPlayer();
+	
 };

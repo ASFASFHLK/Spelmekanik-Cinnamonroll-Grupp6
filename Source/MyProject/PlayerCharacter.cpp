@@ -133,9 +133,7 @@ void APlayerCharacter::BeginPlay()
 	if(EquippedGun != nullptr)
 	{
 		Gun = GetWorld()->SpawnActor<AGunBase>(EquippedGun,FVector(), FRotator());
-		Gun->SetOwner(this);
-		Gun->AttachToActor(this, FAttachmentTransformRules::KeepWorldTransform);
-		Gun->Init();
+		Gun->Init(this);
 	}
 	
 }

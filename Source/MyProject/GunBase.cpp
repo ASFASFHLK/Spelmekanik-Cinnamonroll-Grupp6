@@ -18,13 +18,17 @@ AGunBase::AGunBase()
 	PrimaryActorTick.bCanEverTick = true;
 }
 
-void AGunBase::Init()
+void AGunBase::Init(APlayerCharacter* Character )
 {
-	CHaracterRef = Cast<APlayerCharacter>(UGameplayStatics::GetPlayerPawn(this, 0));
-	if(CHaracterRef == nullptr)
+
+	if(Character == nullptr)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Can not find player"))
 	}
+	CHaracterRef = Character; 
+	SetOwner(Character);
+	AttachToActor(Character, FAttachmentTransformRules::KeepWorldTransform);
+	
 	if(GetOwner())
 	{
 		//GetOwner<APlayerCharacter>()->SetGun(this);

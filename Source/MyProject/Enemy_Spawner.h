@@ -46,6 +46,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartNextCustomWave(TSubclassOf<ABaseEnemy> EnemyType, int Amount);
 
+	
+
 protected:
 	virtual void BeginPlay() override;
 

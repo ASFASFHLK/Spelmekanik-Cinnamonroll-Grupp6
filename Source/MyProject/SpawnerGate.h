@@ -34,5 +34,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	FVector GetSpawnPointVector() const;
+	
+	FRotator GetSpawnerRotator() const; 
 
 };

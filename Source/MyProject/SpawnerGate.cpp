@@ -29,18 +29,23 @@ void ASpawnerGate::StartSpawnGateEvent()
 void ASpawnerGate::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void ASpawnerGate::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 FVector ASpawnerGate::GetSpawnPointVector() const
 {
 	return SpawnPoint->GetComponentLocation();
 }
+
+FRotator ASpawnerGate::GetSpawnerRotator() const
+{
+	return SpawnPoint->GetComponentRotation(); 
+}
+
+
 

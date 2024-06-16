@@ -51,6 +51,12 @@ void APowerup::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, 
 	if(Player)
 	{
 		EffectHandle = Player->AddPassiveEffect(PickUpEffect);
+		
+		if(EffectHandle.IsValid())
+		{
+			Player->UpdateVariables();
+		}
+		
 		UE_LOG(LogTemp, Warning, TEXT("Granted player an effect"))
 		
 		if(!ShouldRespawn)

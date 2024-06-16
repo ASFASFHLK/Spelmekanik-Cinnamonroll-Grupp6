@@ -45,10 +45,19 @@ void ACheckPoint::StartRespawnSpawnEvent()
 void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if(HasBeenActivated)
+	{
+		return;
+	}
+	
 	if(Cast<APlayerCharacter>(OtherActor))
 	{
 		RespawnManager->SetCurrentRespawnPoint(this);
 		UE_LOG(LogTemp, Warning, TEXT("Check point set"))
+		if(!CanBeReactivated)
+		{
+			HasBeenActivated = true;
+		}
 	}
 	
 }

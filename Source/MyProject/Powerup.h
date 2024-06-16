@@ -24,13 +24,18 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	bool ShouldRespawn = false;
 	UPROPERTY(EditDefaultsOnly)
-	float RespawnTime = 5; 
+	float RespawnTime = 5;
+
+	UPROPERTY(EditDefaultsOnly)
+	float MaxFloatHeight = 10; 
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	
 	UPROPERTY(EditInstanceOnly)
 	UStaticMeshComponent* PickUpMesh;
+	
 	UPROPERTY()
 	UCapsuleComponent* CapsuleComponent;
 	

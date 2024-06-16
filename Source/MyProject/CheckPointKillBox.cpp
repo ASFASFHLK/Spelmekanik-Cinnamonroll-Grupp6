@@ -18,7 +18,6 @@ ACheckPointKillBox::ACheckPointKillBox()
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 	RootComponent = BoxComponent;
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ACheckPointKillBox::OnBoxBeginOverlap);
-
 }
 
 int ACheckPointKillBox::GetAmountOfCheckPointsInTheLevel() const
@@ -30,6 +29,10 @@ void ACheckPointKillBox::SetCurrentRespawnPoint(ACheckPoint* Point)
 {
 	if(Point != nullptr)
 	{
+		if(Point == RespawnPoint)
+		{
+			return;
+		}
 		RespawnPoint = Point; 
 	}
 }

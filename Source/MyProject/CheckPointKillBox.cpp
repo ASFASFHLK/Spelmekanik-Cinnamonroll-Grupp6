@@ -61,6 +61,18 @@ int ACheckPointKillBox::GetAmountOfActivatedCheckPoints() const
 	return ActivatedCheckPoints.Num(); 
 }
 
+int ACheckPointKillBox::GetAmountOfRespawns() const
+{
+	return AmountOfRespawns; 
+}
+
+FString ACheckPointKillBox::GetRoundsAsText() const
+{
+	const std::string StringRef = (std::to_string(GetAmountOfActivatedCheckPoints()) + "/" + std::to_string(GetAmountOfCheckPointsInTheLevel()));
+	const FString ReturnFString(StringRef.c_str());
+	return ReturnFString;
+}
+
 // Called when the game starts or when spawned
 void ACheckPointKillBox::BeginPlay()
 {
@@ -115,6 +127,7 @@ void ACheckPointKillBox::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, 
 	if(Player)
 	{
 		PlayerRespawning();
+		AmountOfRespawns++; 
 		if(RespawnPoint == nullptr)
 		{
 			if(PlayerStart!= nullptr)

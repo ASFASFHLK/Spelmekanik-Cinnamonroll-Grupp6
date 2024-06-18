@@ -31,6 +31,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	int GetAmountOfActivatedCheckPoints() const;
+
+	UFUNCTION(BlueprintCallable)
+	int GetAmountOfRespawns() const;
+
+	UFUNCTION(BlueprintCallable)
+	FString GetRoundsAsText() const;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -49,6 +55,8 @@ private:
 	void GetAllRespawnPointsInTheScene();
 	
 	void FindPlayerStart();
+	
+	int AmountOfRespawns = 0; 
 	
 
 public:	

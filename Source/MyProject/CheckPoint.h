@@ -51,6 +51,7 @@ public:
 	
 	UFUNCTION()
 	void SetIsEnabled(const bool Enabled);
+	
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -62,14 +63,17 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool HasCheckedAllPoints() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool HaveIAlreadyBeenActivated();
 	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	bool HasBeenActivatedBefore = false; 
+	
 private:
 	bool HasBeenActivated = false;
-	
-
 
 public:	
 	// Called every frame

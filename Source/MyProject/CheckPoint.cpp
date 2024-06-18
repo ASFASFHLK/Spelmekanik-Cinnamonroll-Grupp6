@@ -77,6 +77,7 @@ void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActo
 	
 	if(Cast<APlayerCharacter>(OtherActor))
 	{
+
 		RespawnManager->SetCurrentRespawnPoint(this);
 		RespawnPointSet();
 		UE_LOG(LogTemp, Warning, TEXT("Check point set"))
@@ -84,6 +85,7 @@ void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActo
 		{
 			HasBeenActivated = true;
 		}
+		HasBeenActivatedBefore = true; 
 	}
 }
 
@@ -95,6 +97,11 @@ int ACheckPoint::GetAmountOfCheckPoints() const
 bool ACheckPoint::HasCheckedAllPoints() const
 {
 	return RespawnManager->CheckIfAllCheckPointsHaveBeenActivated(); 
+}
+
+bool ACheckPoint::HaveIAlreadyBeenActivated()
+{
+	return HasBeenActivatedBefore; 
 }
 
 // Called when the game starts or when spawned

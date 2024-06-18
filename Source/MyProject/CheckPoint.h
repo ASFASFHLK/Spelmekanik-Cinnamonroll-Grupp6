@@ -46,13 +46,23 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	bool CanBeReactivated = false; 
 
+	UFUNCTION(BlueprintCallable)
+	FString GetAmountCheckPointsAsText() const; 
+	
 	UFUNCTION()
 	void SetIsEnabled(const bool Enabled);
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	ACheckPointKillBox* RespawnManager; 
+	ACheckPointKillBox* RespawnManager;
+
+	UFUNCTION(BlueprintCallable)
+	int GetAmountOfCheckPoints() const;
+
+	UFUNCTION(BlueprintCallable)
+	bool HasCheckedAllPoints() const;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

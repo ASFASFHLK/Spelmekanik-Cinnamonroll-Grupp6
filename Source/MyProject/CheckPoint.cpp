@@ -55,6 +55,13 @@ void ACheckPoint::RespawnPointDisabled_Implementation()
 {
 }
 
+FString ACheckPoint::GetAmountCheckPointsAsText() const
+{
+	const std::string StringRef = (std::to_string(GetAmountOfCheckPoints()) + "/" + std::to_string(RespawnManager->GetAmountOfCheckPointsInTheLevel()));
+	const FString ReturnFString(StringRef.c_str());
+	return ReturnFString;
+}
+
 void ACheckPoint::SetIsEnabled(const bool Enabled)
 {
 	HasBeenActivated = Enabled; 
@@ -78,7 +85,16 @@ void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActo
 			HasBeenActivated = true;
 		}
 	}
-	
+}
+
+int ACheckPoint::GetAmountOfCheckPoints() const
+{
+	return RespawnManager->GetAmountOfActivatedCheckPoints();
+}
+
+bool ACheckPoint::HasCheckedAllPoints() const
+{
+	return RespawnManager->CheckIfAllCheckPointsHaveBeenActivated(); 
 }
 
 // Called when the game starts or when spawned

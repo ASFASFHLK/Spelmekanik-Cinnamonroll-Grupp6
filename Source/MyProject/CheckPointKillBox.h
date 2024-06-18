@@ -26,12 +26,19 @@ public:
 	UFUNCTION(BlueprintNativeEvent)
 	void PlayerRespawning(); 
 
+   UFUNCTION(BlueprintCallable)
+	bool CheckIfAllCheckPointsHaveBeenActivated() const; 
+
+	UFUNCTION(BlueprintCallable)
+	int GetAmountOfActivatedCheckPoints() const;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
 	TArray<ACheckPoint*> RespawnPoints;
+	TArray<ACheckPoint*> ActivatedCheckPoints;
 
 	UPROPERTY()
 	APlayerStart* PlayerStart;

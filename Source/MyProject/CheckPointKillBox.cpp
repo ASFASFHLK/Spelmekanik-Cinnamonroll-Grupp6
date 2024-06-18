@@ -33,6 +33,11 @@ void ACheckPointKillBox::SetCurrentRespawnPoint(ACheckPoint* Point)
 		{
 			return;
 		}
+		
+		if(!ActivatedCheckPoints.Contains(Point)){
+			ActivatedCheckPoints.Add(Point);
+		}
+		
 		if(RespawnPoint != nullptr)
 		{
 			RespawnPoint->StartRespawnPointDisabledEvent();
@@ -44,6 +49,16 @@ void ACheckPointKillBox::SetCurrentRespawnPoint(ACheckPoint* Point)
 
 void ACheckPointKillBox::PlayerRespawning_Implementation()
 {
+}
+
+bool ACheckPointKillBox::CheckIfAllCheckPointsHaveBeenActivated() const
+{
+	return ActivatedCheckPoints.Num() == RespawnPoints.Num(); 
+}
+
+int ACheckPointKillBox::GetAmountOfActivatedCheckPoints() const
+{
+	return ActivatedCheckPoints.Num(); 
 }
 
 // Called when the game starts or when spawned

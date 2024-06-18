@@ -27,7 +27,16 @@ public:
 	float RespawnTime = 5;
 
 	UPROPERTY(EditDefaultsOnly)
-	float MaxFloatHeight = 10; 
+	float MaxFloatHeight = 10;
+
+	UPROPERTY(EditAnywhere)
+	float Duration = 5;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ItemPickedUped();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ItemRespawned();
 
 protected:
 	// Called when the game starts or when spawned
@@ -36,11 +45,21 @@ protected:
 	UPROPERTY(EditInstanceOnly)
 	UStaticMeshComponent* PickUpMesh;
 	
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly)
 	UCapsuleComponent* CapsuleComponent;
 	
-	FActiveGameplayEffectHandle EffectHandle; 
+	FActiveGameplayEffectHandle EffectHandle;
+	bool IsRespawning = false; 
+	float Accumulator = 0;
 
+	void SetComponentsActive( const bool State); 
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	FText NameOfAbility;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess="true"))
+	FText Description;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

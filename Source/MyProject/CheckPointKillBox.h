@@ -23,7 +23,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetCurrentRespawnPoint(ACheckPoint* Point);
 
-	
+	UFUNCTION(BlueprintNativeEvent)
+	void PlayerRespawning(); 
 
 protected:
 	// Called when the game starts or when spawned

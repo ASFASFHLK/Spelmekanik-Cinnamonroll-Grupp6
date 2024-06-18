@@ -30,24 +30,36 @@ public:
 	void RespawnEvent();
 	
 	void StartRespawnSpawnEvent();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void RespawnPointDisabled();
+
+	UFUNCTION(BlueprintCallable)
+	void StartRespawnPointDisabledEvent(); 
+
+	UFUNCTION(BlueprintNativeEvent)
+	void RespawnPointSet();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	USphereComponent* SphereComponent;
 	
 	UPROPERTY(EditDefaultsOnly)
 	bool CanBeReactivated = false; 
-	
+
+	UFUNCTION()
+	void SetIsEnabled(const bool Enabled);
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* newComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ACheckPointKillBox* RespawnManager; 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 private:
 	bool HasBeenActivated = false;
 	
-	UPROPERTY(VisibleAnywhere)
-	ACheckPointKillBox* RespawnManager; 
+
 
 public:	
 	// Called every frame

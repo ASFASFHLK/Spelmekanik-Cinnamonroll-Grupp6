@@ -29,6 +29,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 
 	URivetAttributeSet* GetAttributeSet() const; 
+ 
 	
 	UFUNCTION()
 

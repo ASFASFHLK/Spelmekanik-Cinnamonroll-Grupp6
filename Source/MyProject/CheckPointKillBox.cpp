@@ -33,8 +33,17 @@ void ACheckPointKillBox::SetCurrentRespawnPoint(ACheckPoint* Point)
 		{
 			return;
 		}
+		if(RespawnPoint != nullptr)
+		{
+			RespawnPoint->StartRespawnPointDisabledEvent();
+			RespawnPoint->SetIsEnabled(false);
+		}
 		RespawnPoint = Point; 
 	}
+}
+
+void ACheckPointKillBox::PlayerRespawning_Implementation()
+{
 }
 
 // Called when the game starts or when spawned
@@ -90,19 +99,20 @@ void ACheckPointKillBox::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, 
 	APlayerCharacter* Player = Cast<APlayerCharacter>(OtherActor);
 	if(Player)
 	{
+		PlayerRespawning();
 		if(RespawnPoint == nullptr)
 		{
 			if(PlayerStart!= nullptr)
 			{
 				Player->TeleportTo(PlayerStart->GetCapsuleComponent()->GetComponentLocation(),
-	PlayerStart->GetCapsuleComponent()->GetComponentRotation());
+				PlayerStart->GetCapsuleComponent()->GetComponentRotation());
 			}
 			// hard coded  default or something 
 			return; 
 		}
 		
 		Player->TeleportTo(RespawnPoint->GetSpawnPointLocation(), RespawnPoint->GetActorRotation());
-		RespawnPoint->StartRespawnSpawnEvent(); 
+		RespawnPoint->StartRespawnSpawnEvent();
 	}
 }
 

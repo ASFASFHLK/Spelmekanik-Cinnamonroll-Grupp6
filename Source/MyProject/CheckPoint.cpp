@@ -42,8 +42,26 @@ void ACheckPoint::StartRespawnSpawnEvent()
 	RespawnEvent();
 }
 
+void ACheckPoint::StartRespawnPointDisabledEvent()
+{
+	RespawnPointDisabled(); 
+}
+
+void ACheckPoint::RespawnPointSet_Implementation()
+{
+}
+
+void ACheckPoint::RespawnPointDisabled_Implementation()
+{
+}
+
+void ACheckPoint::SetIsEnabled(const bool Enabled)
+{
+	HasBeenActivated = Enabled; 
+}
+
 void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                 int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(HasBeenActivated)
 	{
@@ -53,6 +71,7 @@ void ACheckPoint::OnOverlapBegin(UPrimitiveComponent* newComp, AActor* OtherActo
 	if(Cast<APlayerCharacter>(OtherActor))
 	{
 		RespawnManager->SetCurrentRespawnPoint(this);
+		RespawnPointSet();
 		UE_LOG(LogTemp, Warning, TEXT("Check point set"))
 		if(!CanBeReactivated)
 		{

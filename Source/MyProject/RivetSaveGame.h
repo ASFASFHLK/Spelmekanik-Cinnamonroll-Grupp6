@@ -57,16 +57,6 @@ struct FSaveGameData
 	FString WeaponSkin;
 };
 
-USTRUCT(BlueprintType)
-struct FUnlocks
-{
-	GENERATED_USTRUCT_BODY()
-	UPROPERTY(BlueprintReadWrite)
-	TArray<FText> Unlocks;
-
-	UPROPERTY(BlueprintReadWrite)
-	FDateTime UnlockDate;
-};
 
 UCLASS()
 class MYPROJECT_API URivetSaveGame : public USaveGame
@@ -88,10 +78,16 @@ public:
 	void SetWeaponSkin(const FString WeaponSkin);
 	UFUNCTION(BlueprintCallable)
 	FString GetWeaponSkin(){return SaveData.WeaponSkin;};
-	FUnlocks Unlocks;
+
 	UPROPERTY(BlueprintReadWrite)
 	bool IsSaveDataValid = false; 
 
+	UPROPERTY(BlueprintReadWrite)
+	TArray<FString> CurrentShopItems;
+
+	UFUNCTION(BlueprintCallable)
+	void ClearShopItems(); 
+	
 	UFUNCTION(BlueprintCallable)
 	void UpdateSaveData(const int CurrentHealth, const int CurrentCredits, const int CurrentRound, const int BoughtUpgradeSlots, const FVector& WorldPos, const FRotator& CharacterRotator, const FString PlayerName = "", const float PlayTime = 0 ); 
 };

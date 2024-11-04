@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlayerExplosiveProjectile.h"
 #include "GameFramework/Actor.h"
 #include "GunBase.generated.h"
 
@@ -31,15 +32,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void Shoot();
+
+	UFUNCTION(BlueprintCallable)
+	void ShootExplosive();
+	
 	UPROPERTY(BlueprintReadOnly)
 	FVector ShotGunHitLocation;
 	UPROPERTY(BlueprintReadOnly)
 	FHitResult ShotgunHitResult;
-	// UFUNCTION(BlueprintCallable)
-	// UFUNCTION(BlueprintCallable)
-	// void CancelShot();
-	// UFUNCTION(BlueprintCallable)
-	// void RifleShot();
 	UFUNCTION(BlueprintCallable)
 	void ShotGunShot();
 	UFUNCTION()
@@ -117,6 +117,18 @@ private:
 	
 	UPROPERTY()
 	APlayerCharacter* CHaracterRef;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<APlayerExplosiveProjectile> ExplosiveProjectile;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = true))
+	USceneComponent* ExplosiveProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere)
+	int ExplosionDamage;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,meta=(AllowPrivateAccess= true), Category = "Gun")
+	FVector ExplosionMuzzleOffset = FVector(100,0,10);
 
 
  };

@@ -65,6 +65,11 @@ void ABaseEnemy::Tick(float DeltaSeconds)
 float ABaseEnemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
                              AActor* DamageCauser)
 {
+	if(DamageCauser == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ALALAGHGHDHFSDHFHSD"));
+		return 0 ;
+	}
 	if(DamageCauser->IsA(ABaseEnemy::StaticClass()))
 	{
 		Super::TakeDamage(0, DamageEvent, EventInstigator, DamageCauser);

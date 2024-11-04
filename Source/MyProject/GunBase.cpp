@@ -16,6 +16,8 @@ AGunBase::AGunBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	ExplosiveProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Explosive Spawnpoint"));
+	ExplosiveProjectileSpawnPoint->SetupAttachment(RootComponent);
 }
 
 void AGunBase::Init(APlayerCharacter* Character )
@@ -64,6 +66,19 @@ void AGunBase::Shoot()
 	UseShotGun();
 }
 
+void AGunBase::ShootExplosive()
+{
+	const FActorSpawnParameters SpawnInfo;
+	SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+	SpawnLocation = PlayerController->PlayerCameraManager->GetCameraLocation() + SpawnRotation.RotateVector(ExplosionMuzzleOffset);
+	
+	if(APlayerExplosiveProjectile* SpawnedProjectile = GetWorld()->SpawnActor<APlayerExplosiveProjectile>(ExplosiveProjectile,
+		SpawnLocation,SpawnRotation, SpawnInfo))
+	{
+		SpawnedProjectile->SetOwner(this);
+		SpawnedProjectile->SetDamage(ExplosionDamage);
+	}
+}
 
 void AGunBase::ShotGunShot()
 {

@@ -82,6 +82,19 @@ public:
 	UFUNCTION()
 	virtual void OnRep_JumpHeight(const FGameplayAttributeData& OldValue);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ExplosionRadius, Category= "Attributes")
+	FGameplayAttributeData ExplosionRadius = 1;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, ExplosionRadius)
+	UFUNCTION()
+	virtual void OnRep_ExplosionRadius(const FGameplayAttributeData& OldValue);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ExplosionChargeRate, Category= "Attributes")
+	FGameplayAttributeData ExplosionChargeRate = 1;
+	ATTRIBUTE_ACCESSORS(URivetAttributeSet, ExplosionChargeRate)
+	UFUNCTION()
+	virtual void OnRep_ExplosionChargeRate(const FGameplayAttributeData& OldValue);
+	
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ExtraCredits, Category= "Attributes")
 	FGameplayAttributeData ExtraCredits = 0;
 	ATTRIBUTE_ACCESSORS(URivetAttributeSet, ExtraCredits)

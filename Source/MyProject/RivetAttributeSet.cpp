@@ -105,10 +105,19 @@ void URivetAttributeSet::OnRep_JumpCount(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, JumpCount, OldValue);
 }
-
 void URivetAttributeSet::OnRep_JumpHeight(const FGameplayAttributeData& OldValue)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, JumpHeight, OldValue);
+}
+
+void URivetAttributeSet::OnRep_ExplosionRadius(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, ExplosionRadius, OldValue);
+}
+
+void URivetAttributeSet::OnRep_ExplosionChargeRate(const FGameplayAttributeData& OldValue)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(URivetAttributeSet, ExplosionChargeRate, OldValue);
 }
 
 void URivetAttributeSet::OnRep_ExtraCredits(const FGameplayAttributeData& OldValue)

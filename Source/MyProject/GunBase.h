@@ -53,6 +53,9 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void AnimatedOnHit();
+
+	UFUNCTION(BlueprintNativeEvent)
+	void ChargeGun();
 	
 private:
 	UFUNCTION()
@@ -114,6 +117,7 @@ private:
 	FCollisionQueryParams QueryParams = FCollisionQueryParams();
 	UPROPERTY()
 	UWorld* const World = GetWorld();
+	
 	
 	UPROPERTY()
 	APlayerCharacter* CHaracterRef;

@@ -116,6 +116,7 @@ void AGunBase::ShotGunShot()
 					if(HitResult.GetActor()->GetClass()->IsChildOf(ABaseEnemy::StaticClass())) // Should be replaced with a tag check as it is way cheaper 
 					{
 						AnimatedOnHit();
+						ChargeGun();
 						EventCalled = true; 
 					}
 	
@@ -199,6 +200,10 @@ void AGunBase::Punch()
 }
 
 void AGunBase::AnimatedOnHit_Implementation()
+{
+}
+
+void AGunBase::ChargeGun_Implementation()
 {
 }
 

@@ -37,7 +37,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovement;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UStaticMeshComponent* ProjectileMesh;
 
 	UFUNCTION(BlueprintCallable)

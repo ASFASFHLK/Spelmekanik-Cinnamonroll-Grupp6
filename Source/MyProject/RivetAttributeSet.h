@@ -101,11 +101,7 @@ public:
 	UFUNCTION()
 	virtual void OnRep_ExtraCredits(const FGameplayAttributeData& OldValue);
 
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ChargeRate, Category= "Attributes")
-	FGameplayAttributeData ChargeRate = 0;
-	ATTRIBUTE_ACCESSORS(URivetAttributeSet, ChargeRate)
-	UFUNCTION()
-	virtual void OnRep_ChargeRate(const FGameplayAttributeData& OldValue);
+
 	
 	void AdjustAttributeForMaxChange(const FGameplayAttributeData& AffectedAttribute,
 		const FGameplayAttributeData& MaxAttribute, float NewMaxValue, const FGameplayAttribute& AffectedAttributeProperty) const;

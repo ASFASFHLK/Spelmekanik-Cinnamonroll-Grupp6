@@ -1,0 +1,5 @@
+C:\__installed\vs2019\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64> .\dumpbin.exe /EXPORTS F:\UE4Projects\GestrumentUEGit\Plugins\ReactionalMusic\Binaries\Thirdparty\Win64\ge_timeline.dll > F:\UE4Projects\GestrumentUEGit\Plugins\ReactionalMusic\Binaries\Thirdparty\Win64\ge_timeline.def
+
+C:\__installed\vs2019\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64> .\lib.exe /def:F:\UE4Projects\GestrumentUEGit\Plugins\ReactionalMusic\Binaries\Thirdparty\Win64\ge_timeline.def /OUT:F:\UE4Projects\GestrumentUE427\Plugins\ReactionalMusic\Source\ReactionalThirdPartyLib\ge_timeline.lib
+
+seems to not work

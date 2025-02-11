@@ -1,0 +1,48 @@
+{
+  "EngineVersion": "5.3.0",
+  "FileVersion": 1,
+  "Version": 1.0,
+  "VersionName": "1.0",
+  "FriendlyName": "Reactional Music",
+  "Description": "Reactional Music",
+  "Category": "Audio",
+  "CreatedBy": "Reactional Music",
+  "CreatedByURL": "https://www.reactionalmusic.com/",
+  "DocsURL": "https://docs.reactionalmusic.com/Unreal/",
+  "MarketplaceURL": "",
+  "SupportURL": "https://forum.reactionalmusic.com/",
+  "EnabledByDefault": false,
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "Installed": true,
+  "Plugins" : [
+    {
+      "Name": "Metasound",
+	  "Enabled": true
+	}
+  ],
+  "Modules": [
+    {
+      "Name": "ReactionalRuntime",
+      "Type": "Runtime",
+      "LoadingPhase": "PreLoadingScreen",
+      "PlatformAllowList": [
+        "Win64",
+        "Android",
+        "Mac",
+        "iOS"
+      ]
+    },
+    {
+      "Name": "ReactionalEditor",
+      "Type": "UncookedOnly",
+      "LoadingPhase": "Default",
+      "PlatformAllowList": [
+        "Win64",
+        "Android",
+        "Mac",
+        "iOS"
+      ]
+    }
+  ]
+}

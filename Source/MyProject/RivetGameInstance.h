@@ -117,4 +117,7 @@ public:
 	
 	UPROPERTY(BlueprintReadWrite)
 	bool Tutorial = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool ReactionalActivated = true;
 };

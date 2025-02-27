@@ -49,6 +49,7 @@ void ASquad::Tick(float DeltaTime)
 
 void ASquad::RemoveFromSquad(ABaseEnemy* EnemyToRemove)
 {
+	
 	AExplosiveEnemy* ExplosiveEnemy = Cast<AExplosiveEnemy>(EnemyToRemove);
 	if(ExplosiveEnemy)
 	{

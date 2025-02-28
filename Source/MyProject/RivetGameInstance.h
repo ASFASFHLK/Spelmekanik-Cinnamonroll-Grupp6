@@ -120,4 +120,11 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool ReactionalActivated = true;
+
+	UPROPERTY(BlueprintReadWrite)
+	int SelectedTrack = 2;
+
+	UPROPERTY(BlueprintReadWrite)
+	float CreditsScaling = 1;
+	
 };
